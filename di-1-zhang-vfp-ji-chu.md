@@ -112,8 +112,11 @@ MessageBox("當前路徑是："+CurDir()) && 訊息視窗顯示當前路徑
 
 ```bash
 Close Tables All && 關閉所有資料表
+
 Use c:\vfp\Lesson1\Product.dbf && 開啟資料表
+
 Browse && 瀏覽
+
 Close Tables All && 關閉所有資料表
 ```
 
