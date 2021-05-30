@@ -24,24 +24,106 @@
 
 **練習一**
 
-**命令窗**
+使用命令窗顯示資料
 
-```text
+```bash
 ? "你好"
-? "我也好"
-clear
+
+? "我好"
+
+Clear
 
 ```
 
-```text
+使用命令窗顯示當前路徑
 
+```bash
 ? CurDir() && 顯示當前路徑
-md "c:\user\public\vfp\Lesson1" && 新資料夾
-cd "c:\user\public\vfp\Lesson1"&&切換當前路徑
-? curdir()&& 顯示當前路徑
 
-ShowMessage("你好")
-ShowMessage("我也好")
+md "c:\vfp\Lesson1" && 新增資料夾
+
+cd "c:\vfp\Lesson1" && 切換當前路徑
+
+? CurDir()&& 顯示當前路徑
+
+Clear
 
 ```
+
+使用命窗執行 MessageBox\(\)
+
+```bash
+MessageBox("你好") && 訊息視窗
+MessageBox("我好") &&訊息視窗
+MessageBox("當前路徑是："+CurDir()) && 訊息視窗當前路徑
+```
+
+{% hint style="info" %}
+然後，使用滑鼠右鍵Clear 清理**命令窗**
+{% endhint %}
+
+**練習二**
+
+簡單的程式 
+
+* 確定已經有資料夾 **c:\vfp\Lesson1**
+* 在此資料夾中，新增專案 **Project1**
+* 自此專案中，新增程式檔 **Program1.prg**_**\(注意存放同一資料夾\)**_欄
+* 寫入一段簡單的程式
+* 執行\(Run\)
+
+簡單的程式
+
+```bash
+MessageBox("你好") && 訊息視窗
+MessageBox("我好") && 訊息視窗
+MessageBox("他好") && 訊息視窗
+
+cd "c:\vfp\Lesson1" && 切換當前路徑路徑必須存在
+
+MessageBox("當前路徑是："+CurDir()) && 訊息視窗顯示當前路徑
+
+```
+
+{% hint style="info" %}
+執行成功後，確定有存檔，由檔案總管確定 **Program1.prg** 有產生
+{% endhint %}
+
+**練習三**
+
+對專案 Project1 加入 Free Table 檔名為 **Product.dbf** _**\(注意存放同一資料夾\)**_欄位為：
+
+| 欄位名稱 | 類型 | 長度 |
+| :--- | :--- | :--- |
+| PRNO | 文字 | 10 |
+| PRNA | 文字 | 20 |
+
+加入三筆資料：
+
+| PRNO | PRNA |
+| :--- | :--- |
+| 00 | 電腦 |
+| 002 | 鍵盤 |
+| 003 | 滑鼠 |
+
+**練習四**
+
+修改 Program1 在程式碼最後加入四行，RUN執行。 
+
+```bash
+Close Tables All && 關閉所有資料表
+Use c:\vfp\Lesson1\Product.dbf && 開啟資料表
+Browse && 瀏覽
+Close Tables All && 關閉所有資料表
+```
+
+{% hint style="success" %}
+將專案編譯成執行檔 **Project1.exe** 並確定由檔案總管可以執行
+{% endhint %}
+
+
+
+\*\*\*\*
+
+\*\*\*\*
 
