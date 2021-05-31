@@ -10,6 +10,6 @@
 * [第6章 結構化查詢語言](di-6-zhang-jie-gou-hua-cha-xun-yu-yan.md)
 * [第7章 Query 與 View](di-7-zhang-query-yu-view.md)
 * [第8章 表單\(Form\)設計](di-8-zhang-biao-chan-form-she-ji.md)
-* [第9章 報表\(Report\)設計器](di-9-zhang-bao-biao-report-she-ji-qi.md)
-* [第10章 選單\(Menu\)設計器](di-10-zhang-xuan-chan-menu-she-ji-qi.md)
+* [第9章 報表\(Report\)設計](di-9-zhang-bao-biao-report-she-ji-qi.md)
+* [第10章 選單\(Menu\)設計](di-10-zhang-xuan-chan-menu-she-ji-qi.md)
 
