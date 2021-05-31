@@ -11,19 +11,19 @@
 * 統計查詢
 * 分組查詢
 * 排序查詢
-* 簡單連接查詢
-* 超連接查詢
+* Jonnig 查詢
+* Inner Outer Jonnig 查詢
 * 嵌套查詢
 * Exists Any All Some
-* 集合的並運算
-* 查詢結果的輸出
+* 集合運算
+* 輸出查詢結果
 
 **操作資料**
-Insert 新增
-Update 修改
-Delete 刪除
+* Insert 新增
+* Update 修改
+* Delete 刪除
 
 **資料定義**
-建立資料表
-修改資料表
-刪除資料表
+* 建立資料表
+* 修改資料表
+* 刪除資料表
