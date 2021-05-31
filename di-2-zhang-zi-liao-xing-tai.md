@@ -394,7 +394,8 @@ MESSAGEBOX(cNewBill)      && 答案
 
 **練習**二
 
-* 記得第一章嗎？請**複製**此程式製作 c:\vfp\Lesson2\Project2.exe 並執行成功。
+* 記得第一章嗎？請**複製**此程式製作 c:\vfp\Lesson2\Program2.prg
+* 請製作 c:\vfp\Lesson2\Project2.exe 並執行成功。
 
 **練習三**
 

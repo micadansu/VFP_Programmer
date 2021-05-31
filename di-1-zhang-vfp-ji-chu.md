@@ -1,19 +1,19 @@
 # 第1章 VFP 基礎
 
-**Visual FoxPro 系統** 
+**Visual FoxPro 系統**
 
 * 工作看板
-*  命令窗 
+* 命令窗 
 * 專案管理窗
 
-**專案管理器** 
+**專案管理器**
 
 * 創建專案
 * 使用專案管理器
 * 設定專案管理器
 * 簡單的程式
 
-**專案管理器分頁** 
+**專案管理器分頁**
 
 * Other 
 * Code 
@@ -32,7 +32,6 @@
 ? "我好"
 
 Clear
-
 ```
 
 使用命令窗顯示當前路徑
@@ -47,7 +46,6 @@ cd "c:\vfp\Lesson1" && 切換當前路徑
 ? CurDir()&& 顯示當前路徑
 
 Clear
-
 ```
 
 使用命窗執行 MessageBox\(\)
@@ -64,7 +62,7 @@ MessageBox("當前路徑是："+CurDir()) && 訊息視窗當前路徑
 
 **練習二**
 
-簡單的程式 
+簡單的程式
 
 * 確定已經有資料夾 **c:\vfp\Lesson1**
 * 在此資料夾中，新增專案 **Project1**
@@ -82,7 +80,6 @@ MessageBox("他好") && 訊息視窗
 cd "c:\vfp\Lesson1" && 切換當前路徑路徑必須存在
 
 MessageBox("當前路徑是："+CurDir()) && 訊息視窗顯示當前路徑
-
 ```
 
 {% hint style="info" %}
@@ -108,23 +105,21 @@ MessageBox("當前路徑是："+CurDir()) && 訊息視窗顯示當前路徑
 
 **練習四**
 
-修改 Program1 在程式碼最後加入四行，RUN執行。 
+修改 Program1 在程式碼最後加入四行，RUN執行。
 
 ```bash
-Close Tables All && 關閉所有資料表
+Close Tables && 關閉所有資料表
 
-Use c:\vfp\Lesson1\Product.dbf && 開啟資料表
+Use "c:\vfp\Lesson1\Product.dbf" && 開啟資料表
 
 Browse && 瀏覽
 
-Close Tables All && 關閉所有資料表
+Close Tables && 關閉所有資料表
 ```
 
 {% hint style="success" %}
 將專案編譯成執行檔 **Project1.exe** 並確定由檔案總管可以執行
 {% endhint %}
-
-
 
 \*\*\*\*
 
