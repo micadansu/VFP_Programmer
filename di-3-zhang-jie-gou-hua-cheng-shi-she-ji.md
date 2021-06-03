@@ -171,13 +171,17 @@ nAccType = 7
 DO CASE
 CASE (nAccType = 1) OR (nAccType = 2) OR (nAccType = 3)
   cName="資產負債類"
+  cReportName="資產負債表"
 CASE (nAccType = 4) OR (nAccType = 5) OR (nAccType = 6) OR (nAccType = 7)
   cName="綜合損益類"
+  cReportName="綜合損益表"
 OTHERWISE   
   cName="其他"
+  cReportName="無此報表"
 ENDCASE 
 
 MESSAGEBOX( cName )
+MESSAGEBOX( cReportName )
 ```
 
 **FOR 迴圈**
