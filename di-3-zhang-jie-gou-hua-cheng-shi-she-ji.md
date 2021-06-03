@@ -293,10 +293,10 @@ MessageBox("我是第二支程式哈")
 Return &&返回
 ```
 
-參數傳值
+參數
 
 ```text
-*
+* 參數傳值
 
 X = 10
 Y = 2
@@ -304,29 +304,122 @@ Z = "傳值測試"
 nAns = Add( X , Y , Z )
 =MESSAGEBOX("呼叫 ADD(x,y,z) 我得到:"+TRANSFORM(nAns)   )
 
+=MESSAGEBOX("看看 z 有沒有改變 :" + z   )   && 不會改變
 
 *********************
 FUNCTION Add( x , y , z )
 *********************
-		MESSAGEBOX("這是加法")		
+	MESSAGEBOX("這是加法")		
+
+	z = "亂改一通"       && 不會影響外面的 Z
+	RETURN x + y && 回傳給呼叫端	
+ENDFUNC
+
+```
+
+```text
+* 參數傳址
+
+X = 10
+Y = 2
+Z = "傳值測試"
+nAns = Add( X , Y , @Z )           && 如果參數前面有老鼠
+=MESSAGEBOX("呼叫 ADD(x,y,z) 我得到:"+TRANSFORM(nAns)   )
+
+=MESSAGEBOX("看看 z 有沒有改變 :" + z   )   && 有改變
 
 
+*************************
+FUNCTION Add( x , y , z )
+*************************
+	MESSAGEBOX("這是加法")		
 
+	z = "亂改一通"       && 不會影響外面的 Z
+	
+	RETURN x + y && 回傳給呼叫端	
+ENDFUNC
 
-		RETURN x + y && 回傳給呼叫端	
+```
+
+```text
+* 參數不必放括號中
+
+*************************
+FUNCTION Add( )
+*************************
+LParameters x , y , z     &&  如果使用 Parameters 表示私有範圍
+
+	MESSAGEBOX("這是加法")		
+
+	z = "亂改一通"       && 不會影響外面的 Z
+	
+	RETURN x + y && 回傳給呼叫端	
+ENDFUNC
+
+```
+
+```text
+* 傳值或傳址(傳參考) 
+
+myFunction(var1, var2, ...)             &&  呼叫函數 參數傳值 Call By Value
+ 
+myFunction(@var1, @var2, ...)           &&  呼叫函數 參數傳址 Call By Address(Reference)
+
+DO myProcedure WITH (var1), (var2), ... &&  呼叫另一支程式 參數傳值 Call By Value
+
+DO myProcedure WITH var1, var2, ...     && 呼叫另一支程式 參數傳址 Call By Address(Reference)
+ 
+```
+
+變數有效範圍
+
+```text
+* 好的程式寫法 變數都用先宣告有效範圍
+
+Public cErrorMsg         && 全域變數 有效範圍=全部程式
+cErrorMsg = "錯誤訊息"
+
+FUNCTION SayHello()
+Local A,B,C    && 當地變數 有效範圍=只有本函數程序內
+Private X,Y,Z  && 私有變數 有效範圍=包含之後被呼叫的函數程序
+  A=1
+  B=2
+    
+  X = 10
+  Y = 20
+  MySubProcedure() && 呼叫下層函數
+  MessageBox( TRANSFORM(Z) )
+ENDFUNC
+
+Procedure MySubProcedure() 
+	* c = A + B  && 錯誤 這個函數不認識 A B C 
+	Z = X + Y    && 正常 變數來自 上層函數私有 
+EndProc
+
+```
+
+參數有效範圍
+
+```text
+* 參數兩種有效範圍
+
+FUNCTION Add()
+Lparameters x,y && 參數有效範圍 本地局部
+	
+ENDFUNC
+
+FUNCTION Sub()
+Parameters x,y && 參數有效範圍 私有
+	
+ENDFUNC
+
+FUNCTION Div(x ,y ) && && 參數有效範圍 本地局部
+	
 ENDFUNC
 
 
-
-
-
 ```
 
-參數傳址
-
-```text
-
-```
 
 **練習**
 
