@@ -36,7 +36,7 @@ FUNCTION Add(x,y)
 ****************
 	MESSAGEBOX("這是加法")		
 	
-	RETURN x + y	
+RETURN x + y && 回傳給呼叫端	
 ENDFUNC
 
 *****************
@@ -58,26 +58,23 @@ ShowAdd(10,2)
 
 ShowSub(10,2)
 
-
 **********************
 PROCEDURE ShowAdd(x,y)
 **********************
-  nAns =  x + y	
-	MESSAGEBOX("這是加法")		
-  MESSAGEBOX("呼叫 ShowADD(x,y) 我得到:"+TRANSFORM(nAns)   )	
+    cAns =  x + y    
+    cAns = TRANSFORM(nAns)        
+    MESSAGEBOX( "這是加法 我得到:" + TRANSFORM(nAns)   )    
 ENDPROC
 
 **********************
 PROCEDURE ShowSub(x,y)
 **********************
-  nAns =  x - y	
-	MESSAGEBOX("這是減法")		
-	MESSAGEBOX("呼叫 ShowADD(x,y) 我得到:"+TRANSFORM(nAns)   )	
+    cAns = TRANSFORM(   x - y    )    
+    MESSAGEBOX("這是減法 我得到:"+ cAns  )    
 ENDPROC
 ```
 
 ```text
-
 
 
 ```
