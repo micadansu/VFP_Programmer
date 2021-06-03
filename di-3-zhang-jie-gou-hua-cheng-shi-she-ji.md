@@ -78,7 +78,7 @@ ENDPROC
 ```text
 cPassWord="a123456789"
 
-IF cPassWord <> "012345678" THEN 
+IF cPassWord <> "012345678" THEN         && 可省略then 
     cMsg = "密碼錯誤"        
     MESSAGEBOX( cMsg )     
 ENDIF
@@ -117,6 +117,8 @@ MESSAGEBOX( cMsg )
 ```
 
 ```text
+* 可以層層嵌套
+
 A = 3
 
 If (A = 1)
