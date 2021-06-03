@@ -36,7 +36,12 @@ FUNCTION Add(x,y)
 ****************
     MESSAGEBOX("這是加法")        
 
-RETURN x + y && 回傳給呼叫端    
+    RETURN x + y && 回傳給呼叫端    
+    
+    *Return 之後的程式沒作用
+    a=1&&這行沒作用  
+    b=2&&這行沒作用
+        
 ENDFUNC
 
 *****************
