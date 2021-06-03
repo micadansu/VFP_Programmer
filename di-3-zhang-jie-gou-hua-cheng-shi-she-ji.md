@@ -342,6 +342,31 @@ ENDFUNC
 ```
 
 ```text
+* 參數傳值與傳址
+
+a = 10
+b = 20
+ExChange( a , b ) && 參數傳值 不會交換     
+MESSAGEBOX( "A=" + TRANSFORM(a) ) && 不變 10
+MESSAGEBOX( "B=" + TRANSFORM(b) ) && 不變 20
+
+ExChange( @a , @b ) && 參數傳址 會交換
+MESSAGEBOX( "A=" + TRANSFORM(a) ) && 變成 20
+MESSAGEBOX( "B=" + TRANSFORM(b) ) && 變成 10
+
+**********************
+PROCEDURE ExChange(a,b) && 交換內容
+**********************
+
+c = a
+a = b
+b = c 
+
+ENDPROC 
+
+```
+
+```text
 * 傳值或傳址(傳參考) 
 
 myFunction(var1, var2, ...)             &&  呼叫函數 參數傳值 Call By Value
