@@ -34,19 +34,18 @@ nAns = Sub(10,2)
 *****************
 FUNCTION Add(x,y)
 ****************
-	MESSAGEBOX("這是加法")		
-	
-RETURN x + y && 回傳給呼叫端	
+    MESSAGEBOX("這是加法")        
+
+RETURN x + y && 回傳給呼叫端    
 ENDFUNC
 
 *****************
 FUNCTION Sub(x,y)
 ****************
-	MESSAGEBOX("這是減法")		
-	
-	RETURN x - y
-ENDFUNC
+    MESSAGEBOX("這是減法")        
 
+    RETURN x - y
+ENDFUNC
 ```
 
 **自訂程序 PROCEDURE**
@@ -74,36 +73,33 @@ PROCEDURE ShowSub(x,y)
 ENDPROC
 ```
 
-**IF  選判斷式**
+**IF 選判斷式**
 
 ```text
 cPassWord="a123456789"
 
 IF cPassWord <> "012345678" THEN 
-	cMsg = "密碼錯誤"		
-	MESSAGEBOX( cMsg ) 	
-ENDIF 
-
+    cMsg = "密碼錯誤"        
+    MESSAGEBOX( cMsg )     
+ENDIF
 ```
 
 ```text
 nAmt = -100
 
 IF nAmt <= 0 
-	MESSAGEBOX("金額必須大於零")
-ENDIF 
-
+    MESSAGEBOX("金額必須大於零")
+ENDIF
 ```
 
 ```text
-
 cAccno ="1111" && 科目代號
 nCash =1000001 && 科目金額
 
 IF (cAccno = "1111") AND (nCash > 1000000) && 括號幫助閱讀
-	cMsg = "現金不可大於一百萬 " + CHR(13) + "您的現金" + TRANSFORM(nCash)	
-	MESSAGEBOX( cMsg ) 	
-ENDIF 
+    cMsg = "現金不可大於一百萬 " + CHR(13) + "您的現金" + TRANSFORM(nCash)    
+    MESSAGEBOX( cMsg )     
+ENDIF
 ```
 
 **IF ELSE 選判斷式**
@@ -124,17 +120,17 @@ MESSAGEBOX( cMsg )
 A = 3
 
 If (A = 1)
-	Messagebox( "A is 1" )
+    Messagebox( "A is 1" )
 Else
-	If (A = 2)
-		Messagebox( "A is 2" )
-	Else
-		If (A = 3)
-			Messagebox( "A is 3" )
-		Else
-			Messagebox( "A is ?" )
-		Endif
-	Endif
+    If (A = 2)
+        Messagebox( "A is 2" )
+    Else
+        If (A = 3)
+            Messagebox( "A is 3" )
+        Else
+            Messagebox( "A is ?" )
+        Endif
+    Endif
 Endif
 ```
 
@@ -165,7 +161,6 @@ OTHERWISE
 ENDCASE 
 
 MESSAGEBOX( cName )
-
 ```
 
 ```text
@@ -181,10 +176,7 @@ OTHERWISE
 ENDCASE 
 
 MESSAGEBOX( cName )
-
 ```
-
-
 
 **FOR 迴圈**
 
@@ -209,7 +201,6 @@ FOR i = 1 TO 12
 ENDFOR 
 
 MESSAGEBOX("合計金額："+TRANSFORM(nSum))
-
 ```
 
 **WHILE 迴圈**
@@ -237,10 +228,9 @@ DO WHILE i <= 12
 ENDDO 
 
 MESSAGEBOX("合計金額："+TRANSFORM(nSum))
-
 ```
 
-**程式引用 Set Procedure to ..**. 
+**程式引用 Set Procedure to ..**.
 
 ```text
 * Program1.prg
@@ -252,7 +242,6 @@ nAns = Add(10,2)
 
 nAns = Sub(10,2)
 =MESSAGEBOX("呼叫 Sub(x,y) 我得到:"+TRANSFORM(nAns)   )
-
 ```
 
 ```text
@@ -260,20 +249,20 @@ nAns = Sub(10,2)
 
 *****************
 FUNCTION Add(x,y)
-****************	
-    MESSAGEBOX("這是加法")			
-    RETURN x + y && 回傳給呼叫端	
+****************    
+    MESSAGEBOX("這是加法")            
+    RETURN x + y && 回傳給呼叫端    
 ENDFUNC
 
 *****************
 FUNCTION Sub(x,y)
-****************	
-    MESSAGEBOX("這是減法")				
+****************    
+    MESSAGEBOX("這是減法")                
     RETURN x - y
 ENDFUNC
 ```
 
-**呼叫另一支程式   使用 Do xxxxxx.prg**
+**呼叫另一支程式 使用 Do xxxxxx.prg**
 
 ```text
 * Program1.prg
@@ -309,12 +298,11 @@ nAns = Add( X , Y , Z )
 *********************
 FUNCTION Add( x , y , z )
 *********************
-	MESSAGEBOX("這是加法")		
+    MESSAGEBOX("這是加法")        
 
-	z = "亂改一通"       && 不會影響外面的 Z
-	RETURN x + y && 回傳給呼叫端	
+    z = "亂改一通"       && 不會影響外面的 Z
+    RETURN x + y && 回傳給呼叫端    
 ENDFUNC
-
 ```
 
 ```text
@@ -332,13 +320,12 @@ nAns = Add( X , Y , @Z )           && 如果參數前面有老鼠
 *************************
 FUNCTION Add( x , y , z )
 *************************
-	MESSAGEBOX("這是加法")		
+    MESSAGEBOX("這是加法")        
 
-	z = "亂改一通"       && 不會影響外面的 Z
-	
-	RETURN x + y && 回傳給呼叫端	
+    z = "亂改一通"       && 不會影響外面的 Z
+
+    RETURN x + y && 回傳給呼叫端    
 ENDFUNC
-
 ```
 
 ```text
@@ -349,29 +336,27 @@ FUNCTION Add( )
 *************************
 LParameters x , y , z     &&  如果使用 Parameters 表示私有範圍
 
-	MESSAGEBOX("這是加法")		
+    MESSAGEBOX("這是加法")        
 
-	z = "亂改一通"       && 不會影響外面的 Z
-	
-	RETURN x + y && 回傳給呼叫端	
+    z = "亂改一通"       && 不會影響外面的 Z
+
+    RETURN x + y && 回傳給呼叫端    
 ENDFUNC
-
 ```
 
 ```text
 * 傳值或傳址(傳參考) 
 
 myFunction(var1, var2, ...)             &&  呼叫函數 參數傳值 Call By Value
- 
+
 myFunction(@var1, @var2, ...)           &&  呼叫函數 參數傳址 Call By Address(Reference)
 
 DO myProcedure WITH (var1), (var2), ... &&  呼叫另一支程式 參數傳值 Call By Value
 
 DO myProcedure WITH var1, var2, ...     && 呼叫另一支程式 參數傳址 Call By Address(Reference)
- 
 ```
 
-變數有效範圍
+**變數有效範圍**
 
 ```text
 * 好的程式寫法 變數都用先宣告有效範圍
@@ -384,7 +369,7 @@ Local A,B,C    && 當地變數 有效範圍=只有本函數程序內
 Private X,Y,Z  && 私有變數 有效範圍=包含之後被呼叫的函數程序
   A=1
   B=2
-    
+
   X = 10
   Y = 20
   MySubProcedure() && 呼叫下層函數
@@ -392,36 +377,30 @@ Private X,Y,Z  && 私有變數 有效範圍=包含之後被呼叫的函數程序
 ENDFUNC
 
 Procedure MySubProcedure() 
-	* c = A + B  && 錯誤 這個函數不認識 A B C 
-	Z = X + Y    && 正常 變數來自 上層函數私有 
+    * c = A + B  && 錯誤 這個函數不認識 A B C 
+    Z = X + Y    && 正常 變數來自 上層函數私有 
 EndProc
-
 ```
 
-參數有效範圍
+**參數有效範圍**
 
 ```text
 * 參數兩種有效範圍
 
 FUNCTION Add()
 Lparameters x,y && 參數有效範圍 本地局部
-	
+
 ENDFUNC
 
 FUNCTION Sub()
 Parameters x,y && 參數有效範圍 私有
-	
+
 ENDFUNC
 
 FUNCTION Div(x ,y ) && && 參數有效範圍 本地局部
-	
+
 ENDFUNC
-
-
 ```
 
-
 **練習**
-
-
 
