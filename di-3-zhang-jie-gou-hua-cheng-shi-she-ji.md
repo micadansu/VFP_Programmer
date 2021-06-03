@@ -262,7 +262,7 @@ FUNCTION Sub(x,y)
 ENDFUNC
 ```
 
-**呼叫另一支程式 使用 Do xxxxxx.prg**
+**呼叫另一支程式  Do**
 
 ```text
 * Program1.prg
@@ -282,7 +282,7 @@ MessageBox("我是第二支程式哈")
 Return &&返回
 ```
 
-參數
+**參數**
 
 ```text
 * 參數傳值
@@ -322,7 +322,7 @@ FUNCTION Add( x , y , z )
 *************************
     MESSAGEBOX("這是加法")        
 
-    z = "亂改一通"       && 不會影響外面的 Z
+    z = "亂改一通"       && 會影響外面的 Z
 
     RETURN x + y && 回傳給呼叫端    
 ENDFUNC
@@ -336,9 +336,6 @@ FUNCTION Add( )
 *************************
 LParameters x , y , z     &&  如果使用 Parameters 表示私有範圍
 
-    MESSAGEBOX("這是加法")        
-
-    z = "亂改一通"       && 不會影響外面的 Z
 
     RETURN x + y && 回傳給呼叫端    
 ENDFUNC
