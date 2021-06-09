@@ -42,7 +42,7 @@ FUNCTION Add(x,y)
     a=1&&這行沒作用  
     b=2&&這行沒作用
         
-ENDFUNC
+ENDFUNC&&這行可略如果後面還有函數或是最後一行了
 
 *****************
 FUNCTION Sub(x,y)
