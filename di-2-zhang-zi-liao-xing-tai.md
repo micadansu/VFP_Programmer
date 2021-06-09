@@ -231,9 +231,12 @@ CLEAR
 ```
 
 ```cpp
-SET DECIMALS TO 2 &&
 
-? Val('123.456')
+? Str(100)
+
+? Str(200,5)
+
+? Transform(123.456)
 ```
 
 **字串函數** 
@@ -248,6 +251,16 @@ cText="ABCDEFG"
 ? RIGHT(cText,3)    && EFG 右三碼
 
 ? SUBSTR(cText,2,3) && BCD 由第2個開始取3碼
+
+```
+
+```cpp
+
+SET DECIMALS TO 2 &&
+
+? Val('123.456')
+
+
 
 ```
 
