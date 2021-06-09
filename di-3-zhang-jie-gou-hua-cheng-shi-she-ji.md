@@ -358,7 +358,7 @@ ENDFUNC
 * 參數不必放括號中
 
 *************************
-FUNCTION Add( )
+FUNCTION Add
 *************************
 LParameters x , y , z     &&  如果使用 Parameters 表示私有範圍
 
