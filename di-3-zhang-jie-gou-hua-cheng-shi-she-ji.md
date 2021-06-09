@@ -82,7 +82,10 @@ PROCEDURE ShowSub(x,y)
 **********************
     cAns = TRANSFORM(   x - y    )    
     MESSAGEBOX("這是減法 我得到:"+ cAns  )    
-ENDPROC
+    
+
+ENDPROC&&沒return 執行到就這一行
+
 ```
 
 **IF 選判斷式**
