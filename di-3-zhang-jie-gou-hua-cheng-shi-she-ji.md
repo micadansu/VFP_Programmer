@@ -68,7 +68,14 @@ PROCEDURE ShowAdd(x,y)
     cAns =  x + y    
     cAns = TRANSFORM(nAns)        
     MESSAGEBOX( "這是加法 我得到:" + TRANSFORM(nAns)   )    
-ENDPROC
+    
+    Return 
+        
+    *Return 之後的程式沒作用
+    a=1&&這行沒作用  
+    b=2&&這行沒作用
+        
+ENDPROC&& End結尾的後面通常可以直接加註解不用&符號
 
 **********************
 PROCEDURE ShowSub(x,y)
