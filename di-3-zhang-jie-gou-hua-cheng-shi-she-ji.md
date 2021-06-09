@@ -355,14 +355,15 @@ ENDFUNC
 ```
 
 ```text
-* 參數不必放括號中
+* 參數不必放括號中，是另一中寫法
 
 *************************
 FUNCTION Add
 *************************
 LParameters x , y , z     &&  如果使用 Parameters 表示私有範圍
 
-
+    z = "亂改一通"       && 會影響外面的 Z
+   
     RETURN x + y && 回傳給呼叫端    
 ENDFUNC
 ```
