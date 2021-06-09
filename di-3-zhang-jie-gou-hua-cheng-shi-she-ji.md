@@ -301,6 +301,11 @@ MessageBox("我是第二支程式喔")
 MessageBox("我是第二支程式哈")
 
 Return &&返回
+
+ *函數沒呼叫就沒執行
+function xxx()
+   messagebox("必須有人呼叫喔")
+endfunc
 ```
 
 **參數**
