@@ -253,6 +253,21 @@ ENDDO
 MESSAGEBOX("合計金額："+TRANSFORM(nSum))
 ```
 
+**搜尋徑 Set Path To**
+
+```text
+Set Path to c:\vfp\Lesson3 Additive
+
+Set Path to "c:\vfp\Lesson3" Additive
+
+Set Path to ("c:\vfp\Lesson3") Additive
+
+cMyPath = "c:\vfp\Lesson3"
+Set Path to ( cMyPath) Additive
+
+
+```
+
 **程式引用 Set Procedure to ..**.
 
 ```text
