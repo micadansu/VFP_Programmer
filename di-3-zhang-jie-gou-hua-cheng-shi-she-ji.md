@@ -307,7 +307,7 @@ Set Path to ( cMyPath) Additive
 ```bash
 * Program1.prg
 
-Set Procedure to Program2.prg ADDITIVE         && 引用另一支 .prg
+Set Procedure to Program2.prg ADDITIVE         && 引用另一支 .prg上的函數
 
 nAns = Add(10,2)
 =MESSAGEBOX("呼叫 ADD(x,y) 我得到:"+TRANSFORM(nAns)   )
