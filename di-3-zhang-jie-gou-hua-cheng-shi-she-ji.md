@@ -11,8 +11,6 @@
   * 引用另一支程式上的函數
   * 設搜尋路徑
 
-
-
 **程式的流程**
 
 * 順序結構 
@@ -42,11 +40,11 @@ FUNCTION Add(x,y)
     MESSAGEBOX("這是加法")        
 
     RETURN x + y && 回傳給呼叫端    
-    
+
     *Return 之後的程式沒作用
     a=1&&這行沒作用  
     b=2&&這行沒作用
-        
+
 ENDFUNC&&這行可略如果後面還有函數或是最後一行了
 
 *****************
@@ -73,13 +71,13 @@ PROCEDURE ShowAdd(x,y)
     cAns =  x + y    
     cAns = TRANSFORM(nAns)        
     MESSAGEBOX( "這是加法 我得到:" + TRANSFORM(nAns)   )    
+
+    Return && 之後的程式沒作用 
+
     
-    Return 
-        
-    *Return 之後的程式沒作用
     a=1&&這行沒作用  
     b=2&&這行沒作用
-        
+
 ENDPROC&& End結尾的後面通常可以直接加註解不用&符號
 
 **********************
@@ -87,10 +85,9 @@ PROCEDURE ShowSub(x,y)
 **********************
     cAns = TRANSFORM(   x - y    )    
     MESSAGEBOX("這是減法 我得到:"+ cAns  )    
-    
+
 
 ENDPROC&&沒return 執行到就這一行
-
 ```
 
 **IF 選判斷式**
@@ -288,7 +285,7 @@ FUNCTION Sub(x,y)
 ENDFUNC
 ```
 
-**呼叫另一支程式  Do**
+**呼叫另一支程式 Do**
 
 ```text
 * Program1.prg
@@ -301,7 +298,7 @@ Do Program2.prg        && 呼叫另一支程式副檔名可省略當作呼叫程
 aa = 1
 bb = 2
 cc = 3
-Do Program2.prg With aa,bb,cc       && 呼叫另一支程式 副檔名可省略 
+Do Program2.prg With aa,bb,cc       && 呼叫另一支程式 副檔名可省略
 ```
 
 ```text
@@ -374,7 +371,7 @@ FUNCTION Add
 LParameters x , y , z     &&  如果使用 Parameters 表示私有範圍
 
     z = "亂改一通"       && 會影響外面的 Z
-   
+
     RETURN x + y && 回傳給呼叫端    
 ENDFUNC
 ```
@@ -400,8 +397,7 @@ c = a
 a = b
 b = c 
 
-ENDPROC 
-
+ENDPROC
 ```
 
 ```text
@@ -472,14 +468,13 @@ ENDFUNC
 * 3.金額超過 200,000  元者，稅率為 20 % ，速算公式為 T = P  x  0.20
 
 請寫一支函數，TaxOfAmount(nAmt)，可以正確傳回稅額。
-
 ```
 
 **練習二**
 
 ```text
 * 2021年（民國110年）勞工保險投保薪資分級表
- 
+
 * 投保薪資等級    月薪資總額（實物給付應折現金計算）    月投薪資
 * 第1級          24,000元以下                        24,000元
 * 第2級          24,001元至25,200元                  25,200元
@@ -500,6 +495,5 @@ ENDFUNC
 * 請寫出函數一，LevelOfPayment(nAmt)，能輸入薪資金額並回傳投保薪資等級
 * 請寫出函數二，PaymentOfInsu(nAmt)，能輸入薪資金額並回傳月投保薪資
 * 請寫出函數三，只用一支函數同時到兩種結果
-
 ```
 
