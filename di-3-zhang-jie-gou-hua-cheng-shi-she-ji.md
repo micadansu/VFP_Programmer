@@ -308,7 +308,7 @@ ENDFUNC
 MessageBox("我是第一支程式 呦")
 MessageBox("我是第一支程式啊")
 
-Do Program2.prg        && 呼叫另一支程式副檔名可省略當作呼叫程序用
+Do Program2.prg        && 呼叫另一支程式副檔名可省略 當作呼叫程序用
 
 aa = 1
 bb = 2
