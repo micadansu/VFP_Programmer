@@ -253,6 +253,37 @@ ENDDO
 MESSAGEBOX("合計金額："+TRANSFORM(nSum))
 ```
 
+**呼叫另一支程式 Do**
+
+```text
+* Program1.prg
+
+MessageBox("我是第一支程式 呦")
+MessageBox("我是第一支程式啊")
+
+Do Program2.prg        && 呼叫另一支程式副檔名可省略 當作呼叫程序用
+
+aa = 1
+bb = 2
+cc = 3
+Do Program2.prg With aa,bb,cc       && 呼叫另一支程式 副檔名可省略
+```
+
+```text
+* Program2.prg
+Lparameter aa,bb,cc&&接參數名稱不必一樣， 
+
+MessageBox("我是第二支程式喔")
+MessageBox("我是第二支程式哈")
+
+Return &&返回
+
+ *函數沒呼叫就沒執行
+function xxx()
+   messagebox("必須有人呼叫喔")
+endfunc
+```
+
 **搜尋徑 Set Path To**
 
 ```text
@@ -298,37 +329,6 @@ FUNCTION Sub(x,y)
     MESSAGEBOX("這是減法")                
     RETURN x - y
 ENDFUNC
-```
-
-**呼叫另一支程式 Do**
-
-```text
-* Program1.prg
-
-MessageBox("我是第一支程式 呦")
-MessageBox("我是第一支程式啊")
-
-Do Program2.prg        && 呼叫另一支程式副檔名可省略 當作呼叫程序用
-
-aa = 1
-bb = 2
-cc = 3
-Do Program2.prg With aa,bb,cc       && 呼叫另一支程式 副檔名可省略
-```
-
-```text
-* Program2.prg
-Lparameter aa,bb,cc&&接參數名稱不必一樣， 
-
-MessageBox("我是第二支程式喔")
-MessageBox("我是第二支程式哈")
-
-Return &&返回
-
- *函數沒呼叫就沒執行
-function xxx()
-   messagebox("必須有人呼叫喔")
-endfunc
 ```
 
 **參數**
