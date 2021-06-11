@@ -268,7 +268,7 @@ Set Path to ( cMyPath) Additive
 
 ```
 
-**程式引用 Set Procedure to ..**.
+**引用另一支程式上的函數 Set Procedure to ..**.
 
 ```text
 * Program1.prg
