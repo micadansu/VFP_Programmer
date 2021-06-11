@@ -25,7 +25,7 @@
 
 **自訂函數 FUNCTION**
 
-```text
+```bash
 *函數有回傳值
 
 nAns = Add(10,2)
@@ -58,7 +58,7 @@ ENDFUNC
 
 **自訂程序 PROCEDURE**
 
-```text
+```bash
 * 程序沒有回傳值
 
 ShowAdd(10,2)
@@ -92,7 +92,7 @@ ENDPROC&&沒return 執行到就這一行
 
 **IF 選判斷式**
 
-```text
+```bash
 cPassWord="a123456789"
 
 IF cPassWord <> "012345678" THEN         && 可省略then 
@@ -109,7 +109,7 @@ IF nAmt <= 0
 ENDIF
 ```
 
-```text
+```bash
 cAccno ="1111" && 科目代號
 nCash =1000001 && 科目金額
 
@@ -121,7 +121,7 @@ ENDIF
 
 **IF ELSE 選判斷式**
 
-```text
+```bash
 nDamount = 100 && 借方合計
 nCamount = 100 && 貸方合計
 
@@ -133,7 +133,7 @@ ENDIF
 MESSAGEBOX( cMsg )
 ```
 
-```text
+```bash
 * 可以層層嵌套
 
 A = 3
@@ -155,7 +155,7 @@ Endif
 
 **Case 判斷式**
 
-```text
+```bash
 cAccType = "7"
 
 DO CASE
@@ -182,7 +182,7 @@ ENDCASE
 MESSAGEBOX( cName )
 ```
 
-```text
+```bash
 nAccType = 7
 
 DO CASE
@@ -203,7 +203,7 @@ MESSAGEBOX( cReportName )
 
 **FOR 迴圈**
 
-```text
+```bash
 DIMENSION nAmt[12]
 nAmt[1] = 10
 nAmt[2] = 19
@@ -228,7 +228,7 @@ MESSAGEBOX("合計金額："+TRANSFORM(nSum))
 
 **WHILE 迴圈**
 
-```text
+```bash
 DIMENSION nAmt[12]
 nAmt[1] = 10
 nAmt[2] = 19
@@ -255,7 +255,7 @@ MESSAGEBOX("合計金額："+TRANSFORM(nSum))
 
 **呼叫另一支程式 Do**
 
-```text
+```bash
 * Program1.prg
 
 MessageBox("我是第一支程式 呦")
@@ -269,7 +269,7 @@ cc = 3
 Do Program2.prg With aa,bb,cc       && 呼叫另一支程式 副檔名可省略
 ```
 
-```text
+```bash
 * Program2.prg
 Lparameter aa,bb,cc&&接參數名稱不必一樣， 
 
@@ -286,7 +286,7 @@ endfunc
 
 **搜尋徑 Set Path To**
 
-```text
+```bash
 Set Path to c:\vfp\Lesson3 Additive
 
 Set Path to "c:\vfp\Lesson3" Additive
@@ -301,7 +301,7 @@ Set Path to ( cMyPath) Additive
 
 **引用另一支程式上的函數 Set Procedure to ..**.
 
-```text
+```bash
 * Program1.prg
 
 Set Procedure to Program2.prg ADDITIVE         && 引用另一支 .prg
@@ -313,7 +313,7 @@ nAns = Sub(10,2)
 =MESSAGEBOX("呼叫 Sub(x,y) 我得到:"+TRANSFORM(nAns)   )
 ```
 
-```text
+```bash
 * Program2.prg
 
 *****************
@@ -333,7 +333,7 @@ ENDFUNC
 
 **參數**
 
-```text
+```bash
 * 參數傳值
 
 X = 10
@@ -354,7 +354,7 @@ FUNCTION Add( x , y , z )
 ENDFUNC
 ```
 
-```text
+```bash
 * 參數傳址
 
 X = 10
@@ -377,7 +377,7 @@ FUNCTION Add( x , y , z )
 ENDFUNC
 ```
 
-```text
+```bash
 * 參數不必放括號中，是另一中寫法
 
 *************************
@@ -391,7 +391,7 @@ LParameters x , y , z     &&  如果使用 Parameters 表示私有範圍
 ENDFUNC
 ```
 
-```text
+```bash
 * 參數傳值與傳址
 
 a = 10
@@ -415,7 +415,7 @@ b = c
 ENDPROC
 ```
 
-```text
+```bash
 * 傳值或傳址(傳參考) 
 
 myFunction(var1, var2, ...)             &&  呼叫函數 參數傳值 Call By Value
@@ -429,7 +429,7 @@ DO myProcedure WITH var1, var2, ...     && 呼叫另一支程式 參數傳址 Ca
 
 **變數有效範圍**
 
-```text
+```bash
 * 好的程式寫法 變數都用先宣告有效範圍
 
 Public cErrorMsg         && 全域變數 有效範圍=全部程式
@@ -455,7 +455,7 @@ EndProc
 
 **參數有效範圍**
 
-```text
+```bash
 * 參數兩種有效範圍
 
 FUNCTION Add()
@@ -475,7 +475,7 @@ ENDFUNC
 
 **練習一**
 
-```text
+```bash
 * 註解：營利事業所得稅稅率計算式如下：(T = 稅額 ，P = 課稅所得額)
 
 * 1.金額在 120,000 元以下者，稅率為免稅，稅額為零
@@ -487,7 +487,7 @@ ENDFUNC
 
 **練習二**
 
-```text
+```bash
 * 2021年（民國110年）勞工保險投保薪資分級表
 
 * 投保薪資等級    月薪資總額（實物給付應折現金計算）    月投薪資
