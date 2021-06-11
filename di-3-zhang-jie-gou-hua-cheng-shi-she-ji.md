@@ -272,12 +272,12 @@ Do Program2.prg With aa,bb,cc       && 呼叫另一支程式 副檔名可省略
 
 ```bash
 * Program2.prg
-Lparameter aa,bb,cc&&接參數名稱不必一樣， 
+Lparameter aa,bb,cc && 接參數名稱不必一樣， 
 
 MessageBox("我是第二支程式喔")
 MessageBox("我是第二支程式哈")
 
-Return &&返回
+Return && 返回
 
  *函數沒呼叫就沒執行
 function xxx()
@@ -288,6 +288,8 @@ endfunc
 **搜尋徑 Set Path To**
 
 ```bash
+*如果當前料夾找不到請搜尋其他資料夾，可以設很多資料夾
+
 Set Path to c:\vfp\Lesson3 Additive
 
 Set Path to "c:\vfp\Lesson3" Additive
