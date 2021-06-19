@@ -456,7 +456,7 @@ Procedure MySubProcedure()
 EndProc
 ```
 
-Public 有效範圍
+**Public 有效範圍**
 
 ```bash
 * Public 有效範圍包括:全體、全域、公用
@@ -484,7 +484,7 @@ ENDFUNC
 
 ```
 
-Private 有效範圍
+**Private 有效範圍**
 
 ```bash
 * Private 範例1
@@ -503,7 +503,9 @@ PRIVATE x && <========================
   x = "Hello 私有變數 x"
 
   =MESSAGEBOX("Hello使用：" + x ) && Hello 私有變數 x
-  =Good() 
+
+  =Good() && Private有效範圍能夠影響這個呼叫  
+
 ENDFUNC 
 
 ****************
@@ -543,7 +545,34 @@ ENDFUNC
 
 ```
 
-Local 有效範圍
+```bash
+* Private 範例3
+
+=Hello()
+
+****************
+FUNCTION Hello()
+****************
+  Y = "Hello 私有變數 Y" && Y 前面沒有人宣告過，將視為 Hello 的 Private
+
+  =MESSAGEBOX("Hello使用：" + Y ) && Hello 私有變數 Y
+
+  =Good() && Private 能影響此呼叫 
+
+ENDFUNC 
+
+****************
+FUNCTION Good()
+****************
+
+  =MESSAGEBOX("Good使用：" + Y ) && Hello 私有變數 Y
+
+ENDFUNC 
+
+
+```
+
+**Local 有效範圍**
 
 ```bash
 * Local 範例 1
@@ -561,9 +590,10 @@ FUNCTION Hello()
 LOCAL x &&　<=====================
   x = "Hello的本地變數 x"
    
-
   =MESSAGEBOX("Hello使用：" + x ) && Hello的本地變數 x
-  =Good() 
+    
+  =Good() && Local有效範圍無法影響這個呼叫
+           
 ENDFUNC 
 
 ****************
@@ -610,19 +640,121 @@ ENDFUNC
 ```bash
 * 參數兩種有效範圍
 
-FUNCTION Add()
-Lparameters x,y && 參數有效範圍 本地局部
-
-ENDFUNC
-
+**************
 FUNCTION Sub()
+**************
 Parameters x,y && 參數有效範圍 私有
 
 ENDFUNC
 
-FUNCTION Div(x ,y ) && && 參數有效範圍 本地局部
+**************
+FUNCTION Add()
+**************
+Lparameters x,y && 參數有效範圍 本地
 
 ENDFUNC
+
+********
+FUNCTION Div(x ,y ) && && 參數有效範圍 本地
+********
+
+ENDFUNC
+
+
+
+```
+
+```bash
+* 參數 範例 1 不使用參數宣告只使用括號 => Local
+
+PUBLIC x
+x="總體"
+=MESSAGEBOX("主程式使用："+ X  ) 
+
+=Hello(x)
+
+****************
+FUNCTION Hello(x)  && x 視為 Local 
+****************
+
+  x = "Hello 當地"
+  =MESSAGEBOX("Hello使用："+ X  ) && Hello 當地
+
+  =Good() && Local無法影響此呼叫
+
+ENDFUNC 
+
+****************
+FUNCTION Good()
+****************
+
+  =MESSAGEBOX("Good使用："+ X ) && 總體
+
+ENDFUNC 
+
+
+```
+
+```bash
+* 參數 範例 2 Parameter => Private 
+
+PUBLIC x
+x="總體"
+=MESSAGEBOX("主程式使用："+ X  ) 
+
+=Hello(x)
+
+****************
+FUNCTION Hello() 
+****************
+PARAMETERS x && x 視為 Private
+
+  x = "Hello 私有"
+  =MESSAGEBOX("Hello使用："+ X  ) 
+
+  =Good() && Private影響此呼叫
+
+ENDFUNC 
+
+****************
+FUNCTION Good()
+****************
+
+  =MESSAGEBOX("Good使用："+ X ) && Hello 私有
+
+ENDFUNC 
+
+```
+
+```bash
+* 參數 範例 3 Lparameter => Local 
+
+PUBLIC x
+x="總體"
+
+=Hello(x)
+
+****************
+FUNCTION Hello() 
+****************
+LPARAMETERS x && 視為 Local
+
+  x = "當地"
+
+  =MESSAGEBOX("Hello使用："+ X  ) 
+
+  =Good() && Local不能影響此呼叫
+
+ENDFUNC 
+
+****************
+FUNCTION Good()
+****************
+    
+  =MESSAGEBOX("Good使用："+ X ) && 總體
+
+ENDFUNC 
+
 ```
 
 **練習一**
