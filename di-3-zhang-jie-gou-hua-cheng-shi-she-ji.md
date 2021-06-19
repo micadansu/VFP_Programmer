@@ -514,6 +514,97 @@ ENDFUNC
 
 ```
 
+```bash
+* Private 範例2
+
+PUBLIC X  
+
+x="公用變數 X"
+=MESSAGEBOX("主程式使用：" + x ) && 公用變數 x
+
+=Hello()
+
+****************
+FUNCTION Hello()
+****************
+
+  =MESSAGEBOX("Hello使用：" + x ) && 公用變數 x
+  =Good() 
+ENDFUNC 
+
+****************
+FUNCTION Good()
+****************
+PRIVATE x && <========================
+  x = "Good 私有變數 x"
+
+  =MESSAGEBOX("Good使用：" + x ) && Good 私有變數 x
+ENDFUNC 
+
+```
+
+Local 有效範圍
+
+```bash
+* Local 範例 1
+
+PUBLIC X  
+
+x="公用變數 X"
+=MESSAGEBOX("主程式使用：" + x ) && 公用變數 x
+
+=Hello()
+
+****************
+FUNCTION Hello()
+****************
+LOCAL x &&　<=====================
+  x = "Hello的本地變數 x"
+   
+
+  =MESSAGEBOX("Hello使用：" + x ) && Hello的本地變數 x
+  =Good() 
+ENDFUNC 
+
+****************
+FUNCTION Good()
+****************
+
+  =MESSAGEBOX("Good使用：" + x ) && && 公用變數 x
+ENDFUNC 
+
+
+```
+
+```bash
+* Local 範例 2
+
+PUBLIC X  
+
+x="公用變數 X"
+=MESSAGEBOX("主程式使用：" + x ) && 公用變數 x
+
+=Hello()
+
+****************
+FUNCTION Hello()
+****************
+   
+  =MESSAGEBOX("Hello使用：" + x ) && 公用變數 x
+  =Good() 
+ENDFUNC 
+
+****************
+FUNCTION Good()
+****************
+LOCAL x &&　<=====================
+  x = "Good的本地變數 x"
+
+  =MESSAGEBOX("Good使用：" + x ) && Good的本地變數 x
+ENDFUNC 
+
+```
+
 **參數有效範圍**
 
 ```bash
