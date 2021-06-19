@@ -456,6 +456,33 @@ Procedure MySubProcedure()
 EndProc
 ```
 
+Public 有效範圍
+
+```bash
+* Public 有效範圍包括:全體、全域、公用
+
+PUBLIC X  && <========================
+
+x="公用變數 x"
+=MESSAGEBOX("主程式使用： " + x ) && 公用變數 x
+
+=Hello()
+
+****************
+FUNCTION Hello()
+****************
+  =MESSAGEBOX("Hello使用：" + x ) && 公用變數 x
+  =Good() 
+ENDFUNC 
+
+****************
+FUNCTION Good()
+****************
+  =MESSAGEBOX("Good使用：" + x ) && 公用變數 x  
+ENDFUNC 
+
+```
+
 **參數有效範圍**
 
 ```bash
