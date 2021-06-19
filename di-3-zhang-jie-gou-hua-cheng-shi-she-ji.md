@@ -461,7 +461,8 @@ Public 有效範圍
 ```bash
 * Public 有效範圍包括:全體、全域、公用
 
-PUBLIC X  && <========================
+PUBLIC X  && <========================看這裡
+
 
 x="公用變數 x"
 =MESSAGEBOX("主程式使用： " + x ) && 公用變數 x
@@ -479,6 +480,36 @@ ENDFUNC
 FUNCTION Good()
 ****************
   =MESSAGEBOX("Good使用：" + x ) && 公用變數 x  
+ENDFUNC 
+
+```
+
+Private 有效範圍
+
+```bash
+* Private 範例1
+
+PUBLIC X  
+
+x="公用變數 X"
+=MESSAGEBOX("主程式使用：" + x ) && 公用變數 x
+
+=Hello()
+
+****************
+FUNCTION Hello()
+****************
+PRIVATE x && <========================
+  x = "Hello 私有變數 x"
+
+  =MESSAGEBOX("Hello使用：" + x ) && Hello 私有變數 x
+  =Good() 
+ENDFUNC 
+
+****************
+FUNCTION Good()
+****************
+  =MESSAGEBOX("Good使用：" + x ) && Hello 私有變數 x
 ENDFUNC 
 
 ```
