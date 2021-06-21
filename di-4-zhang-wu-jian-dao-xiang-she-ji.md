@@ -34,6 +34,46 @@
 * 項目也可以是物件
 * 複製表整個資料表
 
+**專案新增 Form**
+
+```text
+*使用指令新增Form
+
+MD C:\vfp\Lesson4\
+
+Set Default to C:\vfp\Lesson4\
+
+Create Project proj4 && 記得按存檔
+
+* Modify Project proj4 && 如果已經有專案則使用 Modify 修改
+
+Create Form Form1 && 記得存檔並且加入proj4 -> Documents -> Form 
+Create Form Form2 && 記得存檔並且加入proj4 -> Documents -> Form 
+
+Do Form Form1
+Do Form Form2
+```
+
+**專案新增物件庫 Classlib並於物件庫中新增Form物件**
+
+```text
+* 使用物件庫新增 Form
+
+CREATE CLASSLIB myclslib1     && 新增個物件庫 .VCX 
+
+CREATE CLASS TForm1 OF myclslib1 AS "Form"  && 新增類 "TForm1" 祖先類是 "Form"
+CREATE CLASS TForm2 OF myclslib1 AS "Form"  && 新增類 "TForm2" 祖先類是 "Form"
+
+SET CLASSLIB TO myclslib1 ADDITIVE     && 引用物件庫
+Local oForm1,oForm2
+oForm1=CreateObject("TForm1")
+oForm1.Show(1)
+
+oForm2=CreateObject("TForm2")
+oForm2.Show(1)
+
+```
+
 **練習**
 
 
