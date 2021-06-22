@@ -302,7 +302,7 @@ ENDDEFINE
 
 ```
 
-**空白物件 Empty**
+**由程式產生 空白物件 Empty**
 
 ```text
 * 空白物件
@@ -344,7 +344,46 @@ CLEAR ALL
 
 ```
 
-**練習**
+**由資料表產生 空白物件**
+
+```text
+* 在記憶體中產生 Table 
+
+CREATE CURSOR Product (Prno C(10), Prna C(20) , Qty N(18,0))
+APPEND BLANK
+REPLACE Prno WITH "001",Prna WITH "電腦",Qty WITH 100
+APPEND BLANK
+REPLACE Prno WITH "002",Prna WITH "鍵盤",Qty WITH 200
+
+BROWSE
+
+* 把兩筆資料轉成兩個 空白物件 
+LOCATE FOR Prno = "001" && 定位
+=MESSAGEBOX( Prno +" "+ Prna) && 01 電腦
+SCATTER NAME oEmpty1 && 產生物件複製一筆資料
+
+LOCATE FOR Prno = "002" && 定位
+=MESSAGEBOX( Prno +" "+ Prna) && 02 鍵盤
+SCATTER NAME oEmpty2 && 產生物件複製一筆資料
+
+
+* 利用物件 顯示內容 很像是影印了兩筆資料
+WITH m.oEmpty1
+	=MESSAGEBOX( .Prno +" "+ .Prna) && 01 電腦
+ENDWITH 
+
+WITH m.oEmpty2
+	=MESSAGEBOX( .Prno +" "+ .Prna) && 02 鍵盤
+ENDWITH 
+
+
+RELEASE m.oEmpty1,m.oEmpty2 
+
+CLEAR ALL
+
+RETURN 
+
+```
 
 
 
