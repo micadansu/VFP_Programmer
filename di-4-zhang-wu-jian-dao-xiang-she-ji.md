@@ -60,6 +60,8 @@ Do Form Form1
 Do Form Form2
 ```
 
+**簡單的物件**
+
 ```text
 * 簡單的物件 1
 LOCAL oForm as Form
