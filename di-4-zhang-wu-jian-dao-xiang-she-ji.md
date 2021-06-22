@@ -302,6 +302,48 @@ ENDDEFINE
 
 ```
 
+**空白物件 Empty**
+
+```text
+* 空白物件
+
+LOCAL m.oEmpty1,m.oEmpty2
+
+
+m.oEmpty1= CREATEOBJECT( "Empty" )
+
+ADDPROPERTY( oEmpty1 , "Prno" , "001"  )
+ADDPROPERTY( oEmpty1 , "Prna" , "電腦" )
+ADDPROPERTY( oEmpty1 , "Qty"  , 100    )
+
+
+
+m.oEmpty2= CREATEOBJECT( "Empty" )
+
+ADDPROPERTY( oEmpty2 , "Prno" , "002"  )
+ADDPROPERTY( oEmpty2 , "Prna" , "鍵盤" )
+ADDPROPERTY( oEmpty2 , "Qty"  , 100    )
+
+
+=MESSAGEBOX( m.oEmpty1.Prno +" "+ m.oEmpty1.Prna) && 01 電腦
+
+=MESSAGEBOX( m.oEmpty2.Prno +" "+ m.oEmpty2.Prna) && 02 鍵盤
+
+
+WITH m.oEmpty1
+	=MESSAGEBOX( .Prno +" "+ .Prna) && 01 電腦
+ENDWITH 
+
+WITH m.oEmpty2
+	=MESSAGEBOX( .Prno +" "+ .Prna) && 02 鍵盤
+ENDWITH 
+
+RELEASE m.oEmpty1,m.oEmpty2 
+
+CLEAR ALL
+
+```
+
 **練習**
 
 
