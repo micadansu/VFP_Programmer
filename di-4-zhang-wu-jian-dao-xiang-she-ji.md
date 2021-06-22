@@ -63,11 +63,13 @@ Do Form Form2
 **簡單的物件**
 
 ```text
-* 簡單的物件 1
+* 簡單的物件 1修
+* 改屬性的方式
+
 LOCAL oForm as Form
 
 oForm = CREATEOBJECT("Form") && 物件生成
-oForm.Caption ="簡單的物件"  && 視窗抬頭
+oForm.Caption ="簡單的物件"    && 視窗抬頭
 oForm.AutoCenter = .T.       && 自動置中
 oForm.Width  = 200           && 寬度
 oForm.Height = 200           && 高度
@@ -80,7 +82,9 @@ RETURN
 ```
 
 ```text
-* 簡單的物件 2
+* 簡單的物件 2 
+* 修改屬性使用 with 
+
 LOCAL oForm as Form
 
 oForm = CREATEOBJECT("Form") && 物件生成
@@ -96,7 +100,7 @@ WITH oForm
 		.Height = 50   && 高度
 		.Top    = 10   && 上邊界
 		.Left   = 10   && 左邊界 
-        .Visible = .T. && 看得見                     
+      .Visible = .T. && 看得見                     
 	ENDWITH 
 			
 	.Show(1) && 顯示
@@ -118,8 +122,12 @@ CREATE CLASSLIB myclslib1     && 新增物件庫 .VCX
 CREATE CLASS TForm1 OF myclslib1 AS "Form"  && 新增類 "TForm1" 祖先類是 "Form"
 CREATE CLASS TForm2 OF myclslib1 AS "Form"  && 新增類 "TForm2" 祖先類是 "Form"
 
+* 物件使用方式
+
 SET CLASSLIB TO myclslib1 ADDITIVE     && 引用物件庫
+
 Local oForm1,oForm2
+
 oForm1=CreateObject("TForm1")
 oForm1.Caption="我的畫面1"
 oForm1.Show(1)
@@ -203,7 +211,7 @@ ENDDEFINE
 
 ```
 
-**物件的初始與結束 Event**
+**物件的生成與消滅 Event**
 
 ```text
 * 物件的 Event
@@ -271,6 +279,33 @@ Define Class Caculator As Custom  && 自訂 計算機 類
 	ENDFUNC
 
 ENDDEFINE
+
+```
+
+**物件生成時於初始事件中傳入參數**
+
+```text
+* 物件生成時 可以順便輸入參數 
+
+Local oForm
+oForm =Createobject("MyForm","傳票輸入",200,200)
+oForm.Show(1)
+
+Release oForm
+
+*******************************
+Define Class MyForm As Form
+
+	************************
+	Function Init(cText,H,W) && 物件生成時 取得參數
+	************************
+		This.Caption=cText
+		This.Height = H && 高
+		This.Width  = W && 寬
+	Endfunc
+
+ENDDEFINE
+*******************************
 
 ```
 
@@ -348,7 +383,7 @@ Define Class Animal As Custom && 動物類 繼承 Custom
 	ENDFUNC 
 	
 	Function SayName()
-		=Messagebox("我叫 :" + this.cName + " 我是一隻：" + this.cType )
+	  =Messagebox("我叫 :" + this.cName + " 我是一隻：" + this.cType)
 	ENDFUNC
 				
 ENDDEFINE 
@@ -633,4 +668,10 @@ RETURN
 
 
 ```
+
+**練習一**
+
+**練習二**
+
+**練習三**
 
