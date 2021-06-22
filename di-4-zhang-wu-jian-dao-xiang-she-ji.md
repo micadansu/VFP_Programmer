@@ -671,7 +671,75 @@ RETURN
 
 **練習一**
 
+```text
+* 使用 Do Form
+
+專案上存三個 Form 分別為 Form0 Form1 Form2
+
+主程式 Do Form0
+
+Form0 上加上兩個CommantButton分別以do form 呼叫另外兩個Form 
+
+```
+
 **練習二**
 
+```text
+*使用物件庫
+
+專案上建立物件庫檔名為ClassLib1
+物件庫中加入三個繼承Form類別分別為Form0 Form1 Form2 
+主程式設定使用ClassLib1
+並使用Createobject 以FORM0為類生成Local oForm 並顯示
+修改FORM0類上加上兩個CommantButton分別以Createobject 生成與顯示另外兩個Form
+
+```
+
 **練習三**
+
+```text
+*自訂義物件
+
+程式中使用 Define Class 定義Form0類繼承Form，修改其寬高及抬頭
+
+使用CreateObject 顯示
+
+```
+
+練習四
+
+```text
+*物件的繼承
+
+使用define Class 定義四代計算機
+每一代都是繼承上一代
+每一代都多了一種計算方式
+
+第一代有兩數相加
+第二代有兩數相減
+第三代有兩數相乘
+第四代有兩數相除
+
+到了第四代就能真正有加減乘除四種方法
+
+程式只要生成第四代物件並測試是否具有四種計算能力
+
+```
+
+練習五
+
+```text
+*空白物件與容器物件
+
+製作三顆Empyt 物件代表三個學生
+
+每顆其屬性類都有：學號、名稱、年紀
+
+生成一個容器並投入三顆Empty物件以學號為Key
+
+測試時以第二個學生的Key由容器找回第二顆Empty物件
+
+讀取該物件屬性看是否真為第二個學生的資料
+
+```
 
