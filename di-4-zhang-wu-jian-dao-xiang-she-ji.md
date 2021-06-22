@@ -82,7 +82,114 @@ oForm2.Show(1)
 
 ```
 
-**類別與物件**
+**簡單的物件**
+
+```text
+* 簡單的物件
+
+LOCAL oSimpleObject
+
+oSimpleObject = CREATEOBJECT("SimpleObject")
+
+oSimpleObject.cYourName = "John"
+
+oSimpleObject.SayHello()
+
+RELEASE oSimpleObject && 釋放
+
+CLEAR ALL && 釋放所有
+
+
+********************************
+Define Class SimpleObject As Custom  && 自訂 簡單物件 類
+********************************
+   * 屬性 Property 就是物件的變數
+   cYourName = ""
+
+   * 方法 Method 就是物件的函數
+   *******************
+   FUNCTION SayHello()
+   *******************
+       =MESSAGEBOX("Hello " + This.cYourName) && 屬性要加 This.  
+   ENDFUNC  
+   
+
+ENDDEFINE
+
+```
+
+**物件的初始與結束 Event**
+
+```text
+* 物件的 Event
+
+LOCAL oCaculator
+
+oCaculator=CREATEOBJECT("Caculator")
+nAnsAdd = oCaculator.Add(10,20)
+nAnsSub = oCaculator.Sub(10,20)
+
+=MESSAGEBOX(nAnsAdd)
+=MESSAGEBOX(nAns)
+
+
+=MESSAGEBOX('準備釋放物件了')
+
+RELEASE oCaculator && 釋放物件 也可以這樣會釋放 oCaculator=NULL  
+
+=MESSAGEBOX('物件已經釋放了')
+
+CLEAR ALL && 釋放所有變數
+
+
+********************************
+Define Class Caculator As Custom  && 自訂 計算機 類
+********************************
+
+   *******************
+   FUNCTION Init()
+   *******************
+       =MESSAGEBOX("發生事件：物件之生成")   
+   ENDFUNC  
+   
+   *******************
+   FUNCTION Destroy()
+   *******************
+       =MESSAGEBOX("發生事件：物件之消滅")   
+   ENDFUNC  
+
+
+	*******************
+	Function Add(xx,yy) 
+	******************
+		Return xx + yy
+	ENDFUNC
+
+	*******************
+	Function Sub(xx,yy) 
+	******************
+		Return xx - yy
+	ENDFUNC
+	
+    ***************
+	Function Muti() 
+    ***************
+	LParameters  xx,yy 
+		Return xx * yy
+	ENDFUNC
+	
+    ***************
+	Function Div() 
+    ***************
+	LParameters  xx,yy 
+		Return xx / yy
+	ENDFUNC
+
+ENDDEFINE
+
+```
+
+**物件的方法與屬性** 
 
 ```text
 * 自定 類別 與 物件
@@ -162,6 +269,7 @@ Define Class Animal As Custom && 動物類 繼承 Custom
 ENDDEFINE 
 
 
+
 *****************************
 Define Class Dog As Animal && 狗類 繼承 動動物類
 
@@ -173,14 +281,14 @@ Define Class Dog As Animal && 狗類 繼承 動動物類
 	  	=Messagebox("汪汪汪(再見)")
 	ENDFUNC
 		
-	
 ENDDEFINE 
+
 
 
 *****************************
 Define Class Cat As Animal && 貓類 繼承動物類
 
-	Function SayHello()
+	Function SayHello()	
 		=Messagebox("喵喵喵(你好)")
 	Endfunc
 
