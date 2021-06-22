@@ -1,12 +1,12 @@
 # 第4章 物件導向設計
 
-**表單元件** 
+**表單元件介紹** 
 
 * 屬性
 * 方法 
 * 事件
 
-**元件庫**
+**元件庫介紹**
 
 * 基礎物件
 * 新增物件
@@ -60,6 +60,52 @@ Do Form Form1
 Do Form Form2
 ```
 
+```text
+* 簡單的物件 1
+LOCAL oForm as Form
+
+oForm = CREATEOBJECT("Form") && 物件生成
+oForm.Caption ="簡單的物件"  && 視窗抬頭
+oForm.AutoCenter = .T.       && 自動置中
+oForm.Width  = 200           && 寬度
+oForm.Height = 200           && 高度
+oForm.Show(1)                &&  顯示
+
+RELEASE oForm
+
+RETURN 
+
+```
+
+```text
+* 簡單的物件 2
+LOCAL oForm as Form
+
+oForm = CREATEOBJECT("Form") && 物件生成
+WITH oForm 
+    .Caption ="簡單的物件" && 視窗抬頭
+	.AutoCenter = .T.      && 自動置中
+	.Width  = 200          && 寬度
+	.Height = 200          && 高度
+	
+    .AddObject("按鈕1","commandButton")	&& 加入一顆按鈕物件	    
+    WITH .按鈕1
+		.Width  = 100  && 寬度
+		.Height = 50   && 高度
+		.Top    = 10   && 上邊界
+		.Left   = 10   && 左邊界 
+        .Visible = .T. && 看得見                     
+	ENDWITH 
+			
+	.Show(1) && 顯示
+ENDWITH 
+
+RELEASE oForm
+
+RETURN 
+
+```
+
 **物件庫 Classlib**
 
 ```text
@@ -82,10 +128,10 @@ oForm2.Show(1)
 
 ```
 
-**簡單的物件**
+**簡單的自訂物件**
 
 ```text
-* 簡單的物件
+* 簡單的自訂物件1
 
 LOCAL oSimpleObject
 
@@ -115,6 +161,43 @@ Define Class SimpleObject As Custom  && 自訂 簡單物件 類
    
 
 ENDDEFINE
+
+```
+
+```text
+* 簡單的自訂物件 2
+
+LOCAL oForm
+oForm =CREATEOBJECT("MyForm")
+oForm.Show(1)
+
+RELEASE oForm
+
+*******************************
+DEFINE CLASS MyForm AS form
+	
+	* 屬性
+	Caption = "Form" && 抬頭
+	Height =200      && 高
+	Width = 100      && 寬
+	AutoCenter = .T. && 置中
+	
+    * 加入按鈕物件
+	ADD OBJECT command1 AS commandbutton WITH ;
+		Top = 10, ;
+		Left = 10, ;
+		Height =50, ;
+		Width = 100, ;
+		Caption = "Command1", ;
+		Name = "Command1"
+
+    * 按鈕事件
+	PROCEDURE command1.Click
+		=MESSAGEBOX("OK")
+	ENDPROC
+
+ENDDEFINE
+*******************************
 
 ```
 
