@@ -381,9 +381,171 @@ RELEASE m.oEmpty1,m.oEmpty2
 
 CLEAR ALL
 
+Close Tables ALL && 關閉所有 Table
+
 RETURN 
 
 ```
 
+**修改空白物件寫回 Table**
 
+```text
+* 在記憶體中產生 Table 
+
+CREATE CURSOR Product (Prno C(10), Prna C(20) , Qty N(18,0))
+APPEND BLANK
+REPLACE Prno WITH "001",Prna WITH "電腦",Qty WITH 1
+APPEND BLANK
+REPLACE Prno WITH "002",Prna WITH "鍵盤",Qty WITH 2
+
+BROWSE
+
+* 把兩筆資料轉成兩個 空白物件 
+LOCATE FOR Prno = "001" && 定位
+SCATTER NAME oEmpty1 && 產生物件 複製一筆資料
+
+LOCATE FOR Prno = "002" && 定位
+SCATTER NAME oEmpty2 && 產生物件 複製一筆資料
+
+* 修改物件上的 Qty
+oEmpty1.Qty = 101
+oEmpty2.Qty = 201
+
+* 使用物件 顯示修改 
+WITH m.oEmpty1
+	=MESSAGEBOX( .Prno +" "+ .Prna +" " + TRANSFORM(.Qty) ) && 01 電腦
+ENDWITH 
+
+WITH m.oEmpty2
+	=MESSAGEBOX( .Prno +" "+ .Prna+ " " + TRANSFORM(.Qty)) && 02 鍵盤
+ENDWITH 
+
+
+* 物件寫回 Table
+LOCATE FOR Prno = "001" && 定位
+GATHER NAME oEmpty1 && 寫回第一筆 
+
+LOCATE FOR Prno = "002" && 定位
+GATHER NAME oEmpty2 && 寫回第二筆 
+
+
+BROWSE && 瀏覽
+
+
+RELEASE m.oEmpty1,m.oEmpty2 && 釋放 
+
+CLEAR ALL  && 全部釋放 
+
+Close Tables ALL && 關閉所有 Table
+
+RETURN 
+
+
+
+```
+
+容器物件
+
+```text
+LOCAL oCollection as Collection && as Collection 可省略
+
+oCollection = CREATEOBJECT("Collection") && 容器物件
+
+* 加入兩個 Value
+oCollection.Add("小明","001") && (內容,健值) (Value,Key)
+oCollection.Add("小智","002") && (內容,健值) (Value,Key)
+
+* 使用 Key 取出 Value
+LOCAL cName1,cName2
+cName1=oCollection.Item("001")
+cName2=oCollection.Item("002")
+=MESSAGEBOX( cName1 ) && "小明"
+=MESSAGEBOX( cName2 ) && "小智"
+
+* 使用 Key 查位置(第幾個)
+LOCAL nIndex
+nIndex  = oCollection.GetKey("001")	
+=MESSAGEBOX( nIndex ) && 1
+nIndex  = oCollection.GetKey("002")	
+=MESSAGEBOX( nIndex ) && 2
+
+
+* 使用迴圈 遍訪 Value
+nCount = oCollection.Count && 容器內總共有有幾個 2
+
+LOCAL cName
+FOR i = 1 TO nCount
+	cName = oCollection.Item( i ) && 位置找 Value
+	=MESSAGEBOX( cName ) && "小明"、"小智"...
+ENDFOR 
+
+* 使用迴圈 遍訪Key值
+LOCAL cKey
+FOR i = 1 TO nCount
+	cKey = oCollection.GetKey( i ) && 位置找 Key	
+	=MESSAGEBOX( cKey ) && "001"、"002" ...
+ENDFOR 
+
+RELEASE oCollection
+
+```
+
+**容器物件複雜的範例**
+
+```text
+* 容器物件 配合 空白物件 配合 Table  範例
+
+LOCAL oCollection as Collection && as Collection 可省略
+LOCAL oRec,cKey && Empty
+LOCAL oEmpty1
+
+oCollection = CREATEOBJECT("Collection") && 容器物件
+
+* 在記憶體中產生 Table 
+CREATE CURSOR Product (Prno C(10), Prna C(20) , Qty N(18,0))
+APPEND BLANK
+REPLACE Prno WITH "001",Prna WITH "電腦",Qty WITH 1
+APPEND BLANK
+REPLACE Prno WITH "002",Prna WITH "鍵盤",Qty WITH 2
+BROWSE
+
+* 滾動 Table 將資料 一筆一筆加入容器
+
+SELECT Product  && 指定 Table
+GO TOP          && 跳到開頭第一筆
+DO WHILE !EOF() && 直到檔案結束 End of File
+   SCATTER NAME oRec   && 產生 Empty 物件，含有所有欄位屬性  
+   
+   && 品號作為 Key 注意長度有10碼 "001       "   
+   cKey = Product.Prno 
+      
+   oCollection.Add(oRec , cKey) && 投入容器 ( Value , Key )   
+   SKIP && 跳下一筆   
+ENDDO 
+
+* 使用 Key 取出第一個物件
+cKey=PADR("001",10) && 補足10 碼，必須配合當初投入容器做 Key 的長度
+LOCAL m.oEmpty
+oEmpty = oCollection.Item( cKey ) && 取出內容 當初投入是 物件
+WITH m.oEmpty
+	=MESSAGEBOX(  .Prno+" "+.Prna+" "+ TRANSFORM(.Qty)) && 測試物件屬性
+ENDWITH 
+
+* 使用 Key 取出第二個物件
+cKey=PADR("002",10) && 補足10 碼，必須配合當初投入容器做 Key 的長度
+LOCAL m.oEmpty
+oEmpty = oCollection.Item( cKey ) && 取出內容 當初投入是 物件
+WITH m.oEmpty
+	=MESSAGEBOX(  .Prno+" "+.Prna+" "+ TRANSFORM(.Qty)) && 測試物件屬性
+ENDWITH 
+
+
+
+RELEASE oCollection
+
+
+RETURN 
+
+
+```
 
