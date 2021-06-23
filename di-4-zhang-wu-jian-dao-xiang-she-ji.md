@@ -37,7 +37,7 @@
 
 **新增專案**
 
-```text
+```bash
 MD C:\vfp\Lesson4\
 
 Set Default to C:\vfp\Lesson4\
@@ -48,7 +48,7 @@ Create Project proj4 && 記得按存檔
 
 **專案新增 Form**
 
-```text
+```bash
 *使用指令新增Form
 
 
@@ -63,7 +63,7 @@ Do Form Form2
 
 **簡單的物件**
 
-```text
+```bash
 * 簡單的物件 1修
 * 改屬性的方式
 
@@ -82,7 +82,7 @@ RETURN
 
 ```
 
-```text
+```bash
 * 簡單的物件 2 
 * 修改屬性使用 with 
 
@@ -115,7 +115,7 @@ RETURN
 
 **物件庫 Classlib**
 
-```text
+```bash
 * 使用物件庫新增 Form
 
 CREATE CLASSLIB myclslib1     && 新增物件庫 .VCX 
@@ -141,7 +141,7 @@ oForm2.Show(1)
 
 **簡單的自訂物件**
 
-```text
+```bash
 * 簡單的自訂物件1
 
 LOCAL oSimpleObject
@@ -175,7 +175,7 @@ ENDDEFINE
 
 ```
 
-```text
+```bash
 * 簡單的自訂物件 2
 
 LOCAL oForm
@@ -214,7 +214,7 @@ ENDDEFINE
 
 **物件的封裝**
 
-```text
+```bash
 
 * 物件的封裝
 
@@ -290,7 +290,7 @@ CLEAR ALL
 
 **物件的繼承**
 
-```text
+```bash
 * 物件的繼承
 
 LOCAL oAnimal,oMonkey,oMenkind
@@ -337,11 +337,13 @@ DEFINE CLASS oMenkind as Monkey
 		
 ENDDEFINE 
 
+CLEAR ALL 
+
 ```
 
 **物件的多型**
 
-```text
+```bash
 * 物件的多型
 
 LOCAL oPerson,oCat,oDog
@@ -387,12 +389,14 @@ DEFINE CLASS Cat as Custom
 		
 ENDDEFINE 
 
+CLEAR ALL 
+
 
 ```
 
 **物件的生成與消滅 Event**
 
-```text
+```bash
 * 物件的 Event
 
 LOCAL oCaculator
@@ -463,7 +467,7 @@ ENDDEFINE
 
 **物件生成時於初始事件中傳入參數**
 
-```text
+```bash
 * 物件生成時 可以順便輸入參數 
 
 Local oForm
@@ -490,7 +494,7 @@ ENDDEFINE
 
 **物件的方法與屬性** 
 
-```text
+```bash
 * 自定 類別 與 物件
 
 Local oAnimal,oDog,oCat1,oCat2 
@@ -603,7 +607,7 @@ ENDDEFINE
 
 **由程式產生 空白物件 Empty**
 
-```text
+```bash
 * 空白物件
 
 LOCAL m.oEmpty1,m.oEmpty2
@@ -645,7 +649,7 @@ CLEAR ALL
 
 **由資料表產生 空白物件**
 
-```text
+```bash
 * 在記憶體中產生 Table 
 
 CREATE CURSOR Product (Prno C(10), Prna C(20) , Qty N(18,0))
@@ -688,7 +692,7 @@ RETURN
 
 **修改空白物件寫回 Table**
 
-```text
+```bash
 * 在記憶體中產生 Table 
 
 CREATE CURSOR Product (Prno C(10), Prna C(20) , Qty N(18,0))
@@ -743,9 +747,9 @@ RETURN
 
 ```
 
-容器物件
+**容器物件**
 
-```text
+```bash
 LOCAL oCollection as Collection && as Collection 可省略
 
 oCollection = CREATEOBJECT("Collection") && 容器物件
@@ -791,8 +795,9 @@ RELEASE oCollection
 
 **容器物件複雜的範例**
 
-```text
+```bash
 * 容器物件 配合 空白物件 配合 Table  範例
+*僅供參考
 
 LOCAL oCollection as Collection && as Collection 可省略
 LOCAL oRec,cKey && Empty
@@ -857,7 +862,7 @@ RETURN
 
 主程式 Do Form0
 
-Form0 上加上兩個CommantButton分別以do form 呼叫另外兩個Form 
+Form0 上加上兩個按鈕分別以do form 呼叫另外兩個Form 
 
 ```
 
@@ -867,21 +872,19 @@ Form0 上加上兩個CommantButton分別以do form 呼叫另外兩個Form
 *使用物件庫
 
 專案上建立物件庫檔名為ClassLib1
-物件庫中加入三個繼承Form類別分別為Form0 Form1 Form2 
+物件庫中加入三個繼承Form類別分為Form0 Form1 Form2 
 主程式設定使用ClassLib1
 並使用Createobject 以FORM0為類生成Local oForm 並顯示
-修改FORM0類上加上兩個CommantButton分別以Createobject 生成與顯示另外兩個Form
+修改FORM0類加上兩顆按鈕分別以Createobject 生成與顯示另外兩個Form類
 
 ```
 
 **練習三**
 
 ```text
-*自訂義物件
+*物驗的封裝
 
-程式中使用 Define Class 定義Form0類繼承Form，修改其寬高及抬頭
-
-使用CreateObject 顯示
+學習封裝。模仿串字串工具類與矩形類，白手起家。
 
 ```
 
@@ -890,7 +893,8 @@ Form0 上加上兩個CommantButton分別以do form 呼叫另外兩個Form
 ```text
 *物件的繼承
 
-使用define Class 定義四代計算機
+
+學習繼承，使用define Class 定義四代計算機
 每一代都是繼承上一代
 每一代都多了一種計算方式
 
@@ -905,7 +909,15 @@ Form0 上加上兩個CommantButton分別以do form 呼叫另外兩個Form
 
 ```
 
-練習五
+**練習五**
+
+```text
+*物件的多型
+
+學習物件的多型，模仿帶寵物，寵物叫
+```
+
+練習六
 
 ```text
 *空白物件與容器物件
