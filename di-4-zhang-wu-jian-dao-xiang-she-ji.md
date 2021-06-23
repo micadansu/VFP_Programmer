@@ -38,10 +38,13 @@
 **新增專案**
 
 ```bash
+*新增資料夾
 MD C:\vfp\Lesson4\
 
+* 轉換當前資料夾
 Set Default to C:\vfp\Lesson4\
 
+*創建新專案
 Create Project proj4 && 記得按存檔
 
 ```
@@ -51,12 +54,18 @@ Create Project proj4 && 記得按存檔
 ```bash
 *使用指令新增Form
 
+* 轉換當前資料夾
+Set Default to C:\vfp\Lesson4\
 
+*修改當前專案
 Modify Project proj4 
 
+* 加入新的Form
+Create Form Form0 && 記得存檔並且加入proj4 -> Documents -> Form 
 Create Form Form1 && 記得存檔並且加入proj4 -> Documents -> Form 
 Create Form Form2 && 記得存檔並且加入proj4 -> Documents -> Form 
 
+Do Form Form0
 Do Form Form1
 Do Form Form2
 ```
