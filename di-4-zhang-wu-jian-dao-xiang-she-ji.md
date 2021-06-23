@@ -938,10 +938,52 @@ Form0 上加上兩個按鈕分別以do form 呼叫另外兩個Form
 
 **練習七**
 
-```text
-* 你能想出還有什麼東西可以作物件?
+```bash
+* 複數的範例一
 
-* 複數的範例 
+Local oAA,oBB,oCC  
+
+oAA=CREATEOBJECT("RI",1,3) && １＋３ｉ
+
+oBB=CREATEOBJECT("RI",2,4) && ２＋４ｉ
+
+oCC=Add(oAA,oBB) && 兩複數物件相加
+oCC.SayHello() &&３＋７ｉ
+
+CLEAR ALL && 釋放所有變數
+
+*******************
+FUNCTION Add(oA,oB)&&這個ADD沒有被封裝???
+*******************
+	LOCAL nR,nI,oC
+	nR=oA.RR+oB.RR
+    nI=oA.II+oB.II
+    oC = CREATEOBJECT("RI",nR,nI)
+	RETURN oC
+ENDFUNC
+
+
+* 複數物件 1+2i
+DEFINE CLASS RI as Custom
+	RR =0 && 實部
+	II =0 && 虛部
+	
+	FUNCTION init(nRR,nII) && 生成給值
+		this.RR=nRR
+		this.II=nII
+	ENDFUNC 
+	
+	
+	FUNCTION SayHello()	
+		=MESSAGEBOX( TRANSFORM(This.RR)+ "+" +TRANSFORM(This.II)+"i")
+	ENDFUNC 
+		
+ENDDEFINE 
+
+```
+
+```text
+* 複數的範例 二
 
 Local oAA,oBB,oCC  
 
@@ -955,7 +997,7 @@ oCC.Add(oAA)   && 累加
 oCC.Add(oBB)   && 累加
 oCC.SayHello() && ３＋７ｉ
 
-oCC.Add2(oAA,oBB) && 兩複數物件相加
+oCC.Add2(oAA,oBB) && 兩複數物件相加封裝了範例一的ADD
 oCC.SayHello() && ３＋７ｉ
 
 CLEAR ALL
@@ -997,5 +1039,9 @@ DEFINE CLASS RI as Custom
 	
 ENDDEFINE 
 
+```
+
+```text
+* 你能想出還有什麼東西可以作物件?
 ```
 
