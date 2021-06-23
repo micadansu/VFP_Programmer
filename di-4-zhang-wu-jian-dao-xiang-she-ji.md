@@ -211,6 +211,184 @@ ENDDEFINE
 
 ```
 
+**物件的封裝**
+
+```text
+
+* 物件的封裝
+
+LOCAL oStringToos
+
+oStringToos=CREATEOBJECT("StringTools")
+oStringToos.Append("你好 ! ")
+oStringToos.Append("我喜歡使用物件，")
+oStringToos.Append("希望你也喜歡。")
+oStringToos.SayString()                  && 你好 !...
+=MESSAGEBOX( oStringToos.GetString()  )  && 你好 !... 
+
+oStringToos.Clear()
+oStringToos.Append("再見啦。")
+oStringToos.SayString()                  && 再見啦。
+=MESSAGEBOX( oStringToos.GetString()  )  && 再見啦。 
+
+LOCAL oSquare
+
+oSquare=CREATEOBJECT("Square")
+oSquare.x1 = 0
+oSquare.y1 = 0
+oSquare.x2 = 10
+oSquare.y2 = 10
+=MESSAGEBOX("面積等於： "+ TRANSFORM( oSquare.Area() )  )       && 面積等於：100
+=MESSAGEBOX("週長等於： "+ TRANSFORM( oSquare.Perimeter() )  )  && 週長等於：40
+
+
+* 字串工具類
+DEFINE CLASS StringTools as Custom 
+	cStr = ""	&& 屬性
+
+	FUNCTION Append(A)        && 串接字串
+		This.cStr= This.cStr + A		
+	ENDFUNC 
+	
+	FUNCTION Clear()       &&  清除字串
+		This.cStr= ""
+	ENDFUNC 
+	
+	FUNCTION SayString()    && 顯示字串
+		=MESSAGEBOX( This.cStr )
+	ENDFUNC 
+	
+	FUNCTION GetString()     && 回傳字串
+		RETURN  This.cStr 
+	ENDFUNC 
+		
+ENDDEFINE 
+
+* 矩形類
+DEFINE CLASS Square  as Custom
+	X1 = 0
+	Y1 = 0
+	
+	x2 = 0
+	Y2 = 0	
+
+	FUNCTION Area() && 面積
+		
+		RETURN ABS( (this.x1-This.x2) * (This.y1-This.y2) )
+	ENDFUNC 
+	
+	FUNCTION Perimeter()  && 週長
+		RETURN ABS( (this.x1-this.x2)*2) + ABS((this.y1-this.y2)*2 )
+	ENDFUNC 
+	
+ENDDEFINE 
+
+CLEAR ALL 
+
+```
+
+**物件的繼承**
+
+```text
+* 物件的繼承
+
+LOCAL oAnimal,oMonkey,oMenkind
+
+* 動物有一種本事
+oAnimal=CREATEOBJECT("Animal") 
+oAnimal.Run()
+
+* 猴子有兩種本事
+oMonkey=CREATEOBJECT("Monkey")
+oMonkey.Run()
+oMonkey.UseTools()
+
+* 人類有三種本事
+oMenkind=CREATEOBJECT("oMenkind")
+oMenkind.Run()
+oMenkind.UseTools()
+oMenkind.GoToMoon()
+
+* 動物有一種本事 到處亂跑
+DEFINE CLASS Animal as Custom 
+		
+	FUNCTION Run()
+		=MESSAGEBOX("I Can Run")
+	ENDFUNC 
+	
+ENDDEFINE 
+
+* 猴子繼承動物但又多了一項本事 使用工具
+DEFINE CLASS Monkey as Animal 
+		
+	FUNCTION UseTools()
+		=MESSAGEBOX('I Can Use Tools')
+	ENDFUNC 
+	
+ENDDEFINE 
+
+* 人類繼承猴子但又多了一項本事 登陸月球
+DEFINE CLASS oMenkind as Monkey
+		
+	FUNCTION GoToMoon()
+		=MESSAGEBOX('I Can GoToMoon')
+	ENDFUNC
+		
+ENDDEFINE 
+
+```
+
+**物件的多型**
+
+```text
+* 物件的多型
+
+LOCAL oPerson,oCat,oDog
+
+
+oCat=CREATEOBJECT("Cat")
+
+oDog=CREATEOBJECT("Dog")
+
+
+oPerson=CREATEOBJECT("Person")
+oPerson.MyPet = oDog
+oPerson.PetSayHello() &&
+
+oPerson.MyPet = oCat
+oPerson.PetSayHello() && 
+
+
+DEFINE CLASS person as Custom
+	MyPet = Null
+		
+	FUNCTION PetSayHello()
+		this.MyPet.SayHello()	
+	ENDFUNC 
+	
+ENDDEFINE 
+
+
+DEFINE CLASS Dog as Custom
+		
+	FUNCTION SayHello()
+		=MESSAGEBOX('汪')
+	ENDFUNC 
+	
+ENDDEFINE 
+
+
+DEFINE CLASS Cat as Custom
+		
+	FUNCTION SayHello()
+		=MESSAGEBOX('喵')
+	ENDFUNC
+		
+ENDDEFINE 
+
+
+```
+
 **物件的生成與消滅 Event**
 
 ```text
