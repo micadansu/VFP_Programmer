@@ -917,7 +917,7 @@ Form0 上加上兩個按鈕分別以do form 呼叫另外兩個Form
 學習物件的多型，模仿帶寵物，寵物叫
 ```
 
-練習六
+**練習六**
 
 ```text
 *空白物件與容器物件
@@ -931,6 +931,69 @@ Form0 上加上兩個按鈕分別以do form 呼叫另外兩個Form
 測試時以第二個學生的Key由容器找回第二顆Empty物件
 
 讀取該物件屬性看是否真為第二個學生的資料
+
+```
+
+**練習七**
+
+```text
+* 你能想出還有什麼東西可以作物件?
+
+* 複數的範例 
+
+Local oAA,oBB,oCC  
+
+oAA=CREATEOBJECT("RI",1,3) && １＋３ｉ
+
+oBB=CREATEOBJECT("RI",2,4) && ２＋４ｉ
+
+oCC=CREATEOBJECT("RI",0,0) && ０＋０ｉ
+oCC.Clear()    && 清除內容
+oCC.Add(oAA)   && 累加
+oCC.Add(oBB)   && 累加
+oCC.SayHello() && ３＋７ｉ
+
+oCC.Add2(oAA,oBB) && 兩複數物件相加
+oCC.SayHello() && ３＋７ｉ
+
+CLEAR ALL
+
+
+*複數物件類 1+2i
+DEFINE CLASS RI as Custom
+	RR =0 && 實部
+	II =0 && 虛部
+	
+	FUNCTION init(nRR,nII) && 生成給值
+		this.RR=nRR
+		this.II=nII
+	ENDFUNC 
+	
+	FUNCTION Clear() && 清除內容
+		this.RR = 0
+		this.II = 0
+	ENDFUNC 
+	
+	FUNCTION Add(oA) && 累加複數物件
+		This.RR = This.RR + oA.RR
+		this.II = This.II + oA.II
+	ENDFUNC
+				
+	FUNCTION Sub(oA) && 累減複數物件
+		This.RR = This.RR - oA.RR
+		this.II = This.II - oA.II
+	ENDFUNC 
+	
+	FUNCTION SayHello() && 看內容
+		=MESSAGEBOX(TRANSFORM(this.RR)+ "+" +TRANSFORM(This.II)+"i")
+	ENDFUNC 
+	
+	FUNCTION Add2(oA,oB) && 兩複數物件相加
+		This.RR = oA.RR + oB.RR
+		this.II = oA.II + oB.II
+	ENDFUNC
+	
+ENDDEFINE 
 
 ```
 
