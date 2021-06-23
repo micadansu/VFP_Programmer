@@ -157,6 +157,7 @@ RELEASE oSimpleObject && 釋放
 CLEAR ALL && 釋放所有
 
 
+*繼承自Custom客製化自訂義
 ********************************
 Define Class SimpleObject As Custom  && 自訂 簡單物件 類
 ********************************
