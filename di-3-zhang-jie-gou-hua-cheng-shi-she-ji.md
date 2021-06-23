@@ -388,7 +388,7 @@ FUNCTION Add
 *************************
 LParameters x , y , z     &&  如果使用 Parameters 表示私有範圍
 
-    z = "亂改一通"       && 會影響外面的 Z
+    z = "亂改一通"       && 不會影響外面的 Z
 
     RETURN x + y && 回傳給呼叫端    
 ENDFUNC
