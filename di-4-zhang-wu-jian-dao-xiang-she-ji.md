@@ -705,10 +705,10 @@ BROWSE
 
 * 把兩筆資料轉成兩個 空白物件 
 LOCATE FOR Prno = "001" && 定位
-SCATTER NAME oEmpty1 && 產生物件 複製一筆資料
+SCATTER NAME oEmpty1 && 產生物件 複製一筆資料<======
 
 LOCATE FOR Prno = "002" && 定位
-SCATTER NAME oEmpty2 && 產生物件 複製一筆資料
+SCATTER NAME oEmpty2 && 產生物件 複製一筆資料 <======
 
 * 修改物件上的 Qty
 oEmpty1.Qty = 101
@@ -726,10 +726,10 @@ ENDWITH
 
 * 物件寫回 Table
 LOCATE FOR Prno = "001" && 定位
-GATHER NAME oEmpty1 && 寫回第一筆 
+GATHER NAME oEmpty1 && 寫回第一筆 <======
 
 LOCATE FOR Prno = "002" && 定位
-GATHER NAME oEmpty2 && 寫回第二筆 
+GATHER NAME oEmpty2 && 寫回第二筆 <======
 
 
 BROWSE && 瀏覽
@@ -848,6 +848,7 @@ ENDWITH
 RELEASE oCollection
 
 
+
 RETURN 
 
 
@@ -869,7 +870,7 @@ Form0 上加上兩個按鈕分別以do form 呼叫另外兩個Form
 **練習二**
 
 ```text
-*使用物件庫
+* 使用物件庫
 
 專案上建立物件庫檔名為ClassLib1
 物件庫中加入三個繼承Form類別分為Form0 Form1 Form2 
@@ -882,7 +883,7 @@ Form0 上加上兩個按鈕分別以do form 呼叫另外兩個Form
 **練習三**
 
 ```text
-*物驗的封裝
+* 物驗的封裝
 
 學習封裝。模仿串字串工具類與矩形類，白手起家。
 
@@ -891,7 +892,7 @@ Form0 上加上兩個按鈕分別以do form 呼叫另外兩個Form
 練習四
 
 ```text
-*物件的繼承
+* 物件的繼承
 
 
 學習繼承，使用define Class 定義四代計算機
@@ -912,7 +913,7 @@ Form0 上加上兩個按鈕分別以do form 呼叫另外兩個Form
 **練習五**
 
 ```text
-*物件的多型
+* 物件的多型
 
 學習物件的多型，模仿帶寵物，寵物叫
 ```
@@ -920,7 +921,7 @@ Form0 上加上兩個按鈕分別以do form 呼叫另外兩個Form
 **練習六**
 
 ```text
-*空白物件與容器物件
+* 空白物件與容器物件
 
 製作三顆Empyt 物件代表三個學生
 
