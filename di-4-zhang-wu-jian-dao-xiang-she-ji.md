@@ -230,8 +230,7 @@ ENDDEFINE
 
 LOCAL oStringToos
 
-oStringToos=CREATEOBJECT("StringToos")
-oStringToos.Append("你好 ! ")
+ringToos.Append("你好 ! ")
 oStringToos.Append("我喜歡使用物件，")
 oStringToos.Append("希望你也喜歡。")
 oStringToos.SayString()                  && 你好 !...
