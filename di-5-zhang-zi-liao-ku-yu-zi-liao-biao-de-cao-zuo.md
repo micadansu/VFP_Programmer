@@ -75,27 +75,36 @@
 * 參照完整性
 * 資料完整性
 
-建立資料庫
+
+
+
+建立資料庫 使用滑鼠
 
 ```text
 * 新增資料庫 Database
 1.新增資庫：使用專案 Data 頁 -> New 
 2.新增資料表： 滑鼠右鍵 -> New 
 ```
-
-```text
-
-
-* 新增資料庫 Database
-1.新增資庫：使用專案 Data 頁 -> New 
-2.新增資料表： 滑鼠右鍵 -> New 
-
-
 建立資料庫 使用程式
-
+```text
 * 注意：路徑問題 
 CREATE DATABASE Data1 && 也可以使用專案視窗建立
 * 建得將 Data1 加入專案中
+```
+
+```text
+```
+
+```text
+```
+
+```text
+```
+
+
+
+```text
+
 
 *刪除資料庫 使用程式 1
 DELETE DATABASE Data1 DELETETABLES RECYCLE && 刪除資料庫 連同所有 Tables
