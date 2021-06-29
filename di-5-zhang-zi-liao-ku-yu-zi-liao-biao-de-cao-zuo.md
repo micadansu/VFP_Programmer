@@ -69,7 +69,7 @@
 * 使用其他工作區的表
 * 資料表之間的臨時關聯
 
-\*\*聯繫及參照完整性
+**聯繫及參照完整性**
 
 * 聯繫
 * 參照完整性
@@ -78,74 +78,74 @@
 
 
 
-*建立資料庫 使用滑鼠*
+**建立資料庫 使用滑鼠**
 ```text
 * 新增資料庫 Database
 1.新增資庫：使用專案 Data 頁 -> New 
 2.新增資料表： 滑鼠右鍵 -> New 
 ```
-*建立資料庫 使用程式*
+**建立資料庫 使用程式**
 ```text
 * 注意：路徑問題 
 CREATE DATABASE Data1 && 也可以使用專案視窗建立
 * 建得將 Data1 加入專案中
 ```
-刪除資料庫 使用程式 
+**刪除資料庫 使用程式** 
 ```text
 DELETE DATABASE Data1 DELETETABLES RECYCLE && 刪除資料庫 連同所有 Tables
 *DELETE DATABASE Data1 && 刪除資料庫 但是不要刪 Tables
 ```
-開啟料庫 
+**開啟料庫** 
 ```text
 Open DataBase Data1
 Open DataBase Data2
 ```
-指定作用中的資料庫
+**指定作用中的資料庫**
 ```text
 Set DataBase To Data1
 ```
-關閉當前資料庫
+**關閉當前資料庫**
 ```text
 Set DataBase To Data1
 Close DataBase && 關閉Data1 與相關 Table
 Set DataBase To Data2
 Close DataBase && 關閉Data2 與相關 Table
 ```
-關閉所有資料庫
+**關閉所有資料庫**
 ```text
 Close DataBase ALL 
 ```
 
-新增資料表
+**新增資料表**
 ```text
 Open DataBase Data1
 Open DataBase Data2
 SET Database to Data1 && 指定作用中的資料庫
 CREATE TABLE Product (Prno c(3),Prna c(10),Qty n(18)) && 加到 Data1  
 ```
-新增資料表
+**新增資料表**
 ```text
 Open DataBase Data1
 Open DataBase Data2
 SET Database to Data1 && 指定作用中的資料庫
 CREATE TABLE Product (Prno c(3),Prna c(10),Qty n(18)) && 加到 Data1  
 ```
-刪除資料表
+**刪除資料表**
 ```text
 REMOVE TABLE Product DELETE RECYCLE
 *REMOVE TABLE Product && 只有移出資料庫 沒有刪除檔案
 ```
-建立 Free TABLE 使用滑鼠
+**建立 Free TABLE 使用滑鼠**
 ```text
 1.專案 Data 頁 -> 指定 Free Table
 2.點擊 New
 ```
-建立 Free TABLE 使用程式
+**建立 Free TABLE 使用程式**
 ```text
 Create Table Product Free (Prno c(3),Prna c(10),Qty n(18)) && 多了 Free
 * 記得將 Product 加入專案中
 ```
-Table 的開啟
+**Table 的開啟**
 ```text
 Select 1
 Use Product 
@@ -159,11 +159,11 @@ Use Data1!Product
 Select 2
 Use Data1!Customer
 ```
-建立 Cursor 一
+**建立 Cursor 一**
 ```text
 Create Cursor AAA (No c(10), Na (20)) && 只存在記憶體
 ```
-建立 Cursor 二
+**建立 Cursor 二**
 ```text
 Select 1
 use Product 
@@ -177,7 +177,7 @@ Select Product2
 Browse
 Use 
 ```
-Table 的別名
+**Table 的別名**
 ```text
 Select 1 
 use product alias Prd
@@ -192,7 +192,7 @@ select Cus
 Browse
 use 
 ```
-Table 的關閉
+**Table 的關閉**
 ```text
 Select 1
 Use
@@ -216,18 +216,18 @@ Close Tables All
 或
 Clear All && 連資料庫也關了
 ```
-資料的顯示 使用程式
+**資料的顯示 使用程式**
 ```text
 use Product 
 Browse
 ```
-資料的顯示 使用物件 Form 物件加入 Grid 物件
+**資料的顯示 使用物件 Form 物件加入 Grid 物件**
 ```text
 1.開啟 Product
 2.Do Form Form1
 3.關閉 Product
 ```
-加入資料 使用 Append Blank
+**加入資料 使用 Append Blank**
 ```text
 Append Blank
 Replace Prno with "001",Prna with "電腦",Qty with 100,
@@ -236,19 +236,19 @@ Replace Prno with "002",Prna with "鍵盤",Qty with 200,
 Append Blank
 Replace Prno with "003",Prna with "滑鼠",Qty with 300,
 ```
-加入資料 使用 Append From 其他DBF
+**加入資料 使用 Append From 其他DBF**
 ```text
 select 1
 use Product 
 Append from c:\xxx\OtherProduct.dbf
 ```
-加入資料 使用 Insert into 
+**加入資料 使用 Insert into** 
 ```text
 Insert into Prodcut (prno,prna,qty) Values('001','電腦',100)
 Insert into Prodcut (prno,prna,qty) Values('002','鍵盤',100)
 Insert into Prodcut (prno,prna,qty) Values('003','滑鼠',100)
 ```
-各式各樣的 Insert into 
+**各式各樣的 Insert into** 
 ```text
 INSERT INTO Prodcut FROM ARRAY Array1
 INSERT INTO Prodcut FROM NAME ObjectName
@@ -256,7 +256,7 @@ INSERT INTO Prodcut FROM MEMVAR
 Insert into Prodcut (prno,prna,qty) Selse prno,prna,qty from OtherProduct
 ```
 
-紀錄位置的移動
+**紀錄位置的移動**
 ```text
 Select 1
 Use Product
@@ -272,7 +272,7 @@ Go 1
 Go 2
 Go 3
 ```
-紀錄滾動 使用 Do While
+**紀錄滾動 使用 Do While**
 ```text
 Select 1
 Use Product
@@ -283,7 +283,7 @@ do whiel !eof()
 enddo 
 Use 
 ```
-紀錄滾動 使用 Scan for 
+**紀錄滾動 使用 Scan for**
 ```text
 select 1
 use Product
@@ -292,7 +292,7 @@ Scan
 endscan 
 Use 
 ```
-資料的搜尋 Locate
+**資料的搜尋 Locate**
 ```text
 select 1
 use Product
@@ -304,7 +304,7 @@ Else
 endif 
 Use 
 ```
-資料的刪除 Delete
+**資料的刪除 Delete**
 ```text
 Set Delete ON 
 select 1
@@ -315,14 +315,14 @@ if !Eof()
 endif 
 Use 
 ```
-資料的刪除 SQL Delete
+**資料的刪除 SQL Delete**
 ```text
 select 1
 use Product
 Delete From Product Where Prno="001"
 Use 
 ```
-看見被刪除的資料 Set Delete OFF
+**看見被刪除的資料 Set Delete OFF**
 ```text
 Set Delete OFF 
 select 1
@@ -333,7 +333,7 @@ if !Eof()
 endif 
 Use 
 ```
-救回被刪的資料 Recall
+**救回被刪的資料 Recall**
 ```text
 Set Delete OFF 
 select 1
@@ -347,7 +347,7 @@ Recall ALL && <<===
 
 Use 
 ```
-刪除後的資料壓縮整理 Pack
+**刪除後的資料壓縮整理 Pack**
 ```text
 select 1
 use Product Exclusive
@@ -365,14 +365,14 @@ Browse
 
 Use 
 ```
-資料的清空
+**資料的清空**
 ```text
 select 1
 use Product Exclusive
 Zap && << 危險 清光光
 use 
 ```
-資料的修改使用 Replace 
+**資料的修改使用 Replace**
 ```text
 select 1
 use Product
@@ -381,7 +381,7 @@ if !Eof()
     Replace Prna with "桌上電腦"
 endif 
 ```
-資料的修改使用 Scatter Gather 
+**資料的修改使用 Scatter Gather** 
 ```text
 Local m.oRecord
 
@@ -403,7 +403,7 @@ Browse
 
 use 
 ```
-資料的修改使用 Update SQL
+**資料的修改使用 Update SQL**
 ```text
 select 1
 use Product
@@ -415,7 +415,7 @@ Browse
 use 
 ```
 
-索引檔的種類
+**索引檔的種類**
 ```text
 1.同名 CDX  && 最常用
 2.異名 CDX
@@ -423,7 +423,7 @@ use
 ```
 
 
-創建索引 CDX
+**創建索引 CDX**
 ```text
 select 1
 use Product Exclusive
@@ -431,7 +431,7 @@ index on prno Tag Prno
 Index on prna Tag Prna
 use 
 ```
-使用索引 Set Order To 號碼
+**使用索引 Set Order To 號碼**
 ```text
 select 1
 use Product Exclusive
@@ -442,7 +442,7 @@ set order To 2
 Browse
 use 
 ```
-使用索引 Set Order To Tag 名稱
+**使用索引 Set Order To Tag 名稱**
 ```text
 select 1
 use Product Exclusive
@@ -453,7 +453,7 @@ set order To Prna
 Browse
 use 
 ```
-使用索引搜尋 Seek
+**使用索引搜尋 Seek**
 ```text
 select 1
 use Product Exclusive
@@ -469,7 +469,7 @@ Else
 endif 
 use 
 ```
-使用索引搜尋 Seek()
+**使用索引搜尋 Seek()**
 ```text
 select 1
 use Product Exclusive
@@ -485,7 +485,7 @@ endif
 use 
 ```
 
-使用索引搜尋 IndexSeek()
+**使用索引搜尋 IndexSeek()**
 ```text
 select 1
 use Product Exclusive
@@ -503,14 +503,14 @@ Browse
 
 use 
 ```
-索引重整 Reindex
+**索引重整 Reindex**
 ```text
 select 1
 use Product Exclusive
 Reindex 
 use 
 ```
-跨越工作區 
+**跨越工作區**
 ```text
 * 不同工作區開檔 一
 select 1
@@ -531,7 +531,7 @@ use Product in 0
 Use Customer in 0
 ```
 
-不同工作區新增 Insert Into 
+**不同工作區新增 Insert Into**
 ```text
 * SQL語法
 Insert into Product (Prno,Prna,Qty) Values("004","耳機",400)
@@ -543,7 +543,7 @@ replace prno with "004",Prna with "耳機",Qty with 400   in Product
 append blank in Customer
 replace CuNo with "A004"CuNao,CuNa with "聯強國際"   in Customer
 ```
- 不同工作區修改 Update
+ **不同工作區修改 Update**
  ```text
 * SQL語法
 update product set Qty=401 where Prno="004"
@@ -552,7 +552,7 @@ update Customer set Cuna="聯強國際集團" where CuNo="A004"
 replace Qty  with 401           for Prno="001"  in Product
 replace CuNa with "聯強國際集團" for Cuno="A004" in Customer
 ```
-不同工作區刪除 Delete From 
+**不同工作區刪除 Delete From** 
 ```text
 * SQL語法
 Delete From Product where Prno="004"
@@ -561,7 +561,7 @@ Delete From Customer where CuNo="A004"
 Delete for Prno="004" in Product
 Delete for Cuno="A004" in Customer
 ```
-Table之間的關係一
+**Table之間的關係一**
 ```text
 Create Cursor Teacher(ID C(3),Name C(10))
 Insert Into Teacher Values("T01","王老師","T01")
@@ -607,12 +607,12 @@ Browse
 select Student 
 set Relastion to ID Into Teacher additive 
 ```
-Table 的獨佔與共用
+**Table 的獨佔與共用**
 ```text
 Select 1
 Use Product Exclusive && SHARED
 ```
-Table 的鎖定
+**Table 的鎖定**
 ```text
 SET REPROCESS TO 3 SECONDS
 
@@ -635,10 +635,7 @@ endif
 UnLock
 ```
 
-
-
-
-練習
+**練習**
 
 \*\*\*\*
 
