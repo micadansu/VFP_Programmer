@@ -78,13 +78,13 @@
 
 
 
-建立資料庫 使用滑鼠
+*建立資料庫 使用滑鼠*
 ```text
 * 新增資料庫 Database
 1.新增資庫：使用專案 Data 頁 -> New 
 2.新增資料表： 滑鼠右鍵 -> New 
 ```
-建立資料庫 使用程式
+*建立資料庫 使用程式*
 ```text
 * 注意：路徑問題 
 CREATE DATABASE Data1 && 也可以使用專案視窗建立
@@ -322,22 +322,8 @@ use Product
 Delete From Product Where Prno="001"
 Use 
 ```
-```text
-```
-```text
-```
-```text
-```
-```text
-```
-```text
-```
-```text
-```
-
-
-```text
 看見被刪除的資料 Set Delete OFF
+```text
 Set Delete OFF 
 select 1
 use Product
@@ -346,8 +332,9 @@ if !Eof()
     Delete 
 endif 
 Use 
-
+```
 救回被刪的資料 Recall
+```text
 Set Delete OFF 
 select 1
 use Product
@@ -359,9 +346,9 @@ endif
 Recall ALL && <<===
 
 Use 
-
+```
 刪除後的資料壓縮整理 Pack
-
+```text
 select 1
 use Product Exclusive
 Locate for Prno="001"
@@ -377,23 +364,25 @@ Set Delete ON
 Browse 
 
 Use 
-
+```
 資料的清空
+```text
 select 1
 use Product Exclusive
 Zap && << 危險 清光光
 use 
-
+```
 資料的修改使用 Replace 
+```text
 select 1
 use Product
 Locate for Prno="001"
 if !Eof()  
     Replace Prna with "桌上電腦"
 endif 
-
+```
 資料的修改使用 Scatter Gather 
-
+```text
 Local m.oRecord
 
 select 1
@@ -413,8 +402,9 @@ endif
 Browse
 
 use 
-
+```
 資料的修改使用 Update SQL
+```text
 select 1
 use Product
 Browse 
@@ -423,23 +413,26 @@ Update Product Set Prna="桌上電腦" where Prno="001"
 
 Browse
 use 
-
+```
 
 索引檔的種類
+```text
 1.同名 CDX  && 最常用
 2.異名 CDX
 3.單索引 IDX
-
+```
 
 
 創建索引 CDX
+```text
 select 1
 use Product Exclusive
 index on prno Tag Prno
 Index on prna Tag Prna
 use 
-
+```
 使用索引 Set Order To 號碼
+```text
 select 1
 use Product Exclusive
 Browse
@@ -448,8 +441,9 @@ Browse
 set order To 2
 Browse
 use 
-
+```
 使用索引 Set Order To Tag 名稱
+```text
 select 1
 use Product Exclusive
 Browse
@@ -458,8 +452,9 @@ Browse
 set order To Prna
 Browse
 use 
-
+```
 使用索引搜尋 Seek
+```text
 select 1
 use Product Exclusive
 index on prno Tag Prno
@@ -473,8 +468,9 @@ Else
   =Messagebox("找不到")
 endif 
 use 
-
+```
 使用索引搜尋 Seek()
+```text
 select 1
 use Product Exclusive
 index on prno Tag Prno
@@ -487,9 +483,10 @@ Else
   =Messagebox("找不到")
 endif 
 use 
-
+```
 
 使用索引搜尋 IndexSeek()
+```text
 select 1
 use Product Exclusive
 index on prno Tag Prno
@@ -505,32 +502,37 @@ endif
 Browse
 
 use 
-
+```
 索引重整 Reindex
+```text
 select 1
 use Product Exclusive
 Reindex 
 use 
-
+```
 跨越工作區 
-
+```text
 * 不同工作區開檔 一
 select 1
 use Product
 Select 2
 Use Customer
-
+```
+```text
 * 不同工作區開檔　二
 select 0
 use Product
 Select 0
 Use Customer
-
+```
+```text
 * 不同工作區開檔　三
 use Product in 0
 Use Customer in 0
+```
 
-* 不同工作區新增 Insert Into 
+不同工作區新增 Insert Into 
+```text
 * SQL語法
 Insert into Product (Prno,Prna,Qty) Values("004","耳機",400)
 Insert into Customer (CuNo,CuNa) Values("A004","聯強國際")
@@ -540,24 +542,27 @@ append blank in Product
 replace prno with "004",Prna with "耳機",Qty with 400   in Product
 append blank in Customer
 replace CuNo with "A004"CuNao,CuNa with "聯強國際"   in Customer
-
-* 不同工作區修改 Update
+```
+ 不同工作區修改 Update
+ ```text
 * SQL語法
 update product set Qty=401 where Prno="004"
 update Customer set Cuna="聯強國際集團" where CuNo="A004"
 * 一般語法
 replace Qty  with 401           for Prno="001"  in Product
 replace CuNa with "聯強國際集團" for Cuno="A004" in Customer
-
-* 不同工作區刪除 Delete From 
+```
+不同工作區刪除 Delete From 
+```text
 * SQL語法
 Delete From Product where Prno="004"
 Delete From Customer where CuNo="A004"
 * 一般語法
 Delete for Prno="004" in Product
 Delete for Cuno="A004" in Customer
-
+```
 Table之間的關係一
+```text
 Create Cursor Teacher(ID C(3),Name C(10))
 Insert Into Teacher Values("T01","王老師","T01")
 Insert Into Teacher Values("T02","李老師","T02")
@@ -577,7 +582,8 @@ Insert Into Student Values("203","李三","T02")
 Insert Into Student Values("204","李四","T02")
 
 Browse
-
+```
+```text
 select Student
 Scan
   select Teacher
@@ -589,21 +595,25 @@ Scan
   endif  
 endscan 
 close all 
-
+```
+```text
 *Table之間的關係二
 Select Student.ID,Student.Name,Student.Id,Teacher.Name from Student,Teacher where Student.TecherID=Teacher.ID Into cursor Temp0
 Select Temp0
 Browse 
-
+```
+```text
 *Table之間的關係三
 select Student 
 set Relastion to ID Into Teacher additive 
-
-* Table 的獨佔與共用
+```
+Table 的獨佔與共用
+```text
 Select 1
 Use Product Exclusive && SHARED
-
-* Table 的鎖定
+```
+Table 的鎖定
+```text
 SET REPROCESS TO 3 SECONDS
 
 Select 1
@@ -623,9 +633,10 @@ Else
   =Messagebox("無法鎖定有人使用中")
 endif 
 UnLock
-
-
 ```
+
+
+
 
 練習
 
