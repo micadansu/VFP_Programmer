@@ -79,7 +79,6 @@
 
 
 建立資料庫 使用滑鼠
-
 ```text
 * 新增資料庫 Database
 1.新增資庫：使用專案 Data 頁 -> New 
@@ -91,65 +90,63 @@
 CREATE DATABASE Data1 && 也可以使用專案視窗建立
 * 建得將 Data1 加入專案中
 ```
-
+刪除資料庫 使用程式 
 ```text
-```
-
-```text
-```
-
-```text
-```
-
-
-
-```text
-
-
-*刪除資料庫 使用程式 1
 DELETE DATABASE Data1 DELETETABLES RECYCLE && 刪除資料庫 連同所有 Tables
 *DELETE DATABASE Data1 && 刪除資料庫 但是不要刪 Tables
-
+```
 開啟料庫 
+```text
 Open DataBase Data1
 Open DataBase Data2
-
+```
 指定作用中的資料庫
+```text
 Set DataBase To Data1
-
+```
 關閉當前資料庫
-
+```text
 Set DataBase To Data1
 Close DataBase && 關閉Data1 與相關 Table
 Set DataBase To Data2
 Close DataBase && 關閉Data2 與相關 Table
-
+```
 關閉所有資料庫
+```text
 Close DataBase ALL 
+```
 
-
-* 新增資料表
+新增資料表
+```text
 Open DataBase Data1
 Open DataBase Data2
 SET Database to Data1 && 指定作用中的資料庫
 CREATE TABLE Product (Prno c(3),Prna c(10),Qty n(18)) && 加到 Data1  
-
-* 刪除資料表
+```
+新增資料表
+```text
+Open DataBase Data1
+Open DataBase Data2
+SET Database to Data1 && 指定作用中的資料庫
+CREATE TABLE Product (Prno c(3),Prna c(10),Qty n(18)) && 加到 Data1  
+```
+刪除資料表
+```text
 REMOVE TABLE Product DELETE RECYCLE
 *REMOVE TABLE Product && 只有移出資料庫 沒有刪除檔案
-
+```
 建立 Free TABLE 使用滑鼠
+```text
 1.專案 Data 頁 -> 指定 Free Table
 2.點擊 New
-
-
+```
 建立 Free TABLE 使用程式
-
+```text
 Create Table Product Free (Prno c(3),Prna c(10),Qty n(18)) && 多了 Free
 * 記得將 Product 加入專案中
-
+```
 Table 的開啟
-
+```text
 Select 1
 Use Product 
 Select 2
@@ -161,12 +158,13 @@ Select 1
 Use Data1!Product 
 Select 2
 Use Data1!Customer
-
-*建立 Cursor 一
+```
+建立 Cursor 一
+```text
 Create Cursor AAA (No c(10), Na (20)) && 只存在記憶體
-
-*建立 Cursor 二
-
+```
+建立 Cursor 二
+```text
 Select 1
 use Product 
 Select * from Product into cursor Product2 ReadWrite
@@ -178,8 +176,9 @@ Use
 Select Product2
 Browse
 Use 
-
-* Table 的別名
+```
+Table 的別名
+```text
 Select 1 
 use product alias Prd
 Select 2
@@ -192,9 +191,9 @@ use
 select Cus
 Browse
 use 
-
+```
 Table 的關閉
-
+```text
 Select 1
 Use
 Select 2
@@ -216,47 +215,49 @@ Close Tables All
 
 或
 Clear All && 連資料庫也關了
-
-
+```
 資料的顯示 使用程式
+```text
 use Product 
 Browse
-
+```
 資料的顯示 使用物件 Form 物件加入 Grid 物件
-
+```text
 1.開啟 Product
 2.Do Form Form1
 3.關閉 Product
-
-
+```
 加入資料 使用 Append Blank
+```text
 Append Blank
 Replace Prno with "001",Prna with "電腦",Qty with 100,
 Append Blank
 Replace Prno with "002",Prna with "鍵盤",Qty with 200,
 Append Blank
 Replace Prno with "003",Prna with "滑鼠",Qty with 300,
-
+```
 加入資料 使用 Append From 其他DBF
+```text
 select 1
 use Product 
 Append from c:\xxx\OtherProduct.dbf
-
+```
 加入資料 使用 Insert into 
+```text
 Insert into Prodcut (prno,prna,qty) Values('001','電腦',100)
 Insert into Prodcut (prno,prna,qty) Values('002','鍵盤',100)
 Insert into Prodcut (prno,prna,qty) Values('003','滑鼠',100)
-
+```
 各式各樣的 Insert into 
+```text
 INSERT INTO Prodcut FROM ARRAY Array1
 INSERT INTO Prodcut FROM NAME ObjectName
 INSERT INTO Prodcut FROM MEMVAR  
 Insert into Prodcut (prno,prna,qty) Selse prno,prna,qty from OtherProduct
-
-
+```
 
 紀錄位置的移動
-
+```text
 Select 1
 Use Product
 
@@ -270,9 +271,9 @@ Skip -1
 Go 1
 Go 2
 Go 3
-
+```
 紀錄滾動 使用 Do While
-
+```text
 Select 1
 Use Product
 go top 
@@ -281,17 +282,18 @@ do whiel !eof()
     skip 
 enddo 
 Use 
-
+```
 紀錄滾動 使用 Scan for 
+```text
 select 1
 use Product
 Scan 
   =Messagebox(Product.Prno)
 endscan 
 Use 
-
-
+```
 資料的搜尋 Locate
+```text
 select 1
 use Product
 Locate for Prno="001"
@@ -301,8 +303,9 @@ Else
     Messagebox("找不到")    
 endif 
 Use 
-
+```
 資料的刪除 Delete
+```text
 Set Delete ON 
 select 1
 use Product
@@ -311,13 +314,29 @@ if !Eof()
     Delete 
 endif 
 Use 
-
+```
 資料的刪除 SQL Delete
+```text
 select 1
 use Product
 Delete From Product Where Prno="001"
 Use 
+```
+```text
+```
+```text
+```
+```text
+```
+```text
+```
+```text
+```
+```text
+```
 
+
+```text
 看見被刪除的資料 Set Delete OFF
 Set Delete OFF 
 select 1
