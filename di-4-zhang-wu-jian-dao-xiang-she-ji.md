@@ -230,7 +230,8 @@ ENDDEFINE
 
 LOCAL oStringToos
 
-ringToos.Append("你好 ! ")
+oStringToos=CREATEOBJECT("StringToos")
+oStringToos.Append("你好 ! ")
 oStringToos.Append("我喜歡使用物件，")
 oStringToos.Append("希望你也喜歡。")
 oStringToos.SayString()                  && 你好 !...
@@ -415,7 +416,7 @@ nAnsAdd = oCaculator.Add(10,20)
 nAnsSub = oCaculator.Sub(10,20)
 
 =MESSAGEBOX(nAnsAdd)
-=MESSAGEBOX(nAns)
+=MESSAGEBOX(nAnsSub)
 
 
 =MESSAGEBOX('準備釋放物件了')
