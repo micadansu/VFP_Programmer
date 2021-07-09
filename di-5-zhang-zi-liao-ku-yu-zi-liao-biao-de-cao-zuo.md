@@ -210,15 +210,6 @@ SET Database to Data1 && 指定作用中的資料庫
 CREATE TABLE Product (Prno c(3),Prna c(10),Qty n(18)) && 加到 Data1
 ```
 
-**新增資料表**
-
-```text
-Open DataBase Data1
-Open DataBase Data2
-SET Database to Data1 && 指定作用中的資料庫
-CREATE TABLE Product (Prno c(3),Prna c(10),Qty n(18)) && 加到 Data1
-```
-
 **刪除資料表**
 
 ```text
