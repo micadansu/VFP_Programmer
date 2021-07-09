@@ -366,7 +366,7 @@ Insert into Prodcut (prno,prna,qty) Values('003','滑鼠',100)
 INSERT INTO Prodcut FROM ARRAY Array1
 INSERT INTO Prodcut FROM NAME ObjectName
 INSERT INTO Prodcut FROM MEMVAR  
-Insert into Prodcut (prno,prna,qty) Selse prno,prna,qty from OtherProduct
+Insert into Prodcut (prno,prna,qty) Select prno,prna,qty from OtherProduct
 ```
 
 **紀錄位置的移動**
