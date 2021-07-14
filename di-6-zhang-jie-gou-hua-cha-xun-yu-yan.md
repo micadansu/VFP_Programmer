@@ -35,13 +35,13 @@
 **SQL 語句**
 
 ```text
-
 A
 B
 C
-
 ```
+
 **測試資料**
+
 ```text
 SET DATE TO YMD
 SET CENTURY ON 
@@ -83,6 +83,7 @@ Browse
 ```
 
 **建立資料表**
+
 ```text
 Create Table|DBF Table1 [Name <長名稱>] [Free] ;  && 如果不是自由表 必須先開啟資料庫
 ( ;
@@ -93,6 +94,7 @@ Create Table|DBF Table1 [Name <長名稱>] [Free] ;  && 如果不是自由表 �
 ```
 
 **修改資料表**
+
 ```text
 Alter Table <表名> Add Column <新欄名> C(10)
 Alter Table <表名> Alter Column <舊欄名> C(10)
@@ -101,18 +103,23 @@ Alter Table <表名> Drop Column <舊欄位>
 ```
 
 **刪除資料表**
+
 ```text
 Drop Table <表名> && 必須先開啟資料庫
+```
 
 **輸出查詢結果**
+
 ```text
 Select ... Into Cursor <游標名> ReadWrite
 Select ... Into Array  <陣列名> 
 Select ... Into Table c:\vfp\...\abc.dbf
 Select ... To File c:\vfp\...\abc.txt
+Select ... To Printer
 ```
 
 **SQL新增**
+
 ```text
 Insert into <表名> (<Field1>,<Field2>) Values (<Value1>,<Value2>)
 Insert into <表名> Values (<Value1>,<Value2>)
@@ -122,56 +129,66 @@ Insert into <表名> From Name <物件名>
 ```
 
 **SQL修改**
+
 ```text
 Update <表名> Set <欄位1> = <值1>  ,<欄位2> = <值2> Where <邏輯運算式>
 ```
 
 **SQL刪除**
+
 ```text
 Delete From <表名> Where <邏輯運算式>
 ```
 
 **簡單查詢**
+
 ```text
 Select * From Product Where Prno>='002'
 Select Prno,Prna,Qty From Product Where Prno>='002'
 ```
 
 **不重複 Distinct**
+
 ```text
 Select Distinct Prno From Product Where Prno>='002'
 ```
 
 **欄位別名**
+
 ```text
 Select prno as aa,Prna as bb Form Product Where Prno>='002'
 ```
 
 **資料表別名**
+
 ```text
 Select Product.Prno ,Product.Prna Form Product Where Prno>='002'
 Select PP.Prno ,PP.Prna Form Product PP Where Prno>='002'
 ```
 
 **包含 IN**
+
 ```text
 Select * From Product Where Qty in (100,101,102)
 Select * From Product Where Prna in ('電腦','鍵盤','滑鼠')
 ```
 
 **介於**
+
 ```text
 Select * From Product Where Qty Between 100 And 200 && 類似 Qty>=100 And Qty<=200  
 Select * From Product Where Not Qty Between 100 And 200 && 可以相反
 ```
 
 **類似於**
+
 ```text
 Select * From Product Where Prna Like "電%" && 開頭是"電"
 Select * From Product Where Left(Prna,2)="電"
 ```
 
 **排序查詢**
+
 ```text
 Select * From Product Order By Prno
 Select * From Product Order By Qty Asc
@@ -179,6 +196,7 @@ Select * From Product Order By Qty Desc
 ```
 
 **統計查詢**
+
 ```text
 Select Count(*) from Product Where Prno>='002'
 Select Sum(Qty) from Product Where Prno>='002'
@@ -188,51 +206,48 @@ Select AVG(Qty) from Product Where Prno>='002'
 ```
 
 **分組查詢**
+
 ```text
 Select CustomerID,Count(*) as 筆數,Max(Qty) as 最大額 From SalesList Group By CustomerID
 Select CustomerID,Count(*) as 筆數,Max(Qty) as 最大額 From SalesList Group By CustomerID Having CustomerID > "000"
 ```
 
 **嵌套查詢**
+
 ```text
 Select Accno From Table1 Where Accno in (Select Accno from Table2 )
 ```
 
 **多表聯合 Union**
+
 ```text
 Select Prno,Prna Form Table1 ;
 Union ;
-Select Prno,Prna Form Table2 
+Select Prno,Prna Form Table2
 ```
 
 **交互連結 Jonnig**
+
 ```text
 Select Bill,Date,Item,Prno,Prna,Qyt,Price,Amt from Billd,Billm where Billd.no=Billm.no
 ```
 
-**超級交互連結**  Inner | Left | Right | FULL(Outer) 
+**超級交互連結** Inner \| Left \| Right \| FULL\(Outer\)
+
 ```text
 Select ... From Table0 ;
   Left Join Table1 On Table0.no1 = Table1.no1 ;
   Left Join Table2 On Table0.no2 = Table2.no2 ;
 ```
 
-**存在|有任何|全部** Exists|Any(Some)|All 
+**存在\|有任何\|全部** Exists\|Any\(Some\)\|All
+
 ```text
 Select ... From Table1 Where Exists (Select ... From Table2 Table1.no=Table2.no)
 Select ... From Table1 Where Not Exists (Select ... From Table2 Table1.no=Table2.no)
 Select ... From Table1 Where Any (Select ... From Table2 Table1.no=Table2.no)
 Select ... From Table1 Where All (Select ... From Table2 Table1.no=Table2.no)
 ```
-
-
-
-
-
-
-
-
-
 
 **練習**
 
