@@ -43,43 +43,46 @@ C
 **測試資料**
 
 ```text
+
 SET DATE TO YMD
 SET CENTURY ON 
 
 * 客戶檔(客戶代號 ,客戶名稱)
 Create Cursor Cust(CustNo c(3),CustNa c(10)) && 客戶廠商檔
-Insert into Cust Values("C01","台積電")
-Insert into Cust Values("C02","鴻海"  )
-Insert into Cust Values("C03","聯發科")
+Insert into Cust Values( "C01" ,"台積電" )
+Insert into Cust Values( "C02" ,"鴻海"   )
+Insert into Cust Values( "C03" ,"聯發科" )
 Browse
 
 * 銷貨單表頭檔(單號 ,客戶代號 ,銷售日期)
 Create Cursor Billm(No c(5),CustNo c(3),BDate D) 
-Insert into Billm Values("KB001","C01",Date(2021,1,1))
-Insert into Billm Values("KB002","C02",Date(2021,1,2))
-Insert into Billm Values("KB003","C03",Date(2021,1,2))
-Insert into Billm Values("KB004","C01",Date(2021,1,3))
-Insert into Billm Values("KB005","C02",Date(2021,1,3))
+Insert into Billm Values( "KB001" ,"C01" ,Date(2021,1,1) )
+Insert into Billm Values( "KB002" ,"C02" ,Date(2021,1,2) )
+Insert into Billm Values( "KB003" ,"C03" ,Date(2021,1,2) )
+Insert into Billm Values( "KB004" ,"C01" ,Date(2021,1,3) )
+Insert into Billm Values( "KB005" ,"C02" ,Date(2021,1,3) )
 Browse
 
 * 銷貨單表身檔(單號 ,項次 ,品號 ,品名 ,數量 ,單價 ,金額) 
 Create Cursor Billd(No c(5),Item N(3),Prno c(3),Prna c(10),Qty n(18),Price n(18),Amt n(18)) 
-Insert into Billd Values("KB001" ,1 ,"P01" ,"電腦" ,1 ,10000 ,10000)
-Insert into Billd Values("KB001" ,2 ,"P02" ,"鍵盤" ,1 ,1000  ,1000)
-Insert into Billd Values("KB001" ,3 ,"P03" ,"滑鼠" ,1 ,100   ,100)
-Insert into Billd Values("KB002" ,1 ,"P01" ,"電腦" ,1 ,10000 ,10000)
-Insert into Billd Values("KB002" ,2 ,"P02" ,"鍵盤" ,1 ,1000  ,1000)
-Insert into Billd Values("KB002" ,3 ,"P03" ,"滑鼠" ,1 ,100   ,100)
-Insert into Billd Values("KB003" ,1 ,"P01" ,"電腦" ,1 ,10000 ,10000)
-Insert into Billd Values("KB003" ,2 ,"P02" ,"鍵盤" ,1 ,1000  ,1000)
-Insert into Billd Values("KB003" ,3 ,"P03" ,"滑鼠" ,1 ,100   ,100)
-Insert into Billd Values("KB004" ,1 ,"P01" ,"電腦" ,1 ,10000 ,10000)
-Insert into Billd Values("KB004" ,2 ,"P02" ,"鍵盤" ,1 ,1000  ,1000)
-Insert into Billd Values("KB004" ,3 ,"P03" ,"滑鼠" ,1 ,100   ,100)
-Insert into Billd Values("KB005" ,1 ,"P01" ,"電腦" ,1 ,10000 ,10000)
-Insert into Billd Values("KB005" ,2 ,"P02" ,"鍵盤" ,1 ,1000  ,1000)
-Insert into Billd Values("KB005" ,3 ,"P03" ,"滑鼠" ,1 ,100   ,100)
+Insert into Billd Values( "KB001" ,1 ,"P01" ,"電腦" ,1 ,10000 ,10000)
+Insert into Billd Values( "KB001" ,2 ,"P02" ,"鍵盤" ,1 ,1000  ,1000)
+Insert into Billd Values( "KB001" ,3 ,"P03" ,"滑鼠" ,1 ,100   ,100)
+Insert into Billd Values( "KB002" ,1 ,"P01" ,"電腦" ,2 ,10000 ,20000)
+Insert into Billd Values( "KB002" ,2 ,"P02" ,"鍵盤" ,2 ,1000  ,2000)
+Insert into Billd Values( "KB002" ,3 ,"P03" ,"滑鼠" ,2 ,100   ,200)
+Insert into Billd Values( "KB003" ,1 ,"P01" ,"電腦" ,3 ,10000 ,30000)
+Insert into Billd Values( "KB003" ,2 ,"P02" ,"鍵盤" ,3 ,1000  ,3000)
+Insert into Billd Values( "KB003" ,3 ,"P03" ,"滑鼠" ,3 ,100   ,300)
+Insert into Billd Values( "KB004" ,1 ,"P01" ,"電腦" ,4 ,10000 ,40000)
+Insert into Billd Values( "KB004" ,2 ,"P02" ,"鍵盤" ,4 ,1000  ,4000)
+Insert into Billd Values( "KB004" ,3 ,"P03" ,"滑鼠" ,4 ,100   ,400)
+Insert into Billd Values( "KB005" ,1 ,"P01" ,"電腦" ,5 ,10000 ,50000)
+Insert into Billd Values( "KB005" ,2 ,"P02" ,"鍵盤" ,5 ,1000  ,5000)
+Insert into Billd Values( "KB005" ,3 ,"P03" ,"滑鼠" ,5 ,100   ,500)
 Browse
+
+
 ```
 
 **建立資料表**
