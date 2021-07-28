@@ -253,10 +253,56 @@ Select ... From Table0 ;
 **存在\|有任何\|全部** Exists\|Any\(Some\)\|All
 
 ```text
-Select ... From Table1 Where Exists (Select ... From Table2 Table1.no=Table2.no)
-Select ... From Table1 Where Not Exists (Select ... From Table2 Table1.no=Table2.no)
-Select ... From Table1 Where Any (Select ... From Table2 Table1.no=Table2.no)
-Select ... From Table1 Where All (Select ... From Table2 Table1.no=Table2.no)
+* Exist Any ALL 存在 任何 全部
+CLOSE TABLES
+
+CREATE CURSOR Cust (Custno c(3),Custna c(10))
+INSERT INTO cust values("001","台雞店")
+INSERT INTO cust values("002","台鴨店")
+INSERT INTO cust values("003","台魚店")
+INSERT INTO cust values("004","台肉店")
+INSERT INTO cust values("005","台菜店")
+
+CREATE CURSOR BillM (No c(5),Custno c(3))
+INSERT INTO BillM values("KB001","001")
+INSERT INTO BillM values("KB002","002")
+INSERT INTO BillM values("KB003","003")
+INSERT INTO BillM values("KB004","003")
+INSERT INTO BillM values("KB005","001") 
+
+CREATE CURSOR BillD (No c(5),Item N(3),Prno c(3))
+INSERT INTO BillD values("KB001",1,"P01")
+INSERT INTO BillD values("KB002",1,"P02")
+INSERT INTO BillD values("KB003",1,"P03")
+INSERT INTO BillD values("KB003",2,"P09")
+INSERT INTO BillD values("KB004",1,"P04")
+INSERT INTO BillD values("KB004",2,"P09")
+
+LOCAL m.nTest
+
+m.nTest = 4
+
+DO CASE
+CASE m.nTest = 1 && Exist 
+    *顯示有交易的客戶 
+	SELECT * FROM Cust WHERE Exists (SELECT * FROM BillM WHERE Billm.custno=cust.custno) INTO CURSOR SQLResult
+	BROWSE
+CASE m.nTest = 2 && Not Exist
+    *顯示無交易客戶 
+	SELECT * FROM Cust WHERE NOT Exists (SELECT * FROM BillM WHERE Billm.custno=cust.custno) INTO CURSOR SQLResult
+	BROWSE		
+CASE m.nTest = 3 && Any(Some,) 子查詢有出現的值 (類似 where in )
+    *顯示有交易的客戶 子查詢有出現的客戶
+	SELECT * FROM Cust WHERE Custno=Any (SELECT CustNo FROM BillM) INTO CURSOR SQLResult
+	BROWSE
+CASE m.nTest = 4 && ALL 子查詢必須全部都是同一個
+    * 唯一有買"P09"的客戶 
+	SELECT * FROM Cust WHERE CustNo=ALL (SELECT CustNo FROM BillM,BiLLD WHERE BillM.no=BillD.no AND Billd.prno="P09") INTO CURSOR SQLResult
+	BROWSE
+ENDCASE
+
+CLOSE TABLES
+
 ```
 
 **練習**
