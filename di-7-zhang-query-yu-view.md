@@ -63,7 +63,7 @@ USE
 
 Close Tables && 關閉所有資料表
 RETURN 
-```text
+```
 
 
 **創建 Local View**
@@ -84,7 +84,7 @@ emp_cust_sql = "SELECT ;
 CREATE SQL VIEW emp_cust_view AS &emp_cust_sql 
 
 * 提示   在視圖設計器中，您可以打開現有視圖，然後復制只讀 SQL 字符串並將其粘貼到您的代碼中，作為以編程方式創建視圖的快捷方式。
-```text
+```
 
 
 **修改視圖**
@@ -92,18 +92,18 @@ CREATE SQL VIEW emp_cust_view AS &emp_cust_sql
 OPEN DATABASE testdata 
 
 MODIFY VIEW product_view  
-```text
+```
 
 **重命名視圖**
 ```text
 RENAME VIEW product_view TO products_all_view 
-```text
+```
 
 **刪除視圖**
 ```text
 DELETE VIEW product_view 
 DROP VIEW customer_view 
-```text
+```
 
 **創建多表視圖**
 ```text
@@ -113,7 +113,7 @@ OPEN DATABASE testdata CREATE SQL VIEW cust_orders_emp_view AS ;
   testdata!orders, testdata!employee ;    
   WHERE customer.cust_id = orders.cust_id ;     
   AND orders.emp_id = employee.emp_id 
-```text
+```
 
 ```text
 * 使用 Join 
@@ -121,13 +121,13 @@ OPEN DATABASE testdata CREATE SQL VIEW cust_orders_view AS ;
   SELECT * FROM testdata!customer ;       
   INNER JOIN testdata!orders ;       
   ON customer.cust_id = orders.cust_id 
-```text
+```
 ```text
 OPEN DATABASE testdata CREATE SQL VIEW cust_orders_view AS ;    
   SELECT * FROM testdata!customer ;       
   LEFT OUTER JOIN testdata!orders ;       
   ON customer.cust_id = orders.cust_id 
-```text
+```
 ```text
 OPEN DATABASE testdata CREATE SQL VIEW cust_orders_emp_view AS ;    
   SELECT * FROM testdata!customer ;       
@@ -135,7 +135,7 @@ OPEN DATABASE testdata CREATE SQL VIEW cust_orders_emp_view AS ;
   ON customer.cust_id = orders.cust_id ;       
   INNER JOIN testdata!employee ;       
   ON orders.emp_id = employee.emp_id 
-```text
+```
 
 
 
@@ -143,13 +143,13 @@ OPEN DATABASE testdata CREATE SQL VIEW cust_orders_emp_view AS ;
 ```text
 OPEN DATABASE testdata 
 CREATE CONNECTION remote_01 DATASOURCE sqlremote userid password 
-```text
+```
 
 **確定現有連接**
 ```text
 OPEN DATABASE testdata 
 DISPLAY CONNECTIONS 
-```text
+```
 
 **創建遠程視圖**
 ```text
@@ -162,7 +162,7 @@ CREATE SQL VIEW product_remote_view REMOTE;
 
 *如果在遠程視圖設計器中連接兩個或多個表，設計器使用內部連接（或等連接）並將連接條件放在 WHERE 子句中。
 *如果要使用外連接，遠程視圖設計器僅提供左外連接，即 ODBC 支持的語法。如果您需要右外連接或全外連接，或者只想對左外連接使用本機語法，請以編程方式創建視圖。
-```text
+```
 
 **使用視圖**
 ```text
@@ -171,12 +171,12 @@ USE product_view
 BROWSE 
 
 *如果視圖基於本地表，Visual FoxPro 還會在單獨的工作區中打開基表。
-```text
+```
 
 **限制視圖的範圍**
 ```text
 SELECT * FROM customer ;    WHERE customer.country = 'Sweden' 
-```text
+```
 
 **創建參數化視圖**
 ```text
@@ -191,7 +191,7 @@ WHERE customer.country = ?cCountry
 cCountry = 'Sweden' 
 USE Testdata!customer_remote_view IN 0 
 BROWSE 
-```text
+```
 
 
 **提示用戶輸入參數值**
@@ -202,7 +202,7 @@ CONNECTION remote_01 ;
 AS SELECT * FROM customer ;    
 WHERE customer.cust_id = ?'my customer id' 
 USE customer_remote_view 
-
+```
 
 **在多個工作區中打開視圖**
 ```text
@@ -216,7 +216,7 @@ SELECT 0
 USE product_remote_view NOREQUERY 
 BROWSE 
 *會在同一結果集上再次打開游標
-```text
+```
 
 **使用 AGAIN 開兩個**
 ```text
@@ -225,7 +225,7 @@ USE product_remote_view
 BROWSE 
 USE product_remote_view AGAIN in 0 
 BROWSE 
-```text
+```
 
 
 **顯示視圖的結構**
@@ -235,7 +235,7 @@ USE customer_remote_view NODATA in 0
 BROWSE 
 
 *提示   使用 NODATA 子句比在視圖或游標上使用 MaxRecords 屬性設置 0 更有效。
-```text
+```
 
 
 **在視圖上**
@@ -245,7 +245,7 @@ BROWSE
 *您可以使用 DBSETPROP( ) 函數修改遠程視圖字段的 DataType 屬性設置
 *使用視圖時自動打開的本地基表在關閉視圖時不會自動關閉
 *默認情況下，視圖使用樂觀行緩衝進行緩衝。您可以將其更改為表緩衝
-```text
+```
 
 **視圖可更新**
 ```text
@@ -254,7 +254,7 @@ DBSETPROP('cust_view.cust_id','Field','KeyField',.T.)
 DBSETPROP('cust_view.cust_id','Field','UpdateName',; 'customer.cust_id') 
 DBSETPROP('cust_view.cust_id','Field','Updatable',; .T.) 
 DBSETPROP('cust_view','View','SendUpdates',.T.) 
-```text
+```
 
 **更新視圖中的多個表**
 ```text
@@ -299,14 +299,14 @@ REPLACE customer.contact WITH "John Doe"
  
 *通過更新 Employee 和 Customer 基表來提交更改。
 TABLEUPDATE()
-```text
+```
 
 **預設值**
 ```text
 OPEN DATABASE testdata 
 USE VIEW customer_view ?
 DBSETPROP ('Customer_view.maxordamt', 'Field', 'DefaultValue', 1000) 
-```text
+```
 
 **創建規則**
 ```text
@@ -314,7 +314,7 @@ OPEN DATABASE testdata
 USE VIEW orditems_view 
 DBSETPROP('Orditems_view.quantity','Field', 'RuleExpression', 'quantity >= 1') 
 DBSETPROP('Orditems_view.quantity','Field', 'RuleText'      , '"Quantities must be greater than or equal to 1"') 
-```text
+```
 
 **組合視圖**
 ```text
@@ -325,7 +325,7 @@ OPEN DATABASE testdata  CREATE SQL VIEW remote_orders_view ;
                 testdata!remote_orders_view ;
                     WHERE local_employee_view.emp_id = ;
                            remote_orders_view.emp_id 
-```text
+```
 
 
 
@@ -336,17 +336,17 @@ CREATE SQL VIEW showproducts ;
         AS SELECT * FROM Products INNER JOIN Inventory ;
             ON Products.ProductID = Inventory.ProductID ;
 CREATEOFFLINE("showproducts")
-```text
+```
 
 **離線使用數據**
 ```text
 USE Showproducts 
-```text
+```
 
 **離線管理數據**
 ```text
 USE Showproducts ADMIN 
-```text
+```
 
 **使用離線視圖更新本地表**
 ```text
@@ -360,7 +360,7 @@ ELSE
     MESSAGEBOX("Error Occurred: Update unsuccessful.")
     ROLLBACK 
 ENDIF
-```text
+```
 
 **設置連使用 TABLEUPDATE( ) 來處理您的事務**
 ```text
@@ -397,7 +397,7 @@ IF NOT TABLEUPDATE(.T.,.F.,"lineitemsview")
         ENDIF    
     ENDIF 
 ENDIF
-```text
+```
 
 **更新一條記錄可以使用自動事務**
 ```text
@@ -406,19 +406,19 @@ GO TO 3
 IF TABLEUPDATE (0, .F. , "customerview") && Current Row by Key Only
   * conflict handling code    
 ENDIF 
-```text
+```
 
 **取消離線更新**
 ```text
 DROPOFFLINE("myview") 
-```text
+```
 
 **設置 MaxRecords**
 ```text
 OPEN DATABASE testdata 
 USE VIEW remote_customer_view 
 DBSETPROP ('Remote_customer_view', 'View','MaxRecords', 50) 
-```text
+```
 
 **共享連接**
 ```text
@@ -426,18 +426,13 @@ CREATE SQL VIEW product_view_remote ;
     CONNECTION remote_01 SHARE AS ;
         SELECT * FROM products 
 USE product_view_remote 
-```text
+```
 
 **判斷連接是否繁忙**
 ```text
 nConnectionHandle=CURSORGETPROP('ConnectHandle') 
 SQLGETPROP(nConnectionHandle, "ConnectBusy") 
-```text
-
-
-
-
-
+```
 
 
 
