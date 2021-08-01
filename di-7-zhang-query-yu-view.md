@@ -13,10 +13,6 @@
 * View 的使用
 * View 與資料更新
 
-
-
-
-
 **創造 View**
 
 * 創建檢視
@@ -27,6 +23,7 @@
 * 優化檢視性能
 
 **緩衝模式**
+
 ```text
 CLOSE TABLES
 
@@ -62,11 +59,11 @@ BROWSE
 USE
 
 Close Tables && 關閉所有資料表
-RETURN 
+RETURN
 ```
 
-
 **創建 Local View**
+
 ```text
 CREATE SQL VIEW 
 CREATE SQL VIEW product_view AS SELECT * FROM testdata!products 
@@ -86,33 +83,36 @@ CREATE SQL VIEW emp_cust_view AS &emp_cust_sql
 * 提示   在視圖設計器中，您可以打開現有視圖，然後復制只讀 SQL 字符串並將其粘貼到您的代碼中，作為以編程方式創建視圖的快捷方式。
 ```
 
-
 **修改視圖**
+
 ```text
 OPEN DATABASE testdata 
 
-MODIFY VIEW product_view  
+MODIFY VIEW product_view
 ```
 
 **重命名視圖**
+
 ```text
-RENAME VIEW product_view TO products_all_view 
+RENAME VIEW product_view TO products_all_view
 ```
 
 **刪除視圖**
+
 ```text
 DELETE VIEW product_view 
-DROP VIEW customer_view 
+DROP VIEW customer_view
 ```
 
 **創建多表視圖**
+
 ```text
 * 使用 WHERE
 OPEN DATABASE testdata CREATE SQL VIEW cust_orders_emp_view AS ;    
   SELECT * FROM testdata!customer, ;       
   testdata!orders, testdata!employee ;    
   WHERE customer.cust_id = orders.cust_id ;     
-  AND orders.emp_id = employee.emp_id 
+  AND orders.emp_id = employee.emp_id
 ```
 
 ```text
@@ -120,38 +120,41 @@ OPEN DATABASE testdata CREATE SQL VIEW cust_orders_emp_view AS ;
 OPEN DATABASE testdata CREATE SQL VIEW cust_orders_view AS ;    
   SELECT * FROM testdata!customer ;       
   INNER JOIN testdata!orders ;       
-  ON customer.cust_id = orders.cust_id 
+  ON customer.cust_id = orders.cust_id
 ```
+
 ```text
 OPEN DATABASE testdata CREATE SQL VIEW cust_orders_view AS ;    
   SELECT * FROM testdata!customer ;       
   LEFT OUTER JOIN testdata!orders ;       
-  ON customer.cust_id = orders.cust_id 
+  ON customer.cust_id = orders.cust_id
 ```
+
 ```text
 OPEN DATABASE testdata CREATE SQL VIEW cust_orders_emp_view AS ;    
   SELECT * FROM testdata!customer ;       
   INNER JOIN testdata!orders ;       
   ON customer.cust_id = orders.cust_id ;       
   INNER JOIN testdata!employee ;       
-  ON orders.emp_id = employee.emp_id 
+  ON orders.emp_id = employee.emp_id
 ```
 
-
-
 **創建命名連接**
+
 ```text
 OPEN DATABASE testdata 
-CREATE CONNECTION remote_01 DATASOURCE sqlremote userid password 
+CREATE CONNECTION remote_01 DATASOURCE sqlremote userid password
 ```
 
 **確定現有連接**
+
 ```text
 OPEN DATABASE testdata 
-DISPLAY CONNECTIONS 
+DISPLAY CONNECTIONS
 ```
 
 **創建遠程視圖**
+
 ```text
 OPEN DATABASE testdata  
 CREATE SQL VIEW product_remote_view REMOTE;     
@@ -165,6 +168,7 @@ CREATE SQL VIEW product_remote_view REMOTE;
 ```
 
 **使用視圖**
+
 ```text
 OPEN DATABASE testdata 
 USE product_view  
@@ -174,11 +178,13 @@ BROWSE
 ```
 
 **限制視圖的範圍**
+
 ```text
-SELECT * FROM customer ;    WHERE customer.country = 'Sweden' 
+SELECT * FROM customer ;    WHERE customer.country = 'Sweden'
 ```
 
 **創建參數化視圖**
+
 ```text
 *使用帶有 ? 的 CREATE SQL VIEW 
 
@@ -190,21 +196,22 @@ WHERE customer.country = ?cCountry
 
 cCountry = 'Sweden' 
 USE Testdata!customer_remote_view IN 0 
-BROWSE 
+BROWSE
 ```
 
-
 **提示用戶輸入參數值**
+
 ```text
 OPEN DATABASE testdata 
 CREATE SQL VIEW customer_remote_view ;    
 CONNECTION remote_01 ;    
 AS SELECT * FROM customer ;    
 WHERE customer.cust_id = ?'my customer id' 
-USE customer_remote_view 
+USE customer_remote_view
 ```
 
 **在多個工作區中打開視圖**
+
 ```text
 OPEN DATABASE testdata 
 CREATE SQL VIEW product_remote_view ;    
@@ -219,16 +226,17 @@ BROWSE
 ```
 
 **使用 AGAIN 開兩個**
+
 ```text
 OPEN DATABASE testdata 
 USE product_remote_view 
 BROWSE 
 USE product_remote_view AGAIN in 0 
-BROWSE 
+BROWSE
 ```
 
-
 **顯示視圖的結構**
+
 ```text
 OPEN DATABASE testdata 
 USE customer_remote_view NODATA in 0 
@@ -237,8 +245,8 @@ BROWSE
 *提示   使用 NODATA 子句比在視圖或游標上使用 MaxRecords 屬性設置 0 更有效。
 ```
 
-
 **在視圖上**
+
 ```text
 *您可以使用 INDEX ON 
 *您可以使用 SET RELATION 
@@ -248,15 +256,17 @@ BROWSE
 ```
 
 **視圖可更新**
+
 ```text
 DBSETPROP('cust_view','View','Tables','customer') 
 DBSETPROP('cust_view.cust_id','Field','KeyField',.T.) 
 DBSETPROP('cust_view.cust_id','Field','UpdateName',; 'customer.cust_id') 
 DBSETPROP('cust_view.cust_id','Field','Updatable',; .T.) 
-DBSETPROP('cust_view','View','SendUpdates',.T.) 
+DBSETPROP('cust_view','View','SendUpdates',.T.)
 ```
 
 **更新視圖中的多個表**
+
 ```text
 *創建一個訪問兩個表中字段的視圖。
 CREATE SQL VIEW emp_cust_view AS ;    
@@ -283,12 +293,12 @@ DBSETPROP('emp_cust_view.emp_id', 'Field', 'KeyField', .T.)
 *為 Customer 表設置一個兩字段的唯一鍵。
 DBSETPROP('emp_cust_view.cust_id', 'Field', 'KeyField', .T.)
 DBSETPROP('emp_cust_view.emp_id1', 'Field', 'KeyField', .T.)
- 
+
 *設置可更新字段。通常，關鍵字段不可更新。
 DBSETPROP('emp_cust_view.phone',   'Field'  , 'UpdatableField', .T.)
 DBSETPROP('emp_cust_view.contact', 'Field'  , 'UpdatableField', .T.) 
 DBSETPROP('emp_cust_view.company', 'Field'  , 'UpdatableField', .T.)
- 
+
 *激活更新功能。
 DBSETPROP('emp_cust_view', 'View', ;             'SendUpdates', .T.)
 
@@ -296,27 +306,30 @@ DBSETPROP('emp_cust_view', 'View', ;             'SendUpdates', .T.)
 GO TOP
 REPLACE employee.phone WITH "(206)111-2222" 
 REPLACE customer.contact WITH "John Doe"
- 
+
 *通過更新 Employee 和 Customer 基表來提交更改。
 TABLEUPDATE()
 ```
 
 **預設值**
+
 ```text
 OPEN DATABASE testdata 
 USE VIEW customer_view ?
-DBSETPROP ('Customer_view.maxordamt', 'Field', 'DefaultValue', 1000) 
+DBSETPROP ('Customer_view.maxordamt', 'Field', 'DefaultValue', 1000)
 ```
 
 **創建規則**
+
 ```text
 OPEN DATABASE testdata 
 USE VIEW orditems_view 
 DBSETPROP('Orditems_view.quantity','Field', 'RuleExpression', 'quantity >= 1') 
-DBSETPROP('Orditems_view.quantity','Field', 'RuleText'      , '"Quantities must be greater than or equal to 1"') 
+DBSETPROP('Orditems_view.quantity','Field', 'RuleText'      , '"Quantities must be greater than or equal to 1"')
 ```
 
 **組合視圖**
+
 ```text
 OPEN DATABASE testdata  CREATE SQL VIEW remote_orders_view ;
     CONNECTION remote_01 ;
@@ -324,12 +337,11 @@ OPEN DATABASE testdata  CREATE SQL VIEW remote_orders_view ;
             AS SELECT * FROM testdata!local_employee_view, ;
                 testdata!remote_orders_view ;
                     WHERE local_employee_view.emp_id = ;
-                           remote_orders_view.emp_id 
+                           remote_orders_view.emp_id
 ```
 
-
-
 **創建離線視圖**
+
 ```text
 CREATE SQL VIEW showproducts ;
     CONNECTION dsource ;
@@ -339,16 +351,19 @@ CREATEOFFLINE("showproducts")
 ```
 
 **離線使用數據**
+
 ```text
-USE Showproducts 
+USE Showproducts
 ```
 
 **離線管理數據**
+
 ```text
-USE Showproducts ADMIN 
+USE Showproducts ADMIN
 ```
 
 **使用離線視圖更新本地表**
+
 ```text
 *重新連接主機並打開視圖
 USE myofflineview ONLINE EXCLUSIVE
@@ -362,7 +377,8 @@ ELSE
 ENDIF
 ```
 
-**設置連使用 TABLEUPDATE( ) 來處理您的事務**
+**設置連使用 TABLEUPDATE\( \) 來處理您的事務**
+
 ```text
 hConn1 = CURSORGETPROP("CONNECTHANDLE","myview") ; 
 SQLSETPROP(hConn1,"TRANSACTIONS",2) 
@@ -400,42 +416,96 @@ ENDIF
 ```
 
 **更新一條記錄可以使用自動事務**
+
 ```text
 USE customerview ONLINE EXCLUSIVE 
 GO TO 3    
 IF TABLEUPDATE (0, .F. , "customerview") && Current Row by Key Only
   * conflict handling code    
-ENDIF 
+ENDIF
 ```
 
 **取消離線更新**
+
 ```text
-DROPOFFLINE("myview") 
+DROPOFFLINE("myview")
 ```
 
 **設置 MaxRecords**
+
 ```text
 OPEN DATABASE testdata 
 USE VIEW remote_customer_view 
-DBSETPROP ('Remote_customer_view', 'View','MaxRecords', 50) 
+DBSETPROP ('Remote_customer_view', 'View','MaxRecords', 50)
 ```
 
 **共享連接**
+
 ```text
 CREATE SQL VIEW product_view_remote ;
     CONNECTION remote_01 SHARE AS ;
         SELECT * FROM products 
-USE product_view_remote 
+USE product_view_remote
 ```
 
 **判斷連接是否繁忙**
+
 ```text
 nConnectionHandle=CURSORGETPROP('ConnectHandle') 
-SQLGETPROP(nConnectionHandle, "ConnectBusy") 
+SQLGETPROP(nConnectionHandle, "ConnectBusy")
 ```
 
+CursorAdapter
+
+```text
+Local loCursor As CursorAdapter, laErrors[1]
+Open Database (_samples + 'data\testdata')
+With loCursor
+	.Alias = 'customercursor'
+	.DataSourceType = 'Native'
+	.SelectCmd = "Select CUST_ID, COMPANY, CONTACT FROM CUSTOMER WHERE COUNTRY = 'Brazil'"
+	.KeyFieldList = 'CUST_ID'
+	.Tables = 'CUSTOMER'
+	.UpdatableFieldList = 'CUST_ID, COMPANY, CONTACT'
+	.UpdateNameList = 'CUST_ID CUSTOMER.CUST_ID, COMPANY CUSTOMER.COMPANY, CONTACT CUSTOMER.CONTACT'
+
+	If .CursorFill()
+		Browse
+		Tableupdate(1)
+	Else
+		Aerror(laErrors)
+		Messagebox(laErrors[2])
+	Endif .CursorFill()
+Endwith
+Close Databases All
 
 
+```
 
-**練習**
+```text
+Local lcConnString, loCursor As CursorAdapter, 	laErrors[1]
+lcConnString = 'driver=SQL Server;server=(local);database=Northwind; uid=sa;pwd=;trusted_connection=no'
+* change password to appropriate value for your database
+loCursor = Createobject('CursorAdapter')
+With loCursor
+	.Alias = 'Customers'
+	.DataSourceType = 'ODBC'
+	.Datasource = Sqlstringconnect(lcConnString)
+	.SelectCmd = "select CUSTOMERID, COMPANYNAME, CONTACTNAME from CUSTOMERS where COUNTRY = 'Brazil'"
+	.KeyFieldList = 'CUSTOMERID'
+	.Tables = 'CUSTOMERS'
+	.UpdatableFieldList = 'CUSTOMERID, COMPANYNAME, CONTACTNAME'
+	.UpdateNameList = 'CUSTOMERID CUSTOMERS.CUSTOMERID, COMPANYNAME CUSTOMERS.COMPANYNAME, CONTACTNAME CUSTOMERS.CONTACTNAME'
+	If .CursorFill()
+		Browse
+	Else
+		Aerror(laErrors)
+		Messagebox(laErrors[2])
+	Endif .CursorFill()
+Endwith
+Close Databases All
+
+```
+
+**練習** 
 
