@@ -45,5 +45,76 @@
 * 類的使用 
 * 類的編輯
 
-**練習**
+#### 多視窗主程式
+
+```text
+TRY
+	IF _vfp.StartMode=0 && 如果是開發模式
+		SET DEFAULT TO c:\vfp\Lesson8 
+	ENDIF 
+
+	IF _vfp.StartMode=4 && 如果是執行檔模式
+		_Screen.Visible = .F. && 隱藏狐狸主窗 
+	ENDIF 
+
+	Set Classlib To MyClassLib1  && 使用物件庫 
+
+	* 主視窗 必須最為頂層表單 ShowWindow = As Top Level Form
+	Public m.oMainForm As Form	
+	m.oMainForm = Newobject("Form_Main") && WindowState= 2.Maximized 最大化
+	m.oMainForm.Caption="奇勝稅務系統"
+	m.oMainForm.Show() && 0.多視窗(預設) 1.單視窗
+
+	* 主工具列 必須在頂層表單中 ShowWindow = In Top Level Form
+	Public m.oMainToolBar As Toolbar
+	m.oMainToolBar = Newobject("ToolBar_Main")
+	m.oMainToolBar.Show() && 0.多視窗(預設) 1.單視窗
+	m.oMainToolBar.Dock(0) && 停靠頂邊
+
+	* 登入畫面  必須在頂層表單中 ShowWindow = In Top Level Form
+	Public m.oLoginForm As Form
+	m.oLoginForm = NEWOBJECT("Form_Login") && AutoCenter=.T. 視窗自動置中
+	m.oLoginForm.Caption="登入"
+	m.oLoginForm.Show() && 0.多視窗(預設) 1.單視窗
+		 
+	Read EVENTS && 等待發生 Clear Events
+	
+ 	=MESSAGEBOX("程式結束")
+
+FINALLY
+
+	IF _vfp.StartMode=4 && 如果是執行檔模式
+		_Screen.Visible = .T. && 顯示狐狸主窗 如果不是執行檔
+	ENDIF 	
+	Set Sysmenu To Defa
+	CLEAR ALL 
+	RELEASE ALL
+	
+ENDTRY
+
+```
+
+```text
+* 主程畫面 QueryUnload 詢問離開意願
+
+IF 1=MESSAGEBOX("確定離開",1+32,"詢問")
+	CLEAR EVENTS && 立即結束程式 停止等待
+ELSE
+	NODEFAULT && 不要執行預設的 結束程式 
+ENDIF 
+```
+
+```text
+* 主畫面的 Init 開啟主選單
+
+Do Menu_Main.mpr with this,.T.
+
+*注意：
+* View 的 Generail Options 設 Top-Level-Form
+* Menu 的 Generate 產生程式碼
+
+
+```
+
+
 
