@@ -84,7 +84,7 @@ TRY
 FINALLY
 	Clear Events
 	IF _vfp.StartMode=4 && 如果是執行檔模式
-		_Screen.Visible = .T. && 顯示狐狸主窗 如果不是執行檔
+		_Screen.Visible = .T. && 顯示狐狸主窗 
 	ENDIF 	
 	Set Sysmenu To Defa
 	CLEAR ALL 
