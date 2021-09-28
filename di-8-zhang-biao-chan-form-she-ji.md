@@ -45,7 +45,19 @@
 * 類的使用 
 * 類的編輯
 
-#### 多視窗主程式
+#### 主視窗有兩種
+
+```text
+* 多視窗程式 可依主視窗大分兩種類
+
+* 種類一：類似 Excel 其特點為視窗肚子是一大片空白，裡面可以產生許多子視窗
+* 種類二：肚子沒有一大片空白，而是裝滿控件可操作，裡面也是可以產生許多子視窗
+
+* 要設計第一種系統，主視窗就要以 VFP 自己的主視窗作為主視窗，也就是 _Screen 物件
+* 要設計第二種系統，主視窗較要以自己建立的Form將其設定為As Top Leve Form 作為主視窗
+```
+
+#### 多視窗主程式範例
 
 ```text
 TRY
@@ -110,7 +122,7 @@ ENDIF
 Do Menu_Main.mpr with this,.T.
 
 *注意：
-* View 的 Generail Options 設 Top-Level-Form
+* View 的 Generail Options 設 Top-Level-Form(僅適用主視窗為As Top Leve Form)
 * Menu 的 Generate 產生程式碼
 
 
