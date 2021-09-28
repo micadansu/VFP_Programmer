@@ -57,7 +57,7 @@
 * 要設計第二種系統，主視窗較要以自己建立的Form將其設定為As Top Leve Form 作為主視窗
 ```
 
-#### 多視窗主程式範例
+#### 主視窗程式範例\(多視窗型\)
 
 ```text
 TRY
@@ -121,7 +121,7 @@ ENDIF
 
 Do Menu_Main.mpr with this,.T.
 
-*注意：
+* Menu注意事項：
 * View 的 Generail Options 設 Top-Level-Form(僅適用主視窗為As Top Leve Form)
 * Menu 的 Generate 產生程式碼
 
