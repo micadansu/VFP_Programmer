@@ -108,13 +108,15 @@ MessageBox("當前路徑是："+CurDir()) && 訊息視窗顯示當前路徑
 修改 Program1 在程式碼最後加入四行，RUN執行。
 
 ```bash
-Close Tables && 關閉所有資料表
+Close Tables && 關閉所有資料表防止垃圾干擾
+
+Select 1 && 選擇工作區
 
 Use "c:\vfp\Lesson1\Product.dbf" && 開啟資料表
 
 Browse && 瀏覽
 
-Close Tables && 關閉所有資料表
+Close Tables ALL && 關閉所有資料表
 ```
 
 {% hint style="success" %}

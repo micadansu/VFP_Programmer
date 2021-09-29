@@ -46,7 +46,7 @@ VIP_Na = "郭台明"
 * 常數寫在最開頭 慣使用大寫 其實VFP不分大小寫 
  
 # DEFINE PI 3.14
-# DEFINE INCOMESTATEMENT "綜合資產負債表"
+# DEFINE INCOMESTATEMENT "綜合損益表"
 
 =MESSAGEBOX(PI)
 
@@ -128,6 +128,7 @@ cLable_Age = "年齡 : "
 **數值表達式**
 
 ```cpp
+*加減乘除與鍵盤上的一樣
 * 數值的數學運算 + - * / 使用 () 先乘除後加減 
 
 CLEAR 
@@ -260,8 +261,9 @@ cText="ABCDEFG"
 ```
 
 ```cpp
+*顯示到小數兩位
+SET DECIMALS TO 2 
 
-SET DECIMALS TO 2 &&
 
 ? Val('123.456')
 
