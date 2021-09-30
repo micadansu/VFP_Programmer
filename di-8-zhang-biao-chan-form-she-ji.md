@@ -88,7 +88,9 @@ TRY
 	m.oLoginForm = NEWOBJECT("Form_Login") && AutoCenter=.T. 視窗自動置中
 	m.oLoginForm.Caption="登入"
 	m.oLoginForm.Show() && 0.多視窗(預設) 1.單視窗
-		 
+
+	PUBLIC m.oForm_Prod as Form  && 產品維護畫面 程式在按鈕中
+						 
 	Read EVENTS && 等待發生 Clear Events
 	
  	=MESSAGEBOX("程式結束")
@@ -128,5 +130,22 @@ Do Menu_Main.mpr with this,.T.
 
 ```
 
+#### 主畫面上開啟產品檔維護
 
+```text
+* Command1.Click 事件
+
+IF VARTYPE(m.oForm_Prod)="O" AND !ISNULL(m.oForm_Prod) && 如果已經產生過了，不要重複產生
+	m.oForm_Prod.Show(0)
+	IF m.oForm_Prod.Windowstate=1  && 如果畫面現在是最小化 1.Minimized 
+		m.oForm_Prod.Windowstate=0 && 恢復正常狀態 0.Normal
+	ENDIF 
+ELSE
+	m.oForm_Prod = CREATEOBJECT("Form_Prod")
+	m.oForm_Prod.Show(0)
+ENDIF 	
+
+
+
+```
 
