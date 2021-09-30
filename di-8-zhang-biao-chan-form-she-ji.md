@@ -89,7 +89,8 @@ TRY
 	m.oLoginForm.Caption="登入"
 	m.oLoginForm.Show() && 0.多視窗(預設) 1.單視窗
 
-	PUBLIC m.oForm_Prod as Form  && 產品維護畫面 程式在按鈕中
+	* 產品維護畫面
+	PUBLIC m.oForm_Prod as Form  && 程式在按鈕中
 						 
 	Read EVENTS && 等待發生 Clear Events
 	
