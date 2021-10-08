@@ -757,6 +757,29 @@ ENDFUNC
 
 ```
 
+#### 取得程式執行時期路徑
+
+```bash
+
+LOCAL m.cDefaultPath
+* 起始路徑
+DO CASE
+CASE _VFP.StartMode =0 && 開發模式( Dev )
+	m.cDefaultPath=ADDBS(_VFP.ActiveProject.HomeDir) && 取出專案路徑
+CASE _VFP.StartMode =1 && APP 模式( Application Object )
+    m.cDefaultPath=ADDBS(JUSTPATH(_vfp.FullName)) 
+CASE _VFP.StartMode =2 && 自動服務機模式( EXE Automation Server)
+	m.cDefaultPath=ADDBS(JUSTPATH( _VFP.ServerName)  )
+CASE _VFP.StartMode =3 && 單線程DLL模式( STDLL )
+	m.cDefaultPath=ADDBS(JUSTPATH(_VFP.ServerName))
+CASE _VFP.StartMode =4 && 執行檔模式(VFP Runtime EXE )
+	m.cDefaultPath=ADDBS(JUSTPATH(_VFP.ServerName))
+CASE _VFP.StartMode =5 && 多線程DLL模式(MTDLL)
+	m.cDefaultPath=ADDBS(JUSTPATH(_VFP.ServerName))
+ENDCASE
+
+```
+
 **練習一**
 
 ```bash
