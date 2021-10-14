@@ -24,7 +24,7 @@
 
 **Cursor 的緩衝模式**
 
-```text
+```
 CLOSE TABLES
 
 SET DEFAULT TO c:\vfp\Lesson1
@@ -64,7 +64,7 @@ RETURN
 
 **創建 Local View**
 
-```text
+````
 CREATE SQL VIEW 
 CREATE SQL VIEW product_view AS SELECT * FROM testdata!products 
 ```text
@@ -81,11 +81,11 @@ emp_cust_sql = "SELECT ;
 CREATE SQL VIEW emp_cust_view AS &emp_cust_sql 
 
 * 提示   在視圖設計器中，您可以打開現有視圖，然後復制只讀 SQL 字符串並將其粘貼到您的代碼中，作為以編程方式創建視圖的快捷方式。
-```
+````
 
 **修改視圖**
 
-```text
+```
 OPEN DATABASE testdata 
 
 MODIFY VIEW product_view
@@ -93,20 +93,20 @@ MODIFY VIEW product_view
 
 **重命名視圖**
 
-```text
+```
 RENAME VIEW product_view TO products_all_view
 ```
 
 **刪除視圖**
 
-```text
+```
 DELETE VIEW product_view 
 DROP VIEW customer_view
 ```
 
 **創建多表視圖**
 
-```text
+```
 * 使用 WHERE
 OPEN DATABASE testdata CREATE SQL VIEW cust_orders_emp_view AS ;    
   SELECT * FROM testdata!customer, ;       
@@ -115,7 +115,7 @@ OPEN DATABASE testdata CREATE SQL VIEW cust_orders_emp_view AS ;
   AND orders.emp_id = employee.emp_id
 ```
 
-```text
+```
 * 使用 Join 
 OPEN DATABASE testdata CREATE SQL VIEW cust_orders_view AS ;    
   SELECT * FROM testdata!customer ;       
@@ -123,14 +123,14 @@ OPEN DATABASE testdata CREATE SQL VIEW cust_orders_view AS ;
   ON customer.cust_id = orders.cust_id
 ```
 
-```text
+```
 OPEN DATABASE testdata CREATE SQL VIEW cust_orders_view AS ;    
   SELECT * FROM testdata!customer ;       
   LEFT OUTER JOIN testdata!orders ;       
   ON customer.cust_id = orders.cust_id
 ```
 
-```text
+```
 OPEN DATABASE testdata CREATE SQL VIEW cust_orders_emp_view AS ;    
   SELECT * FROM testdata!customer ;       
   INNER JOIN testdata!orders ;       
@@ -141,21 +141,21 @@ OPEN DATABASE testdata CREATE SQL VIEW cust_orders_emp_view AS ;
 
 **創建命名連接**
 
-```text
+```
 OPEN DATABASE testdata 
 CREATE CONNECTION remote_01 DATASOURCE sqlremote userid password
 ```
 
 **確定現有連接**
 
-```text
+```
 OPEN DATABASE testdata 
 DISPLAY CONNECTIONS
 ```
 
 **創建遠程視圖**
 
-```text
+```
 OPEN DATABASE testdata  
 CREATE SQL VIEW product_remote_view REMOTE;     
   CONNECTION remote_01 ;  &&  CONNECTION MyDSN
@@ -169,7 +169,7 @@ CREATE SQL VIEW product_remote_view REMOTE;
 
 **使用視圖**
 
-```text
+```
 OPEN DATABASE testdata 
 USE product_view  
 BROWSE 
@@ -179,13 +179,13 @@ BROWSE
 
 **限制視圖的範圍**
 
-```text
+```
 SELECT * FROM customer ;    WHERE customer.country = 'Sweden'
 ```
 
 **創建參數化視圖**
 
-```text
+```
 *使用帶有 ? 的 CREATE SQL VIEW 
 
 OPEN DATABASE testdata 
@@ -201,7 +201,7 @@ BROWSE
 
 **提示用戶輸入參數值**
 
-```text
+```
 OPEN DATABASE testdata 
 CREATE SQL VIEW customer_remote_view ;    
 CONNECTION remote_01 ;    
@@ -212,7 +212,7 @@ USE customer_remote_view
 
 **在多個工作區中打開視圖**
 
-```text
+```
 OPEN DATABASE testdata 
 CREATE SQL VIEW product_remote_view ;    
   CONNECTION remote_01 ;    
@@ -227,7 +227,7 @@ BROWSE
 
 **使用 AGAIN 開兩個**
 
-```text
+```
 OPEN DATABASE testdata 
 USE product_remote_view 
 BROWSE 
@@ -237,7 +237,7 @@ BROWSE
 
 **顯示視圖的結構**
 
-```text
+```
 OPEN DATABASE testdata 
 USE customer_remote_view NODATA in 0 
 BROWSE 
@@ -247,7 +247,7 @@ BROWSE
 
 **在視圖上**
 
-```text
+```
 *您可以使用 INDEX ON 
 *您可以使用 SET RELATION 
 *您可以使用 DBSETPROP( ) 函數修改遠程視圖字段的 DataType 屬性設置
@@ -257,7 +257,7 @@ BROWSE
 
 **視圖可更新**
 
-```text
+```
 DBSETPROP('cust_view','View','Tables','customer') 
 DBSETPROP('cust_view.cust_id','Field','KeyField',.T.) 
 DBSETPROP('cust_view.cust_id','Field','UpdateName',; 'customer.cust_id') 
@@ -267,7 +267,7 @@ DBSETPROP('cust_view','View','SendUpdates',.T.)
 
 **更新視圖中的多個表**
 
-```text
+```
 *創建一個訪問兩個表中字段的視圖。
 CREATE SQL VIEW emp_cust_view AS ;    
   SELECT employee.emp_id, ;    
@@ -313,7 +313,7 @@ TABLEUPDATE()
 
 **預設值**
 
-```text
+```
 OPEN DATABASE testdata 
 USE VIEW customer_view ?
 DBSETPROP ('Customer_view.maxordamt', 'Field', 'DefaultValue', 1000)
@@ -321,7 +321,7 @@ DBSETPROP ('Customer_view.maxordamt', 'Field', 'DefaultValue', 1000)
 
 **創建規則**
 
-```text
+```
 OPEN DATABASE testdata 
 USE VIEW orditems_view 
 DBSETPROP('Orditems_view.quantity','Field', 'RuleExpression', 'quantity >= 1') 
@@ -330,7 +330,7 @@ DBSETPROP('Orditems_view.quantity','Field', 'RuleText'      , '"Quantities must 
 
 **組合視圖**
 
-```text
+```
 OPEN DATABASE testdata  CREATE SQL VIEW remote_orders_view ;
     CONNECTION remote_01 ;
         AS SELECT * FROM orders CREATE SQL VIEW local_employee_remote_orders_view ;
@@ -342,7 +342,7 @@ OPEN DATABASE testdata  CREATE SQL VIEW remote_orders_view ;
 
 **創建離線視圖**
 
-```text
+```
 CREATE SQL VIEW showproducts ;
     CONNECTION dsource ;
         AS SELECT * FROM Products INNER JOIN Inventory ;
@@ -352,19 +352,19 @@ CREATEOFFLINE("showproducts")
 
 **離線使用數據**
 
-```text
+```
 USE Showproducts
 ```
 
 **離線管理數據**
 
-```text
+```
 USE Showproducts ADMIN
 ```
 
 **使用離線視圖更新本地表**
 
-```text
+```
 *重新連接主機並打開視圖
 USE myofflineview ONLINE EXCLUSIVE
 *檢查更新衝突並根據需要進行更新
@@ -377,9 +377,9 @@ ELSE
 ENDIF
 ```
 
-**設置連使用 TABLEUPDATE\( \) 來處理您的事務**
+**設置連使用 TABLEUPDATE( ) 來處理您的事務**
 
-```text
+```
 hConn1 = CURSORGETPROP("CONNECTHANDLE","myview") ; 
 SQLSETPROP(hConn1,"TRANSACTIONS",2) 
 
@@ -417,7 +417,7 @@ ENDIF
 
 **更新一條記錄可以使用自動事務**
 
-```text
+```
 USE customerview ONLINE EXCLUSIVE 
 GO TO 3    
 IF TABLEUPDATE (0, .F. , "customerview") && Current Row by Key Only
@@ -427,13 +427,15 @@ ENDIF
 
 **取消離線更新**
 
-```text
-DROPOFFLINE("myview")
+```
+Select myview
+Use
+DROPOFFLINE("myview")&&資料庫必須開啟狀態
 ```
 
 **設置 MaxRecords**
 
-```text
+```
 OPEN DATABASE testdata 
 USE VIEW remote_customer_view 
 DBSETPROP ('Remote_customer_view', 'View','MaxRecords', 50)
@@ -441,7 +443,7 @@ DBSETPROP ('Remote_customer_view', 'View','MaxRecords', 50)
 
 **共享連接**
 
-```text
+```
 CREATE SQL VIEW product_view_remote ;
     CONNECTION remote_01 SHARE AS ;
         SELECT * FROM products 
@@ -450,14 +452,14 @@ USE product_view_remote
 
 **判斷連接是否繁忙**
 
-```text
+```
 nConnectionHandle=CURSORGETPROP('ConnectHandle') 
 SQLGETPROP(nConnectionHandle, "ConnectBusy")
 ```
 
 CursorAdapter
 
-```text
+```
 Local loCursor As CursorAdapter, laErrors[1]
 Open Database (_samples + 'data\testdata')
 With loCursor
@@ -482,7 +484,7 @@ Close Databases All
 
 ```
 
-```text
+```
 Local lcConnString, loCursor As CursorAdapter, 	laErrors[1]
 lcConnString = 'driver=SQL Server;server=(local);database=Northwind; uid=sa;pwd=;trusted_connection=no'
 * change password to appropriate value for your database
@@ -507,5 +509,4 @@ Close Databases All
 
 ```
 
-**練習** 
-
+**練習 **
