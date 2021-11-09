@@ -465,7 +465,7 @@ Endcase
 ```
 // Some code
 
-*Form.MyMouseUp
+*Form.MyMouseUp or Grid.AfterRowColumnChange
 
 LPARAMETERS nButton, nShift, nXCoord, nYCoord
 
@@ -473,6 +473,15 @@ LPARAMETERS nButton, nShift, nXCoord, nYCoord
 DEFINE WINDOW wparent AT 1,1 SIZE 1,1
 ACTIVATE windows wparent
 RELEASE WINDOWS wparent
+```
+
+```
+// Some code
+
+*Form.MyDblClick 
+
+Thisform.Grid1.SetFocus
+KeyBoard 'Enter' && 進入編修
 ```
 
 ####
