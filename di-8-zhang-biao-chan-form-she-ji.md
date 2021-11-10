@@ -379,7 +379,7 @@ Case Thisform.ActiveControl = m.oGrid && 格子物件作用中
 		With m.oInplaceEdit
 			*-----------------------------------------------------文字框屬性
 			.Visible = .F.
-			.InputMask = m.oColumn.InputMask
+			.InputMask = m.oColumn.Text1.InputMask
 			*.Alignment=Iif(Vartype(m.oColumn.text1.Value)="C", m.oColumn.Alignment,1)
 			.Alignment=m.oColumn.Text1.Alignment
 			.SelectOnEntry = !(Vartype(m.oColumn.Text1.Value)="C") && 數字全選
@@ -465,18 +465,29 @@ Endcase
 ```
 // Some code
 
-*Form.MyMouseUp or Grid.AfterRowColumnChange
+* Grid.AfterRowColumnChange
 
-LPARAMETERS nButton, nShift, nXCoord, nYCoord
+Lparameters nColIndex && Order
+LOCAL m.oGrid m.oGrid = thisform.grid1
+Local m.oColumn
+找作用中的 Column 
+For m.nii=1 To m.oGrid.ColumnCount 
+    If m.oGrid.Columns(m.nii).ColumnOrder = nColIndex && 作用中的 Order 
+        m.oColumn=m.oGrid.Columns(m.nii) && 找到作用中的Column
+        Exit && 跳出迴圈
+     Endif
+Endfor
+If m.oColumn.Text1.SelLength<>0 
+    * Do Nothing 已經亮了不必做 
+Else 
+    Define Window Wparent At 1,1 Size 1,1 
+    Activate Windows Wparent 
+    Release Windows Wparent 
+Endif
 
-
-DEFINE WINDOW wparent AT 1,1 SIZE 1,1
-ACTIVATE windows wparent
-RELEASE WINDOWS wparent
 ```
 
 ```
-// Some code
 
 *Form.MyDblClick 
 
