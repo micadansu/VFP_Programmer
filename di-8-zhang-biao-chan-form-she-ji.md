@@ -150,349 +150,516 @@ ENDIF
 
 ```
 
-#### Grid 的進階
+#### Grid 的進階 1 直接編修
 
 ```
-// Some code
-
-* Grid.Init
-
-LOCAL m.oGrid as Grid,m.oColumn as Column 
-m.oGrid = thisform.grid1
-
-m.oGrid.RecordSourceType= 1
-m.oGrid.RecordSource = "AAA"
-m.oGrid.ColumnCount=4 && 欄位數
-m.oGrid.FontSize=12
-m.oGrid.FontName="微軟正黑體"
-m.oGrid.GridLineColor=RGB(192,192,192)
-m.oGrid.GridLineColor=RGB(0,0,0)
-* 抬頭
-
-m.oGrid.SetAll("BackColor",RGB(128,128,0),"Header")
-m.oGrid.SetAll("ForeColor",RGB(255,255,0),"Header")
+*
+*
 
 
-FOR m.nii=1 TO  m.oGrid.ColumnCount
-	m.oColumn=thisform.grid1.Columns(m.nii)
-			
-	DO CASE
-	CASE m.nii=1 			
-	
-		WITH m.oColumn
-			.ControlSource="prno"
-			.Header1.Caption="產品編號"
-			.width = 100
-			.inputmask="!!!!!!!!!!" && 大寫10碼 repl("!",10)
-		ENDWITH 
-			
-	CASE m.nii=2 	
-		WITH m.oColumn
-			.ControlSource="prna"
-			.Header1.Caption="產品名稱"
-			.width = 100
-			.inputmask="xxxxxxxxxx" && 大寫10碼 repl("x",10)
-			
-		ENDWITH 
-		
-	CASE m.nii=3
-		WITH m.oColumn
-			.ControlSource="lqty"
-			.Header1.Caption="期初數量"
-			.width = 100
-			.inputmask="999,999,999,999,999" && 小數三位
-		ENDWITH 
-		
-	CASE m.nii=4
-		WITH m.oColumn
-			.ControlSource="lamt"
-			.Header1.Caption="期初金額"
-			.width = 100
-			.inputmask="999,999,999,999" && 整數			
-		ENDWITH 		
-	ENDCASE	
-	
-	BINDEVENT(m.oColumn.Text1, "MouseUp",Thisform,"MyMouseUp") && 
-	
-ENDFOR   
-
-* Text Disable
-*m.oGrid.SetAll("Enabled" ,.F.,"Column") && 會產生 Focus 回跳問題
-m.oGrid.SetAll("ReadOnly",.T.,"Column")
-
-* 隔格行變色
-*LOCAL m.cStr
-*m.cStr="IIF(Mod(RECNO(),2)=0,RGB(255,255,255),RGB(255,236,217))"
-
-*m.cStr="IIF(Mod(ASCAN(this.arrno,no),2)=0,RGB(255,255,255),RGB(255,236,217))"
-*m.oGrid.SetAll("DynamicBackColor",m.cStr,"Column")
+**************************************************
+*-- Class:        form_grid_edit (c:\vfp\lesson8\cl81.vcx)
+*-- ParentClass:  form
+*-- BaseClass:    form
+*-- Time Stamp:   11/11/21 08:54:11 AM
+*
+DEFINE CLASS form_grid_edit AS form
 
 
-
-m.oGrid.Refresh
-
-
-
-
-```
-
-```
-// Some code
-
-
-*oInplaceEdit.LostFocus
-
-LOCAL m.oGrid as Grid
-m.oGrid = Thisform.Grid1
+	DataSession = 1
+	Top = 0
+	Left = 0
+	Height = 497
+	Width = 841
+	DoCreate = .T.
+	Caption = "Form1"
+	KeyPreview = .T.
+	Name = "Form1"
 
 
-IF VARTYPE(this.vlaue)="C"  && 如果是字串型補足空白長度
-	this.vlaue = PADR(this.vlaue,FSIZE(this.cField,This.cAlias)  )
-ENDIF 
-
-IF .Not. (This.Value=m.oGrid.Columns(This.nColIndex).Text1.Value) && 如果發生修改
-	DO CASE
-	CASE This.nColIndex=1
-		IF !EMPTY(This.Value) && 鍵值不允許空白
-		
-			IF KEYMATCH(This.Value) && 鍵值不可重複
-				=MESSAGEBOX("鍵值不可重複"+This.Value )
-			ELSE
-				REPLACE prno WITH this.Value				
-			ENDIF 				
-		ENDIF 	
-	CASE This.nColIndex=2
-		REPLACE prna WITH this.Value
-	CASE This.nColIndex=3
-		REPLACE Lqty WITH this.Value
-	CASE This.nColIndex=4
-		REPLACE Lamt WITH this.Value
-	ENDCASE
-ENDIF 
-
-this.Visible = .F.  
-IF LASTKEY()#13 AND LASTKEY()#9 AND LASTKEY()#27 && 滿位移動
-	KEYBOARD '{TAB}'	
-ENDIF 
-
-KEYBOARD '{CTRL+G}' && setfocus to grid
+	ADD OBJECT grid1 AS grid WITH ;
+		FontName = "微軟正黑體", ;
+		FontSize = 12, ;
+		Height = 408, ;
+		Left = 12, ;
+		RowHeight = 23, ;
+		Top = 36, ;
+		Width = 540, ;
+		Name = "Grid1"
 
 
-```
+	ADD OBJECT command_insert AS commandbutton WITH ;
+		Top = 48, ;
+		Left = 576, ;
+		Height = 85, ;
+		Width = 217, ;
+		FontName = "微軟正黑體", ;
+		FontSize = 12, ;
+		Caption = "新增", ;
+		Name = "Command_Insert"
 
-```
-// Some code
 
-*Form.KeyPress
+	ADD OBJECT oinplaceedit AS textbox WITH ;
+		FontName = "微軟正黑體", ;
+		FontSize = 12, ;
+		BorderStyle = 0, ;
+		Height = 49, ;
+		Left = 576, ;
+		Top = 156, ;
+		Visible = .F., ;
+		Width = 145, ;
+		ForeColor = RGB(255,0,0), ;
+		BackColor = RGB(255,255,0), ;
+		Name = "oInplaceEdit"
 
-Lparameters nKeyCode, nShiftAltCtrl
+
+	ADD OBJECT command_delete AS commandbutton WITH ;
+		Top = 228, ;
+		Left = 576, ;
+		Height = 85, ;
+		Width = 217, ;
+		FontName = "微軟正黑體", ;
+		FontSize = 12, ;
+		Caption = "刪除", ;
+		PicturePosition = 1, ;
+		PictureSpacing = 0, ;
+		Name = "Command_Delete"
 
 
-Local m.oGrid As Grid
-m.oGrid = Thisform.grid1
+	ADD OBJECT command3 AS commandbutton WITH ;
+		Top = 360, ;
+		Left = 576, ;
+		Height = 85, ;
+		Width = 217, ;
+		FontName = "微軟正黑體", ;
+		FontSize = 12, ;
+		Caption = "巨集", ;
+		Name = "Command3"
 
-Local m.oColumn As Column
 
-Local m.oInplaceEdit As TextBox
-m.oInplaceEdit=Thisform.oInplaceEdit
+	PROCEDURE mymousedown
+		LPARAMETERS nButton, nShift, nXCoord, nYCoord
 
-* 測試熱鍵的值
-*WAIT windows TRANSFORM(nKeyCode) + "    "+TRANSFORM(nShiftAltCtrl)+"   " + TRANSFORM(Thisform.grid1.ActiveColumn) TIMEOUT 1
 
-Do Case
-Case Vartype(Thisform.ActiveControl)<>"O" && 沒有作用中之物件
+		LOCAL m.oGrid
+		m.oGrid = thisform.grid1 
 
-Case Thisform.ActiveControl = Thisform.oInplaceEdit && 文字框物件作用中
-	Do Case
-	Case nKeyCode=13 And nShiftAltCtrl=0 && ENTER 輸入確定
-		If m.oGrid.Columns(m.oInplaceEdit.nColIndex).ColumnOrder=m.oGrid.ColumnCount && 如果最後一欄 往下一列
-			If !Eof()
-				Skip
-				If Eof()
-					Go Bottom
-				Endif
-			Endif
-		Endif
-		Keyboard '{TAB}'
-
-	Case nKeyCode=27 And nShiftAltCtrl=0 && ESC
-
-		m.oInplaceEdit.Value = m.oInplaceEdit.oColumn.Text1.Value
-		m.oInplaceEdit.oColumn.SetFocus
-		Nodefault
-
-	Endcase
-
-Case Thisform.ActiveControl = m.oGrid && 格子物件作用中
-
-	Do Case
-	Case nKeyCode=27 And nShiftAltCtrl=0 && ESC
-		Nodefault
-		Thisform.Release && 離開
-
-	Case nKeyCode=1 And nShiftAltCtrl=0   && HOME 首欄
+		Local m.oColumn
+		* 找作用中的 Column
 		For m.nii=1 To m.oGrid.ColumnCount
-			If m.oGrid.Columns(m.nii).ColumnOrder=1
-				Thisform.grid1.Columns(m.nii).SetFocus
-				Exit
-			Endif
-		Endfor
-		Nodefault
-
-	Case nKeyCode=6 And nShiftAltCtrl=0  && END 尾欄
-		For m.nii=1 To m.oGrid.ColumnCount
-			If m.oGrid.Columns(m.nii).ColumnOrder=m.oGrid.ColumnCount
-				Thisform.grid1.Columns(m.nii).SetFocus
-				Exit
-			Endif
-		Endfor
-		Nodefault
-
-	Case nKeyCode=7 And nShiftAltCtrl=2  && Set Focus to Grid
-		Nodefault
-		m.oGrid.SetFocus
-
-	Case nShiftAltCtrl=8 And (Between(nKeyCode,0x8140,0xA0FE) Or ; && 保留給使用者自定義字元（造字區）
-		Between(nKeyCode,0xA140,0xA3BF) Or ; && 標點符號、希臘字母及特殊符號，包括在0xA259-0xA261，安放了九個計量用漢字：兙兛兞兝兡兣嗧瓩糎。
-		Between(nKeyCode,0xA3C0,0xA3FE) Or ; && 保留。此區沒有開放作造字區用。
-		Between(nKeyCode,0xA440,0xC67E) Or ; && 常用漢字，先按筆劃再按部首排序。
-		Between(nKeyCode,0xC6A1,0xC8FE) Or ; && 保留給使用者自定義字元（造字區）
-		Between(nKeyCode,0xC940,0xF9D5) Or ; && 次常用漢字，亦是先按筆劃再按部首排序。
-		Between(nKeyCode,0xF9D6,0xFEFE))    && 保留給使用者自定義字元（造字區）
-
-		Nodefault
-
-		* 作用中的 Column
-		For m.nii=1 To m.oGrid.ColumnCount
-			If m.oGrid.Columns(m.nii).ColumnOrder=m.oGrid.ActiveColumn
-				m.oColumn=m.oGrid.Columns(m.nii)
-				AddProperty(m.oInplaceEdit,"oColumn",m.oColumn)
-				AddProperty(m.oInplaceEdit,"nColINdex",m.nii)
-				AddProperty(m.oInplaceEdit,"cAlias",m.oGrid.RecordSource)
-				AddProperty(m.oInplaceEdit,"cField",m.oColumn.ControlSource)
-				AddProperty(m.oInplaceEdit,"nColumnOrder",m.oGrid.ActiveColumn)
-				Exit
-			Endif
+		    If m.oGrid.Columns(m.nii).ColumnOrder = m.oGrid.ActiveColumn  && 作用中的 Order
+		        m.oColumn=m.oGrid.Columns(m.nii) && 找到作用中的Column
+		        Exit && 跳出迴圈
+		    Endif
 		Endfor
 
-		* 準備文字框
-		With m.oInplaceEdit
-			*-----------------------------------------------------文字框屬性
-			.Visible = .F.
-			.InputMask = m.oColumn.Text1.InputMask
-			*.Alignment=Iif(Vartype(m.oColumn.text1.Value)="C", m.oColumn.Alignment,1)
-			.Alignment=m.oColumn.Text1.Alignment
-			.SelectOnEntry = !(Vartype(m.oColumn.Text1.Value)="C") && 數字全選
-			*-----------------------------------------------------文字框定位大小及座標
-			.Top     = Objtoclient(m.oColumn.Text1,1) -1
-			.Left    = Objtoclient(m.oColumn.Text1,2) -1
-			.Width   = Objtoclient(m.oColumn.Text1,3) -1
-			.Height  = m.oColumn.Parent.RowHeight -1
-		Endwith
-		m.oInplaceEdit.Visible = .T.
-
-		With m.oInplaceEdit
-			IF Vartype(m.oColumn.text1.Value)="C"
-				.Value=Chr(m.nKeyCode)							
-				.SetFocus
-				.SelStart=Len(Trim(.Text))
-				.SelLength=1
-			ENDIF 
-		Endwith
-
-
-	Case ((nKeyCode=13 Or Between(m.nKeyCode,32,126)) And nShiftAltCtrl=0) ; && 進入輸入模式 && Between(m.nKeyCode,48,57) Or Between(m.nKeyCode,65,90) Or Between(m.nKeyCode,97,122) && 英數字
-		OR ((Between(m.nKeyCode,65,90) Or Between(m.nKeyCode,97,122)) And nShiftAltCtrl=1)
-
-		* 作用中的 Column
-		For m.nii=1 To m.oGrid.ColumnCount
-			If m.oGrid.Columns(m.nii).ColumnOrder=m.oGrid.ActiveColumn
-				m.oColumn=m.oGrid.Columns(m.nii)
-				AddProperty(m.oInplaceEdit,"oColumn",m.oColumn)
-				AddProperty(m.oInplaceEdit,"nColINdex",m.nii)
-				AddProperty(m.oInplaceEdit,"cAlias",m.oGrid.RecordSource)
-				AddProperty(m.oInplaceEdit,"cField",m.oColumn.ControlSource)
-				AddProperty(m.oInplaceEdit,"nColumnOrder",m.oGrid.ActiveColumn)
-				Exit
-			Endif
-		Endfor
-
-		* 準備文字框
-		With m.oInplaceEdit
-			*-----------------------------------------------------文字框屬性
-			.Visible = .F.
-			.InputMask = m.oColumn.InputMask
-			*.Alignment=Iif(Vartype(m.oColumn.text1.Value)="C", m.oColumn.Alignment,1)
-			.Alignment=m.oColumn.Text1.Alignment
-			.SelectOnEntry = !(Vartype(m.oColumn.Text1.Value)="C") && 數字全選
-			*-----------------------------------------------------文字框定位大小及座標
-			.Top     = Objtoclient(m.oColumn.Text1,1) -1
-			.Left    = Objtoclient(m.oColumn.Text1,2) -1
-			.Width   = Objtoclient(m.oColumn.Text1,3) -1
-			.Height  = m.oColumn.Parent.RowHeight -1
-
-		Endwith
-		*-----------------------------------------------------
-		If (nKeyCode=13)
-			m.oInplaceEdit.Value = m.oColumn.Text1.Value && 修改原值
+		If m.oColumn.Text1.SelLength<>0  && 已經亮了
+		    m.oGrid.SetFocus
+		    KEYBOARD '{ENTER}' && 進入編修模式       
 		Else
-			* 直接給新值
-			If (Vartype(m.oColumn.Text1.Value)="C")
-				m.oInplaceEdit.Value = Chr(nKeyCode)
-				Keyboard '{RIGHTARROW}'
-			Else
-				m.oInplaceEdit.SelectOnEntry =.T.
-				m.oInplaceEdit.Value=0
-				If Inlist(nKeyCode,43,45,42,47,48) && 加號減號
-					Keyboard Alltrim(Chr(Lastkey()))
-				Else
-					Keyboard Alltrim(Str(Val(Chr(nKeyCode))))
-				Endif
-			Endif
+		    Define Window Wparent At 1,1 Size 1,1
+		    Activate Windows Wparent
+		    Release Windows Wparent
 		Endif
-		m.oInplaceEdit.Visible = .T.
-		m.oInplaceEdit.SetFocus
-		Nodefault
+	ENDPROC
 
-	Endcase
 
-Otherwise
-	* 沒有攔截...
-Endcase
+	PROCEDURE builddynamiccolorarray
+		LOCAL m.oGrid as Grid 
+		m.oGrid=thisform.grid1
 
-```
+		m.oGrid.AddProperty("DynamicColorArray[1]")
 
-```
-// Some code
+		SELECT prno FROM prod ORDER BY prno INTO ARRAY Thisform.Grid1.DynamicColorArray
+	ENDPROC
 
-* Grid.AfterRowColumnChange
 
-Lparameters nColIndex && Order
-LOCAL m.oGrid m.oGrid = thisform.grid1
-Local m.oColumn
-找作用中的 Column 
-For m.nii=1 To m.oGrid.ColumnCount 
-    If m.oGrid.Columns(m.nii).ColumnOrder = nColIndex && 作用中的 Order 
-        m.oColumn=m.oGrid.Columns(m.nii) && 找到作用中的Column
-        Exit && 跳出迴圈
-     Endif
-Endfor
-If m.oColumn.Text1.SelLength<>0 
-    * Do Nothing 已經亮了不必做 
-Else 
-    Define Window Wparent At 1,1 Size 1,1 
-    Activate Windows Wparent 
-    Release Windows Wparent 
-Endif
+	PROCEDURE Unload
 
-```
+		USE IN prod 
 
-```
+		*SELECT prod
+		*USE 
+	ENDPROC
 
-*Form.MyDblClick 
 
-Thisform.Grid1.SetFocus
-KeyBoard 'Enter' && 進入編修
+	PROCEDURE Load
+
+
+		SET DELETED ON
+
+
+		If .Not. Used("prod")
+
+		    Create Cursor Prod(prno c(10),prna c(10),lqty N(19,3),lamt N(19))
+
+		    Insert Into Prod Values("002","螢幕",0,0)
+		    Insert Into Prod Values("003","鍵盤",0,0)
+		    Insert Into Prod Values("004","滑鼠",0,0)
+		    Insert Into Prod Values("005","筆電",0,0)
+		    Insert Into Prod Values("006","平板",0,0)
+		    Insert Into Prod Values("001","電腦",0,0)
+
+		    Index On prno Tag prno
+		    Set Order To Tag prno
+		Else
+		    Select Prod
+		Endif
+
+
+		Go  Top
+	ENDPROC
+
+
+	PROCEDURE KeyPress
+		Lparameters nKeyCode, nShiftAltCtrl
+
+		*WAIT windows TRANSFORM(nKeyCode)+" "+TRANSFORM(nShiftAltCtrl) TIMEOUT 1
+
+		Local m.oGrid As Grid
+		Local m.oColumn As Column
+		LOCAL m.oInplaceEdit as TextBox 
+		LOCAL m.nii
+
+		m.oGrid=Thisform.grid1
+		m.oInplaceEdit=Thisform.oInplaceEdit
+
+		Do Case
+		Case Vartype(Thisform.ActiveControl)<>"O" && 沒有物件作用中
+		    * Do Nothing
+		    
+		Case Thisform.ActiveControl=m.oInplaceEdit && 在地編修方塊物件作用中   
+			DO CASE
+			CASE nKeyCode=13 And nShiftAltCtrl=0 && Enter 離開修改模式
+				NODEFAULT 
+				m.oGrid.SetFocus 
+
+				* 找作用中的 Column 
+				FOR m.nii=1 TO m.oGrid.ColumnCount
+					IF m.oGrid.Columns(m.nii).ColumnOrder = m.oGrid.ActiveColumn && 作用中的 Order
+						m.oColumn=m.oGrid.Columns(m.nii) && 找到作用中的Column
+						EXIT && 跳出迴圈
+					ENDIF 
+				ENDFOR 
+				IF m.oColumn.ColumnOrder = m.oGrid.ColumnCount && 是尾欄
+					* 往下跳一行
+					IF !EOF()
+						SKIP 
+						IF EOF()
+							GO BOTTOM 
+						ENDIF 
+					ENDIF 
+				ENDIF 
+
+				KEYBOARD '{TAB}'
+			Case nKeyCode=27 And nShiftAltCtrl=0 && ESC
+				m.oInplaceEdit.Value = m.oInplaceEdit.oColumn.Text1.Value
+				m.oInplaceEdit.oColumn.SetFocus
+				Nodefault
+			ENDCASE
+
+		    
+		Case Thisform.ActiveControl=m.oGrid && 格子物件作用中
+
+			* 找作用中的 Column 
+			FOR m.nii=1 TO m.oGrid.ColumnCount
+				IF m.oGrid.Columns(m.nii).ColumnOrder = m.oGrid.ActiveColumn && 作用中的 Order
+					m.oColumn=m.oGrid.Columns(m.nii) && 找到作用中的Column
+					EXIT && 跳出迴圈
+				ENDIF 
+			ENDFOR 
+
+		    Do Case
+		    Case nKeyCode=27 And nShiftAltCtrl=0  && Homw 想要停靠首欄
+		    	NODEFAULT 
+		    	Thisform.Release 
+		    
+		    Case nKeyCode=1 And nShiftAltCtrl=0  && Homw 想要停靠首欄
+		    	NODEFAULT
+		   		FOR m.nii=1 TO m.oGrid.ColumnCount
+					IF m.oGrid.Columns(m.nii).ColumnOrder = 1 && 找排在第一的 Order
+						m.oColumn=m.oGrid.Columns(m.nii) && 找到作用中的Column
+						EXIT && 跳出迴圈
+					ENDIF 
+				ENDFOR 
+				m.oColumn.SetFocus 
+		    	    
+		    Case nKeyCode=6 And nShiftAltCtrl=0  && End 想要停靠尾欄
+		    	NODEFAULT
+		   		FOR m.nii=1 TO m.oGrid.ColumnCount
+					IF m.oGrid.Columns(m.nii).ColumnOrder = m.oGrid.ColumnCount && 找排在最後的 Order
+						m.oColumn=m.oGrid.Columns(m.nii) && 找到作用中的Column
+						EXIT && 跳出迴圈
+					ENDIF 
+				ENDFOR 
+				m.oColumn.SetFocus 
+		    
+		    
+		    Case nKeyCode=7 And nShiftAltCtrl=2  && InplaceEdit 想要對格子物件設游標
+		    	NODEFAULT
+		    	m.oGrid.SetFocus
+		    
+
+		Case nShiftAltCtrl=8 And (Between(nKeyCode,0x8140,0xA0FE) Or ; && 保留給使用者自定義字元（造字區）
+				Between(nKeyCode,0xA140,0xA3BF) Or ; && 標點符號、希臘字母及特殊符號，包括在0xA259-0xA261，安放了九個計量用漢字：兙兛兞兝兡兣嗧瓩糎。
+				Between(nKeyCode,0xA3C0,0xA3FE) Or ; && 保留。此區沒有開放作造字區用。
+				Between(nKeyCode,0xA440,0xC67E) Or ; && 常用漢字，先按筆劃再按部首排序。
+				Between(nKeyCode,0xC6A1,0xC8FE) Or ; && 保留給使用者自定義字元（造字區）
+				Between(nKeyCode,0xC940,0xF9D5) Or ; && 次常用漢字，亦是先按筆劃再按部首排序。
+				Between(nKeyCode,0xF9D6,0xFEFE))    && 保留給使用者自定義字元（造字區）
+				NODEFAULT
+
+				* 通知 編修方塊 作用中的 Column 
+				ADDPROPERTY(m.oInplaceEdit,"oColumn",m.oColumn)
+				ADDPROPERTY(m.oInplaceEdit,"cField",m.oColumn.ControlSource ) && ??? 變成了 prod.Prno ???
+				ADDPROPERTY(m.oInplaceEdit,"cAlias",m.oGrid.RecordSource)
+				* 準備編修方塊
+				With m.oInplaceEdit
+					*-----------------------------------------------------文字框屬性
+					.Visible = .F.
+					.InputMask = m.oColumn.Text1.InputMask
+					.Alignment=m.oColumn.Text1.Alignment
+					.Alignment=m.oColumn.Text1.Alignment
+					.SelectOnEntry = !(Vartype(m.oColumn.Text1.Value)="C") && 數字全選
+					*-----------------------------------------------------文字框定位大小及座標
+					.Top     = Objtoclient(m.oColumn.Text1,1)-1
+					.Left    = Objtoclient(m.oColumn.Text1,2)-1
+					.Width   = Objtoclient(m.oColumn.Text1,3)+2
+					.Height  = Objtoclient(m.oColumn.text1,4)+2
+				Endwith
+				m.oInplaceEdit.Visible = .T.
+				With m.oInplaceEdit
+					IF Vartype(m.oColumn.text1.Value)="C"
+						.Value=Chr(m.nKeyCode)
+						.SetFocus
+						.SelStart=Len(Trim(.Text))
+						.SelLength=1
+					ENDIF 
+				Endwith
+			CASE ( nShiftAltCtrl=0 AND (nKeyCode=13 Or Between(nKeyCode,48,57) Or Between(nKeyCode,65,90) Or Between(nKeyCode,97,122) Or Inlist(nKeyCode,43,45,42,47,48) ) ) OR ; && Enter 數字及英文小寫大寫
+				 ( nShiftAltCtrl=1 AND (nKeyCode=13 Or Between(nKeyCode,48,57) Or Between(nKeyCode,65,90) Or Between(nKeyCode,97,122) Or Inlist(nKeyCode,43,45,42,47,48) ) ) && 按住 Shif
+
+				* 通知 編修方塊 作用中的 Column 
+				ADDPROPERTY(m.oInplaceEdit,"oColumn",m.oColumn)
+				ADDPROPERTY(m.oInplaceEdit,"cField",m.oColumn.ControlSource ) && ??? 變成了 prod.Prno ???
+				ADDPROPERTY(m.oInplaceEdit,"cAlias",m.oGrid.RecordSource)
+
+				* 準備編修方塊
+				With m.oInplaceEdit
+					*-----------------------------------------------------文字框屬性
+					.Visible = .F.
+					.InputMask = m.oColumn.Text1.InputMask
+					.Alignment = m.oColumn.Text1.Alignment
+					.SelectOnEntry = !(Vartype(m.oColumn.text1.Value)="C")
+					*-----------------------------------------------------文字框定位大小及座標
+					.Top     = Objtoclient(m.oColumn.text1,1)-1
+					.Left    = Objtoclient(m.oColumn.text1,2)-1
+					.Width   = Objtoclient(m.oColumn.text1,3)+2
+					.Height  = Objtoclient(m.oColumn.text1,4)+2
+				Endwith
+				*-----------------------------------------------------
+				If (nKeyCode=13)
+					m.oInplaceEdit.Value = m.oColumn.text1.Value
+				Else
+					If (Vartype(m.oColumn.text1.Value)="C")
+						m.oInplaceEdit.Value = Chr(nKeyCode)
+						Keyboard '{RIGHTARROW}'
+					Else
+						m.oInplaceEdit.SelectOnEntry =.T.
+						m.oInplaceEdit.Value=0
+						If Inlist(nKeyCode,43,45,42,47,48) && 加號減號
+							Keyboard Alltrim(Chr(Lastkey()))
+						Else
+							Keyboard Alltrim(Str(Val(Chr(nKeyCode))))
+						Endif
+					Endif
+				Endif
+				m.oInplaceEdit.Visible = .T.
+				m.oInplaceEdit.SetFocus
+				IF m.oInplaceEdit.Text="新品號"
+					m.oInplaceEdit.SelLength = 6
+				ENDIF 
+				Nodefault
+
+		    Endcase
+		Otherwise
+			* 沒有攔截
+		Endcase
+	ENDPROC
+
+
+	PROCEDURE grid1.Init
+		LOCAL m.oGrid as Grid
+		LOCAL m.oColumn as Column
+
+		m.oGrid=thisform.grid1 
+		m.oGrid.DeleteMark = .F.
+		m.oGrid.GridLineColor = RGB(200,200,200)
+		m.oGrid.RecordSourceType= 1
+		m.oGrid.RecordSource="prod"
+		m.oGrid.ColumnCount = 4
+		m.oGrid.FontSize =12
+		m.oGrid.FontName="微軟正黑體"
+		LOCAL m.nii
+		FOR m.nii=1 TO m.oGrid.ColumnCount
+			m.oColumn = m.oGrid.Columns(m.nii)
+			DO CASE
+			CASE m.nii=1 && Prno
+				m.oColumn.Header1.Caption="品號"
+				m.oColumn.Width=100
+				m.oColumn.text1.inputmask=REPLICATE("!",10)
+			CASE m.nii=2 && Pna
+				m.oColumn.Header1.Caption="品名"
+				m.oColumn.Width=100
+			CASE m.nii=3 && Lqty
+				m.oColumn.Header1.Caption="期初數量"
+				m.oColumn.Width=100
+				m.oColumn.text1.inputmask="999,999,999,999.999"
+			CASE m.nii=4 && Lamt
+				m.oColumn.Header1.Caption="期初金額"
+				m.oColumn.Width=100
+				m.oColumn.text1.inputmask="999,999,999,999"
+			ENDCASE
+			BINDEVENT(m.oColumn.Text1,"MouseDown",thisform,"MyMouseDown")
+		ENDFOR 
+		m.oGrid.SetAll("ReadOnly",.T.,"Column") && 唯讀
+
+		=Thisform.BuildDynamicColorArray() && 重建格行變色陣列
+		m.oGrid.SetAll("DynamicBackColor","IIF(MOD(ASCAN(This.DynamicColorArray,prno),2)=0,RGB(255,255,255),RGB(200,240,200))","Column") && 格行變色
+		  
+	ENDPROC
+
+
+	PROCEDURE command_insert.Click
+
+
+		LOCATE for prno = "新品號"
+		IF EOF()
+			INSERT INTO prod (prno) values("新品號")
+		    =Thisform.BuildDynamicColorArray() && 格行變色陣列
+		ENDIF 
+
+		LOCAL m.oGrid
+		m.oGrid = thisform.grid1 
+		m.oGrid.Columns(1).SetFocus
+		KEYBOARD  '{ENTER}'
+	ENDPROC
+
+
+	PROCEDURE oinplaceedit.LostFocus
+		Local m.oGrid As Grid
+		m.oGrid=Thisform.Grid1
+
+		*Wait Windows "你輸入了"+This.Value Timeout 1
+
+		* 處理輸入結果
+		Do Case
+		Case This.oColumn=m.oGrid.Columns(1) && Prno
+
+		  	This.Value=PADR(This.Value, FSIZE("prno",this.cAlias))
+		    If !Empty(This.Value)
+		        If .Not. (This.Value==Prod.prno) && 你修改了 Key
+		            Select Count(1) From Prod Where prno = This.Value Into Array arr
+		            If arr[1]<>0
+		                =Messagebox("編號不可重複")
+			        	IF prod.prno="新品號" && 放棄新增
+		    	    		DELETE FROM prod WHERE prno = "新品號"        
+		        	    ENDIF                 
+		            Else
+		                Replace prno With This.Value In Prod && 寫入
+		            ENDIF
+		        ELSE && 沒修改
+		        	IF prod.prno="新品號" && 放棄新增
+		        		DELETE FROM prod WHERE prno = "新品號"        
+		            ENDIF 
+		        Endif
+		    Endif
+
+		Case This.oColumn=m.oGrid.Columns(2) && Prna
+			IF EMPTY(this.value)
+				=MESSAGEBOX('品名不可空白')
+			ELSE
+				REPLACE prna WITH this.value
+			ENDIF 
+
+
+		Case This.oColumn=m.oGrid.Columns(3) && LQty
+			REPLACE LQty WITH this.value
+
+		Case This.oColumn=m.oGrid.Columns(4) && LAMt
+			REPLACE LAMt WITH this.value
+
+
+		Endcase
+
+		* 最後
+		This.Visible= .F.
+
+		IF LASTKEY()#13 AND LASTKEY()#9 AND LASTKEY()#27 && 滿位移動
+			KEYBOARD '{TAB}'
+		ENDIF 
+
+
+		*thisform.Grid1.Setfocs && 這一行有問題!!!!
+		Keyboard '{CTRL+G}'
+	ENDPROC
+
+
+	PROCEDURE command_delete.Click
+		LOCAL m.oGrid as Grid 
+		m.oGrid=thisform.grid1 
+
+
+		If 1=Messagebox("確定刪除?",1+32,"提示")
+		    Delete
+		    Skip
+		    If Eof()
+		        Go Bottom
+		    Endif
+		Endif
+
+		m.oGrid.SetFocus
+		m.oGrid.Refresh && 別忘記
+	ENDPROC
+
+
+	PROCEDURE command3.Click
+
+
+		* 巨集範例
+
+		MyAlias="prod"
+		MyField="prna"
+
+		=MESSAGEBOX("品名=" + &MyField )
+		=MESSAGEBOX("品名=" + EVALUATE("prna") )
+		=MESSAGEBOX("品名=" + EVALUATE(MyField) )
+		=MESSAGEBOX("品名=" + EVALUATE("prod.prno") )
+		=MESSAGEBOX("品名=" + EVALUATE("prod"+"."+"prno") )
+		=MESSAGEBOX("品名=" + EVALUATE(MyAlias+"."+MyField) )
+
+
+		REPLACE prno WITH "009"
+		REPLACE &MyField WITH "009"
+		REPLACE (MyField) WITH "009"
+
+		cSQL="Select prno from prod into cursor MyCursor"
+		EXECSCRIPT(cSQL)
+
+		cSQL="Select <<MyField>> from <<MyAlias>> into cursor MyCursor"
+		cSQL=TEXTMERGE(cSQL) && 解巨集
+		EXECSCRIPT(cSQL)
+	ENDPROC
+
+
+ENDDEFINE
+*
+*-- EndDefine: form_grid_edit
+**************************************************
+
+
+
+
 ```
 
 ####
