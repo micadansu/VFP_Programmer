@@ -153,12 +153,11 @@ ENDIF
 #### Grid 的進階 1 直接編修
 
 ```
-
 **************************************************
 *-- Class:        form_grid_edit_footer (c:\vfp\lesson8\cl81.vcx)
 *-- ParentClass:  form
 *-- BaseClass:    form
-*-- Time Stamp:   11/11/21 02:30:12 PM
+*-- Time Stamp:   11/11/21 02:51:00 PM
 *
 DEFINE CLASS form_grid_edit_footer AS form
 
@@ -468,6 +467,21 @@ DEFINE CLASS form_grid_edit_footer AS form
 		    
 		Case Thisform.ActiveControl=m.oInplaceEdit && 在地編修方塊物件作用中   
 			DO CASE
+			CASE nKeyCode=15 And nShiftAltCtrl=1 && Shif+Tab 向左離開修改模式
+				NODEFAULT 
+				m.oGrid.SetFocus 
+				KEYBOARD '{LEFTARROW}'
+
+			CASE nKeyCode=5 And nShiftAltCtrl=0 && Up Arrow 向上離開修改模式
+				NODEFAULT 
+				m.oGrid.SetFocus 
+				KEYBOARD '{DNARROW}'
+
+			CASE nKeyCode=24 And nShiftAltCtrl=0 && Down Arrow 向下離開修改模式
+				NODEFAULT 
+				m.oGrid.SetFocus 
+				KEYBOARD '{UPARROW}'
+
 			CASE nKeyCode=13 And nShiftAltCtrl=0 && Enter 離開修改模式
 				NODEFAULT 
 				m.oGrid.SetFocus 
@@ -801,7 +815,7 @@ DEFINE CLASS form_grid_edit_footer AS form
 		* 最後
 		This.Visible= .F.
 
-		IF LASTKEY()#13 AND LASTKEY()#9 AND LASTKEY()#27 && 滿位移動
+		IF NOT INLIST(LASTKEY(),13,9,27,15) && 滿位移動
 			KEYBOARD '{TAB}'
 		ENDIF 
 
@@ -864,5 +878,6 @@ ENDDEFINE
 *
 *-- EndDefine: form_grid_edit_footer
 **************************************************
+
 
 ```
