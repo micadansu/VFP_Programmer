@@ -153,20 +153,16 @@ ENDIF
 #### Grid 的進階 1 直接編修
 
 ```
-*
-*
-
 
 **************************************************
-*-- Class:        form_grid_edit (c:\vfp\lesson8\cl81.vcx)
+*-- Class:        form_grid_edit_footer (c:\vfp\lesson8\cl81.vcx)
 *-- ParentClass:  form
 *-- BaseClass:    form
-*-- Time Stamp:   11/11/21 08:54:11 AM
+*-- Time Stamp:   11/11/21 02:30:12 PM
 *
-DEFINE CLASS form_grid_edit AS form
+DEFINE CLASS form_grid_edit_footer AS form
 
 
-	DataSession = 1
 	Top = 0
 	Left = 0
 	Height = 497
@@ -185,6 +181,9 @@ DEFINE CLASS form_grid_edit AS form
 		RowHeight = 23, ;
 		Top = 36, ;
 		Width = 540, ;
+		HighlightBackColor = RGB(232,243,255), ;
+		HighlightForeColor = RGB(0,0,0), ;
+		HighlightStyle = 2, ;
 		Name = "Grid1"
 
 
@@ -274,6 +273,145 @@ DEFINE CLASS form_grid_edit AS form
 	ENDPROC
 
 
+	PROCEDURE showfooter
+		LPARAMETERS para1,para2,para3,para4 
+
+		Local m.oForm as Form 
+		Local m.oGrid as Grid
+		m.oGrid=Thisform.Grid1
+		ADDPROPERTY(m.oGrid,"oForm",ThisForm)
+
+		LOCAL m.lHasFooter
+		*----------------------------------------調整螢幕高度
+		If Type("m.oGrid.oFooter")="O"
+		    m.lHasFooter=.F.
+		    For Each m.oColumn As Column In oGrid.Columns
+		        If Vartype(m.oColumn.oTextBoxFooter)="O"
+		            m.lHasFooter=.T.
+		            Exit
+		        Endif
+		    Endfor
+		    If m.lHasFooter=.T. && 如果需要 Footer
+		        m.oForm=m.oGrid.oForm &&This.FindParentForm(m.oGrid)
+		        m.oForm.LockScreen=.T. && 螢幕上鎖
+		        With m.oGrid
+		            *-----------------------------------------------調整 Grid Height
+		            Local Remainder
+		            m.Remainder=Mod(.Height-.HeaderHeight-19,.RowHeight)
+		            If m.Remainder#.RowHeight-2
+		                .Height=Max(0,.Height-m.Remainder-2) && 調整 Grid Height
+		            Endif
+		            *------------------------------------------------調整 Footer 高度大小
+		                       
+		            .oFooter.Top=.Top+.Height-19-.RowHeight+3
+		            .oFooter.Left=Objtoclient(m.oGrid,2)+Iif(.RecordMark,10,0)+Iif(.DeleteMark,8,0)+1 && 左邊界
+		            .oFooter.Height=.RowHeight-1
+		            .oFooter.Width=0
+		            .oFooter.Visible=.T.
+		            .oFooter.Width=Max(0,.Width - (.oFooter.Left-.Left) - Iif(Between(m.oGrid.ScrollBars,2,3),19,0))
+		            .oFooter.BorderWidth=0 && 無邊
+		            
+		            
+		            *-----------------------------------------------Footer Row 產生許多加總欄位
+		            Local cField
+		            For Each m.oColumn As Column In oGrid.Columns
+		                If Vartype(m.oColumn.oTextBoxFooter)="O"
+		                    With m.oColumn.oTextBoxFooter && 加總欄
+		                        *--- 位置大小 -------------------------------------
+		*!*	                        .Top=-1
+		*!*	                        *.Left=Objtoclient(m.oColumn,2)-m.oGrid.oFooter.Left -m.oGrid.Left-1  && 修正
+		*!*	                        *.Left=.Left-Iif(m.oGrid.Parent.BaseClass="Container",m.oGrid.Parent.Left,0)
+		*!*	                        .Left=Objtoclient(m.oColumn,2)-1-Objtoclient(m.oGrid.oFooter,2)-Objtoclient(m.oGrid,2)
+		*!*	                        .Width=m.oColumn.Width+2
+		*!*	                        .Width=m.oGrid.oFooter.Width-.Left
+		*!*	                        If .Width>m.oColumn.Width+2
+		*!*	                            .Width=m.oColumn.Width+2
+		*!*	                        Endif
+
+		*!*	                        .Height=m.oGrid.RowHeight+3
+		*!*	                        .Visible= (.Left>=-2)
+		                                                
+		                        .Top=-1
+		                        *.*.Left=Objtoclient(m.oColumn,2)-m.oGrid.oFooter.Left -m.oGrid.Left-1  && 修正
+		                        *.Left=.Left-Iif(m.oGrid.Parent.BaseClass="Container",m.oGrid.Parent.Left,0)
+		                        .Left=Objtoclient(m.oColumn,2)-1-Objtoclient(m.oGrid.oFooter,2)-Objtoclient(m.oGrid,2)
+		                        .Width=m.oColumn.Width+2
+		                        .Width=m.oGrid.oFooter.Width-.Left
+		                        If .Width>m.oColumn.Width+2
+		                            .Width=m.oColumn.Width+2
+		                        Endif
+
+		                        .Height=m.oGrid.RowHeight+3
+		                        .Visible= (.Left>=-2)
+		                                                
+		                                                
+		                                                
+		                        *---- 容器影響左邊界需要調整 -----------------------
+		                        *m.oParent=.Parent.Parent
+		                        *Do While m.oParent.BaseClass="Container" OR m.oParent.BaseClass="Grid"
+		                        *   .Left=.Left-m.oParent.Left
+		                        *   m.oParent=m.oParent.Parent
+		                        *ENDDO
+		                        *---- 顯示加總 考慮過濾條件 ------------------------
+		                        m.cField=Substr(m.oColumn.ControlSource,At(".",m.oColumn.ControlSource)+1)
+		                        Local aaa[1]
+		                        Local m.cWhere
+		                        m.cWhere=Filter(m.oGrid.RecordSource)
+
+		                        Do Case
+		                        Case Upper(m.oColumn.Footer)="SUM"
+		                            If !Empty(m.cWhere)
+		                                Select Sum(Eval(m.cField)) From (m.oGrid.RecordSource) Into Array aaa Where &cWhere
+		                            Else
+		                                Select Sum(Eval(m.cField)) From (m.oGrid.RecordSource) Into Array aaa
+		                            Endif
+		                            .Value=Nvl(aaa[1],0)
+		                            Release aaa
+		                            .Alignment=1
+		                        Case Upper(m.oColumn.Footer)="COUNT"
+		                            If !Empty(m.cWhere)
+		                                Select Count(1) From (m.oGrid.RecordSource) Into Array aaa Where &cWhere
+		                            Else
+		                                Select Count(1) From (m.oGrid.RecordSource) Into Array aaa
+		                            Endif
+		                            *.Value=Nvl(aaa[1],0)
+		                            .Value=Transform(Nvl(aaa[1],0))
+		                            Release aaa
+		                            .Alignment=1
+		                        Case Upper(m.oColumn.Footer)="AVG"
+		                            If !Empty(m.cWhere)
+		                                Select Avg(Eval(m.cField)) From (m.oGrid.RecordSource) Into Array aaa Where &cWhere
+		                            Else
+		                                Select Avg(Eval(m.cField)) From (m.oGrid.RecordSource) Into Array aaa
+		                            Endif
+
+		                            .Value=Nvl(aaa[1],0)
+		                            Release aaa
+		                            .Alignment=1
+		                        Otherwise
+		                            .Value=Evaluate(m.oColumn.Footer)
+		                            Release aaa
+		                        Endcase
+		                    Endwith
+		                Endif
+		            Endfor
+		            *--- Footer 底線 -----------------------------------------------
+		            .oLine.Height=0
+		            .oLine.Top=.oFooter.Top+.oFooter.Height-1
+		            .oLine.Left=.oFooter.Left
+		            .oLine.Width=.oFooter.Width
+		            .oLine.Visible=.T.
+		        Endwith
+		        m.oForm=m.oGrid.oForm && This.FindParentForm(m.oGrid)
+		        m.oForm.LockScreen=.F.
+		    Endif
+		Endif
+
+
+		Thisform.LockScreen=.F. && 螢幕解鎖
+	ENDPROC
+
+
 	PROCEDURE Unload
 
 		USE IN prod 
@@ -293,9 +431,9 @@ DEFINE CLASS form_grid_edit AS form
 
 		    Create Cursor Prod(prno c(10),prna c(10),lqty N(19,3),lamt N(19))
 
-		    Insert Into Prod Values("002","螢幕",0,0)
-		    Insert Into Prod Values("003","鍵盤",0,0)
-		    Insert Into Prod Values("004","滑鼠",0,0)
+		    Insert Into Prod Values("002","螢幕",10,100)
+		    Insert Into Prod Values("003","鍵盤",20,200)
+		    Insert Into Prod Values("004","滑鼠",30,300)
 		    Insert Into Prod Values("005","筆電",0,0)
 		    Insert Into Prod Values("006","平板",0,0)
 		    Insert Into Prod Values("001","電腦",0,0)
@@ -489,44 +627,111 @@ DEFINE CLASS form_grid_edit AS form
 
 
 	PROCEDURE grid1.Init
-		LOCAL m.oGrid as Grid
-		LOCAL m.oColumn as Column
+		Local m.oGrid As Grid
+		Local m.oColumn As Column
 
-		m.oGrid=thisform.grid1 
+		m.oGrid=Thisform.grid1
 		m.oGrid.DeleteMark = .F.
-		m.oGrid.GridLineColor = RGB(200,200,200)
+		m.oGrid.GridLineColor = Rgb(200,200,200)
 		m.oGrid.RecordSourceType= 1
 		m.oGrid.RecordSource="prod"
 		m.oGrid.ColumnCount = 4
 		m.oGrid.FontSize =12
 		m.oGrid.FontName="微軟正黑體"
-		LOCAL m.nii
-		FOR m.nii=1 TO m.oGrid.ColumnCount
-			m.oColumn = m.oGrid.Columns(m.nii)
-			DO CASE
-			CASE m.nii=1 && Prno
-				m.oColumn.Header1.Caption="品號"
-				m.oColumn.Width=100
-				m.oColumn.text1.inputmask=REPLICATE("!",10)
-			CASE m.nii=2 && Pna
-				m.oColumn.Header1.Caption="品名"
-				m.oColumn.Width=100
-			CASE m.nii=3 && Lqty
-				m.oColumn.Header1.Caption="期初數量"
-				m.oColumn.Width=100
-				m.oColumn.text1.inputmask="999,999,999,999.999"
-			CASE m.nii=4 && Lamt
-				m.oColumn.Header1.Caption="期初金額"
-				m.oColumn.Width=100
-				m.oColumn.text1.inputmask="999,999,999,999"
-			ENDCASE
-			BINDEVENT(m.oColumn.Text1,"MouseDown",thisform,"MyMouseDown")
-		ENDFOR 
+		* 光棒
+		m.oGrid.HighlightBackColor=RGB(232,243,255)
+		m.oGrid.HighlightForeColor=RGB(0,0,0)
+		m.oGrid.HighlightStyle=2
+
+		Local m.nii
+		For m.nii=1 To m.oGrid.ColumnCount
+		    m.oColumn = m.oGrid.Columns(m.nii)
+		    Do Case
+		    Case m.nii=1 && Prno
+		        m.oColumn.ControlSource="prno"
+		        m.oColumn.Header1.Caption="品號"
+		        m.oColumn.Width=100
+		        m.oColumn.InputMask=Replicate("!",10)
+		    Case m.nii=2 && Pna
+		        m.oColumn.ControlSource="prna"      
+		        m.oColumn.Header1.Caption="品名"
+		        m.oColumn.Width=100
+		    Case m.nii=3 && Lqty
+		        m.oColumn.ControlSource="lqty"      
+		        m.oColumn.Header1.Caption="期初數量"
+		        m.oColumn.Width=100
+		        m.oColumn.InputMask="999,999,999,999.999"
+		    Case m.nii=4 && Lamt
+		        m.oColumn.ControlSource="lamt"      
+		        m.oColumn.Header1.Caption="期初金額"
+		        m.oColumn.Width=100
+		        m.oColumn.InputMask="999,999,999,999"
+		    Endcase
+		    Bindevent(m.oColumn.text1,"MouseDown",Thisform,"MyMouseDown")
+		Endfor
 		m.oGrid.SetAll("ReadOnly",.T.,"Column") && 唯讀
 
 		=Thisform.BuildDynamicColorArray() && 重建格行變色陣列
 		m.oGrid.SetAll("DynamicBackColor","IIF(MOD(ASCAN(This.DynamicColorArray,prno),2)=0,RGB(255,255,255),RGB(200,240,200))","Column") && 格行變色
-		  
+
+		*=========================================================================== Grid 合計初始化
+		If .Not. Pemstatus(m.oGrid,"oFooter",5) && 如果還沒有Footer物件
+		    * 合計欄物生成
+		    m.oGrid.Parent.AddObject("oFooter","Container") && Grid oFooter as Contaner 屬於 Form
+		    m.oGrid.AddProperty("oFooter") && 合計欄
+		    m.oGrid.oFooter=m.oGrid.Parent.oFooter
+		    m.oGrid.oFooter.BackColor=Rgb(210,255,255)
+
+		    * 合計欄底線生成
+		    m.oGrid.Parent.AddObject("oLine","Line") && 合計欄底線屬於 Form
+		    m.oGrid.AddProperty("oLine")   && 底線
+		    m.oGrid.oLine=m.oGrid.Parent.oLine
+		    m.oGrid.oLine.BorderColor=Rgb(192,192,192)
+		Endif
+
+		*=========================================================================== 欄位合計初始化
+		For m.nii=1 To m.oGrid.ColumnCount
+		    m.oColumn = m.oGrid.Columns(m.nii)
+		    Do Case
+		    Case m.nii=3 && Lqty
+				m.oColumn.AddProperty("Footer","SUM") && 想要合計欄 SUM AVG COUNT
+		    Case m.nii=4 && Lamt
+				m.oColumn.AddProperty("Footer","SUM") && 想要合計欄 SUM AVG COUNT
+		    ENDCASE
+		    IF Pemstatus(m.oColumn,"Footer",5) && 想要合計欄
+		        If .Not. Pemstatus(m.oColumn,"oFooter",5) && 如果還沒有Footer物件            
+		            m.oGrid.oFooter.AddObject(m.oColumn.Name,"TextBox") && 產生加總欄位
+		            m.oColumn.AddProperty("oTextBoxFooter") && Column 參考FooterField
+		            m.oColumn.oTextBoxFooter=Evaluate("m.oGrid.oFooter."+m.oColumn.Name) && 借用 Column 名稱
+		            With m.oColumn.oTextBoxFooter && 加總欄
+		                .Alignment=m.oColumn.Alignment
+		                .BackColor=Rgb(128,255,128) && Green
+		                .BorderColor=Rgb(192,192,192)
+		                .FontSize=m.oColumn.FontSize
+		                .Margin=1
+		                .SpecialEffect=1 && 平面
+		                .Style=1 && @ Say
+		                *.BackStyle=0 && 透明
+		                .NullDisplay = ""
+		                .Format=m.oColumn.Format
+		                .InputMask=m.oColumn.InputMask
+		                .Visible=Iif(.Left>=0,.T.,.F.)
+		            ENDWITH 
+		        ENDIF 
+		    ENDIF 
+		ENDFOR
+		*=========================================================================== 綁定合計事件
+		* 這些事件必須重新顯示合計
+		Bindevent(m.oGrid,"Moved"    ,Thisform,"ShowFooter")
+		Bindevent(m.oGrid,"Scrolled" ,Thisform,"ShowFooter")
+		Bindevent(m.oGrid,"Resize"   ,Thisform,"ShowFooter")
+		Bindevent(m.oGrid,"AfterRowColChange" ,Thisform,"ShowFooter")
+		For Each oColumn As Column In m.oGrid.Columns
+			* 這些事件必須重新顯示合計
+		    Bindevent(m.oColumn,"Moved" ,Thisform,"ShowFooter")
+		    Bindevent(m.oColumn,"Resize",Thisform,"ShowFooter")
+		ENDFOR
+		m.oGrid.Scrolled() && 觸發合計欄
 	ENDPROC
 
 
@@ -585,10 +790,11 @@ DEFINE CLASS form_grid_edit AS form
 
 		Case This.oColumn=m.oGrid.Columns(3) && LQty
 			REPLACE LQty WITH this.value
+			thisform.grid1.Scrolled && 觸發合計欄
 
 		Case This.oColumn=m.oGrid.Columns(4) && LAMt
 			REPLACE LAMt WITH this.value
-
+			thisform.grid1.Scrolled && 觸發合計欄
 
 		Endcase
 
@@ -625,41 +831,38 @@ DEFINE CLASS form_grid_edit AS form
 
 	PROCEDURE command3.Click
 
-
-		* 巨集範例
-
-		MyAlias="prod"
-		MyField="prna"
-
-		=MESSAGEBOX("品名=" + &MyField )
-		=MESSAGEBOX("品名=" + EVALUATE("prna") )
-		=MESSAGEBOX("品名=" + EVALUATE(MyField) )
-		=MESSAGEBOX("品名=" + EVALUATE("prod.prno") )
-		=MESSAGEBOX("品名=" + EVALUATE("prod"+"."+"prno") )
-		=MESSAGEBOX("品名=" + EVALUATE(MyAlias+"."+MyField) )
+		WAIT windows TRANSFORM(thisform.Grid1.Columns(2).ColumnOrder)+" "+TRANSFORM(thisform.Grid1.ActiveColumn ) TIMEOUT 2
 
 
-		REPLACE prno WITH "009"
-		REPLACE &MyField WITH "009"
-		REPLACE (MyField) WITH "009"
+		*!*	* 巨集範例
 
-		cSQL="Select prno from prod into cursor MyCursor"
-		EXECSCRIPT(cSQL)
+		*!*	MyAlias="prod"
+		*!*	MyField="prna"
 
-		cSQL="Select <<MyField>> from <<MyAlias>> into cursor MyCursor"
-		cSQL=TEXTMERGE(cSQL) && 解巨集
-		EXECSCRIPT(cSQL)
+		*!*	=MESSAGEBOX("品名=" + &MyField )
+		*!*	=MESSAGEBOX("品名=" + EVALUATE("prna") )
+		*!*	=MESSAGEBOX("品名=" + EVALUATE(MyField) )
+		*!*	=MESSAGEBOX("品名=" + EVALUATE("prod.prno") )
+		*!*	=MESSAGEBOX("品名=" + EVALUATE("prod"+"."+"prno") )
+		*!*	=MESSAGEBOX("品名=" + EVALUATE(MyAlias+"."+MyField) )
+
+
+		*!*	REPLACE prno WITH "009"
+		*!*	REPLACE &MyField WITH "009"
+		*!*	REPLACE (MyField) WITH "009"
+
+		*!*	cSQL="Select prno from prod into cursor MyCursor"
+		*!*	EXECSCRIPT(cSQL)
+
+		*!*	cSQL="Select <<MyField>> from <<MyAlias>> into cursor MyCursor"
+		*!*	cSQL=TEXTMERGE(cSQL) && 解巨集
+		*!*	EXECSCRIPT(cSQL)
 	ENDPROC
 
 
 ENDDEFINE
 *
-*-- EndDefine: form_grid_edit
+*-- EndDefine: form_grid_edit_footer
 **************************************************
 
-
-
-
 ```
-
-####
