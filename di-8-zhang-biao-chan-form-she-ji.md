@@ -462,7 +462,7 @@ DEFINE CLASS form_grid_edit_footer AS form
 		m.oInplaceEdit=Thisform.oInplaceEdit
 
 		Do Case
-		Case Vartype(Thisform.ActiveControl)<>"O" && 沒有物件作用中
+		Case type("Thisform.ActiveControl")<>"O" && 沒有物件作用中
 		    * Do Nothing
 		    
 		Case Thisform.ActiveControl=m.oInplaceEdit && 在地編修方塊物件作用中   
